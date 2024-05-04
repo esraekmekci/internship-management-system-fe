@@ -1,0 +1,148 @@
+.Home-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* Using the full height of the viewport */
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #444;
+  z-index: 2;
+}
+
+/* Update announcement-section for better visibility and alignment */
+/* Announcement section occupies the remaining space */
+.announcement-section {
+  width: calc(100% - 320px); /* Full width minus sidebar width plus gap */
+  margin-left: 320px; /* Offset by the width of the sidebar */
+  padding: 20px;
+  background-color: #f8f8f8;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-top: 70px; /* Offset from the top bar */
+}
+
+.title {
+  font-size: 24px;
+  color: #333;
+}
+
+/* Text styles within announcement section */
+.text {
+  color: #666;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Underline style beneath the title */
+.title-underline {
+  height: 2px;
+  background: #3a3232;
+  width: 50%;
+}
+
+.sidebar {
+  position: fixed;
+  top: 50px; /* Below the top bar */
+  left: 0;
+  width: 300px;
+  height: calc(100% - 50px); /* Height adjusted to be below the top bar */
+  background-color: #444;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.companies-list-container {
+  margin-left: 300px; /* Push right to avoid overlapping with the sidebar */
+  margin-top: 50px; /* Push down to avoid overlapping with the top bar */
+  padding: 20px;
+  width: calc(100% - 320px); /* Adjust width to account for sidebar and padding */
+  height: calc(100% - 70px); /* Adjust height considering top bar and some margin */
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+/* Ensure proper layout of sidebar buttons and info-blocks */
+.sidebar-btn, .info-blocks {
+  width: 100%;
+}
+
+/* Additional tweaks to ensure consistency */
+.info-blocks {
+  padding: 10px;
+  background-color: #444; /* Dark background for consistency with sidebar */
+  color: white; /* Text color for readability */
+}
+
+/* Style for sidebar links to mimic buttons */
+.link-button {
+  display: block;
+  padding: 10px 20px;
+  margin: 5px 0;
+  background-color: #444; /* Adjust color to match your theme */
+  color: white;
+  text-decoration: none; /* Remove underline from links */
+  border-radius: 5px; /* Optional: add border radius for rounded corners */
+  text-align: center; /* Center text within the button */
+  font-weight: bold; /* Make text bold */
+  cursor: pointer; /* Change cursor to pointer to indicate clickable */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.mlink-button{
+  display: block;
+  padding: 5px 15px;
+  margin: 5px 0;
+  background-color: #7e7676; /* Adjust color to match your theme */
+  color: white;
+  text-decoration: none; /* Remove underline from links */
+  border-radius: 5px; /* Optional: add border radius for rounded corners */
+  text-align: center; /* Center text within the button */
+  font-weight: bold; /* Make text bold */
+  cursor: pointer; /* Change cursor to pointer to indicate clickable */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.link-button:hover {
+  background-color: #312f2f; /* Slightly darker on hover for visual feedback */
+}
+
+/* Ensure dropdown content does not overflow off the screen */
+.dropdown-content {
+  position: relative; /* Adjust positioning */
+  background-color: #8b6363; /* Your preference for background */
+  border-radius: 5px; /* Rounded corners for dropdown */
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Shadow for dropdown */
+  z-index: 1; /* Keeps dropdown on top of other content */
+  overflow: hidden; /* Hide overflow */
+}
+
+/* Additional styling for nested dropdowns to manage overflow */
+.nested-dropdown-content, .nested-dropdown {
+  overflow-y: auto; /* Allow scrolling within nested dropdowns */
+  max-height: 200px; /* Limit height and enable scroll */
+}
+
+/* Scrollbar styling for better aesthetics */
+.sidebar::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the track */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar itself */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color when hovered */
+}

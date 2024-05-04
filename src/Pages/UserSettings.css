@@ -1,0 +1,13 @@
+.settings-section {
+  margin-left: 320px; /* Offset by the width of the sidebar */
+  margin-top: 70px; /* Offset from the top bar */
+  padding: 20px; /* Add padding around the content */
+  width: calc(100% - 320px); /* Full width minus sidebar width */
+  height: calc(100% - 70px); /* Full height minus top bar height */
+  background-color: #fff; /* Background color */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow for depth */
+  border-radius: 10px; /* Rounded corners */
+  overflow-y: auto; /* Allows scrolling if content is longer than the screen */
+  position: relative; /* Ensures it's positioned according to the margins */
+  z-index: 0; /* Lower z-index than top-bar and sidebar */
+}

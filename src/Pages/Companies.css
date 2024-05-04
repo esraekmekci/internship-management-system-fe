@@ -1,0 +1,157 @@
+/* HomePage.css */
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    margin-top: 200px;
+    width: 600px;
+    background: #fff;
+    padding-bottom: 30px;
+  }
+  
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background-color: rgb(59, 54, 54);
+    z-index: 1000;
+    display: flex; /* Add flex display to center child items */
+    justify-content: flex-start; /* Align children to the start */
+    align-items: center; /* Center items vertically */
+  }
+  
+  .iyte-logo {
+    height: 40px; /* Slightly less than the top bar's height for padding */
+    width: auto; /* Maintain aspect ratio */
+    margin-left: 50px; /* Push to the right, outside the sidebar */
+    left: 10px;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 50px; /* Height of the top bar to prevent overlap */
+    width: 127px;
+    height: calc(100% - 50px); /* Adjust height to account for the top bar */
+    background-color: rgb(59, 54, 54);
+    z-index: 1000;
+  }
+
+  .user-icon {
+    width: 20px; /* Adjust the width as needed */
+    height: 20px; /* Adjust the height as needed */
+    margin-right: 10px; /* Adds some space between the image and the button text */
+  }
+  
+
+
+  .text{
+    color: #121212;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .sidebar-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    color: #fff;
+    gap: 9px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 30px;
+    position: relative;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    top: 100%; /* Push it to appear right below the button */
+    left: 0; /* Align it with the left edge of the button */
+    background-color: #3a3737;
+    min-width: 160px; /* Or match to sidebar-btn's width as needed */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    color: rgb(255, 255, 255);
+  }
+
+  
+
+
+
+    .title-underline{
+    width: 299px;
+    height: 4px;
+    background: #3a3232;
+    border-radius: 9px;
+    }
+  
+  
+  
+  .info-blocks { 
+    display: fixed;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    margin: 30 25px;
+    border: #fff;
+  }
+  
+  .internship-info, .company-info {
+    display: fixed;
+    color: #fff;
+    align-items: center;
+    font-family: 'Futura', sans-serif;
+  }
+  
+  .settings-section {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+
+  .setting-item {
+    margin-bottom: 15px;
+  }
+  
+  .setting-item label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .setting-item input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+
+  .sidebar-btn:hover {
+    background-color: #534e4e;
+  }
+
+  .nested-dropdown-content {
+    background-color: #bc2525;
+    margin-top: 5px;
+    padding: 5px;
+  }
+  
+  

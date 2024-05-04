@@ -1,0 +1,79 @@
+.login-signup-container {
+    text-align: center;
+    height: 100vh; /* Sets the container height to fill the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically centers the form in the available space */
+}
+
+.top-bar {
+    width: 100%;
+    background-color: #007BFF;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+}
+
+.top-bar button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.top-bar button.active {
+    border-bottom: 2px solid white;
+}
+
+.form-container {
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    margin: 0 auto; /* Horizontally centers the form */
+    padding-top: 60px; /* Adds padding at the top to avoid overlap by the top bar */
+    box-sizing: border-box; /* Ensures padding doesn't add to the width */
+}
+
+h2 {
+    margin-bottom: 20px; /* Space below the title */
+    font-style:initial;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%; /* Ensures full width within the form container */
+}
+
+.input-container img {
+    height: 20px;
+    margin-right: 10px;
+}
+
+.input-container input {
+    width: calc(100% - 30px); /* Adjust width taking into account the image and margin */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-actions button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
