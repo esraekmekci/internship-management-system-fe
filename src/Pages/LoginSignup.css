@@ -22,20 +22,21 @@
     padding: 10px 20px;
     margin: 0 5px;
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     background-color: transparent;
     cursor: pointer;
 }
 
 .top-bar button.active {
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #a5a5a5 !important;
 }
 
 .form-container {
-    padding: 20px;
+    padding: 50px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 400px;
+    border-radius: 10%;
     background-color: #fff;
     margin: 0 auto; /* Horizontally centers the form */
     padding-top: 60px; /* Adds padding at the top to avoid overlap by the top bar */
