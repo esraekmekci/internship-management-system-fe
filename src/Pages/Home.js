@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { GetWithAuth } from "../Services/HttpService";
 import './Home.css';
 import iyte_icon from '../Components/Assets/iyte-logo.png';
 import user_icon from '../Components/Assets/user.png';
@@ -10,6 +11,7 @@ import admin_icon from '../Components/Assets/shield.png';
 import company_icon from '../Components/Assets/company.png';
 
 function Home() {
+  var [currentUser, setCurrentUser] = useState({});
   const [showDropdown, setShowDropdown] = useState({
     btn1: false,
     btn1_1: false,
@@ -27,6 +29,28 @@ function Home() {
     setShowDropdown((prev) => ({ ...prev, [btn]: !prev[btn] }));
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await GetWithAuth("/users/token/" + localStorage.getItem("tokenKey"));
+            const result = await response.json();
+            console.log(result);
+            setCurrentUser(result);
+            console.log(currentUser.name);
+        } catch (error) {
+            console.log(error);
+            console.log("User not found");
+        }
+    };
+
+    const timeout = setTimeout(() => {
+        fetchData();
+    }, 100); // 2 saniye bekleme süresi
+
+    return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
+
+}, []);
+
   return (
     <div className="home-layout">
       <div className="top-bar">
@@ -37,13 +61,8 @@ function Home() {
         <div className="info-blocks">
           <div className="internship-info">
             <img src={admin_icon} alt="" className="admin-icon" />
-            <h4>Internship Coordinator</h4>
-            <div>Name: -</div>
-          </div>
-          <div className="company-info">
-            <img src={company_icon} alt="" className="company-icon" />
-            <h4>Company</h4>
-            <div>Name: -</div>
+            <h4>{currentUser.role}</h4>
+            <div>Name: {currentUser.name}</div>
           </div>
         </div>
 
@@ -110,8 +129,8 @@ function Home() {
           onMouseLeave={() => toggleDropdown('btn3')}
         >
           <img src={documents_icon} alt="Person" className="documents-icon" />
-          General Documents
-          {showDropdown.btn3 && (
+          Documents
+          {/* {showDropdown.btn3 && (
             <div className="dropdown-content">
               <Link to="" className="link-button">User Guide</Link>
               <div
@@ -131,7 +150,7 @@ function Home() {
                 
               </div>
             </div>
-          )}
+          )} */}
         </div>
           {/* Button 4 */}
           <div
@@ -166,6 +185,7 @@ function Home() {
 
       </div>
 
+      {/* burası silinecek announcement.js'e geçecek */}
       <div className="announcement-section">
         <div className="title">Announcements</div>
         <div className="title-underline"></div>

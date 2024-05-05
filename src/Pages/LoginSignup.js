@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './LoginSignup.css';
 import { PostWithoutAuth } from "../Services/HttpService";
 import email_icon from '../Components/Assets/email.png';
@@ -7,10 +8,12 @@ import password_icon from '../Components/Assets/password.png';
 const roles = ["Student", "Company", "Secretary", "Coordinator"];
 
 const LoginSignup = () => {
+    localStorage.clear();
     const [isLogin, setIsLogin] = useState(true);
     const [role, setRole] = useState("Student");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleRoleChange = (event) => {
         setRole(event.target.value);
@@ -26,11 +29,8 @@ const LoginSignup = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const action = isLogin ? "Logging in" : "Signing up";
         const path = isLogin ? "login" : "register";
         sendRequest(path);
-        alert(`${action} as a ${role} with email: ${email}`);
-        // Here, you'd typically make a request to your server
     };
 
     const sendRequest = (path) => {
@@ -41,12 +41,24 @@ const LoginSignup = () => {
             role : role
           })
           .then((res) => res.json())
-          .then((result) => {localStorage.setItem("tokenKey",result.token);
-                            localStorage.setItem("currentUser",result.id);
-                            localStorage.setItem("name",result.name)})
-          .catch((err) => console.log(err))
+          .then((result) => {
+            if (result.token) {
+                localStorage.setItem("tokenKey", result.token);
+                if (result.authorities.includes("STUDENT")) {
+                    navigate("/home"); 
+                    alert(`${path} as a ${role} with email: ${email}`);
+                } 
+                else if (result.authorities.includes("SECRETARY")){
+                    history.push("/home"); 
+                }
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+            console.log("User not found");
+            alert(`${path} as a ${role} is unsuccessful`);
+        })
     }
-
     return (
         <div className="login-signup-container">
             <div className="top-bar">
