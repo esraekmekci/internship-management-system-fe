@@ -14,7 +14,10 @@ import ApplyInternship from './Pages/ApplyInternship';
 import UploadSummerPractice from './Pages/UploadSummerPractice';
 import SecretaryHome from './Pages/Secretary/SecretaryHome';
 import SecretaryUserSettings from './Pages/Secretary/SecretaryUserSettings';
-
+import Announcement from './Pages/Announcement'; 
+import Documents from './Pages/Documents';
+import Applications from './Pages/Applications';
+import Templates from './Pages/Templates';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +60,23 @@ const router = createBrowserRouter([
     path: 'sec_settings',
     element: <SecretaryUserSettings />,
   },
+  {
+    path: 'announcement',
+    element: <Announcement/>,
+  },
+  {
+    path: 'documents',
+    element: <Documents/>,
+  },
+  {
+    path: 'applications',
+    element: <Applications/>,
+  },
+  {
+    path: 'templates',
+    element: <Templates/>,
+  },
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

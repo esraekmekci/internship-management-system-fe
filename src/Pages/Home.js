@@ -10,7 +10,7 @@ import documents_icon from '../Components/Assets/documents.png';
 import admin_icon from '../Components/Assets/shield.png';
 import company_icon from '../Components/Assets/company.png';
 
-function Home() {
+const Home =({children}) => {
   var [currentUser, setCurrentUser] = useState({});
   const [showDropdown, setShowDropdown] = useState({
     btn1: false,
@@ -69,8 +69,8 @@ function Home() {
         {/* Button 1 */}
         <div
           className="sidebar-btn"
-          onMouseEnter={() => toggleDropdown('btn1')}
-          onMouseLeave={() => toggleDropdown('btn1')}
+          onClick={() => toggleDropdown('btn1')}
+          //onMouseLeave={() => toggleDropdown('btn1')}
         >
           <img src={internship_icon} alt="Person" className="internship-icon" />
           Internship Operations
@@ -79,8 +79,8 @@ function Home() {
               <Link to="/apply" className="link-button">Apply for Internship</Link>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn1_1')}
-                onMouseLeave={() => toggleDropdown('btn1_1')}
+                onClick={() => toggleDropdown('btn1_1')}
+                //onMouseLeave={() => toggleDropdown('btn1_1')}
               >
               <Link to="/companies" className="link-button">Companies</Link>
                 
@@ -102,8 +102,8 @@ function Home() {
         {/* Button 2 */}
         <div
           className="sidebar-btn"
-          onMouseEnter={() => toggleDropdown('btn2')}
-          onMouseLeave={() => toggleDropdown('btn2')}
+          onClick={() => toggleDropdown('btn2')}
+          //onMouseLeave={() => toggleDropdown('btn2')}
         >
           <img src={user_icon} alt="Person" className="user-icon" />
           User Actions
@@ -112,8 +112,8 @@ function Home() {
               <Link to="/profile" className="link-button">Profile</Link>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn2_1')}
-                onMouseLeave={() => toggleDropdown('btn2_1')}
+                onClick={() => toggleDropdown('btn2_1')}
+                //onMouseLeave={() => toggleDropdown('btn2_1')}
               >
                 <a href="https://ubys.iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">UBYS</a>
                 
@@ -123,40 +123,17 @@ function Home() {
           )}
         </div>
         {/* Button 3 */}
-        <div
-          className="sidebar-btn"
-          onMouseEnter={() => toggleDropdown('btn3')}
-          onMouseLeave={() => toggleDropdown('btn3')}
-        >
+        <div className="sidebar-btn">
           <img src={documents_icon} alt="Person" className="documents-icon" />
-          Documents
-          {/* {showDropdown.btn3 && (
-            <div className="dropdown-content">
-              <Link to="" className="link-button">User Guide</Link>
-              <div
-                className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn3_1')}
-                onMouseLeave={() => toggleDropdown('btn3_1')}
-              >
-                <Link to="" className="link-button">SGK Employment Certificate</Link>
-                {showDropdown.btn3_1 && <div className="mlink-button"> Download</div>}
-              </div>
-              <div
-                className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn3_2')}
-                onMouseLeave={() => toggleDropdown('btn3_2')}
-              >
-                <a href="https://iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">IZTECH Page</a>
-                
-              </div>
-            </div>
-          )} */}
+          <Link to="/documents"  style={{textDecoration:"none", color:"black"}}>Documents</Link>
         </div>
+        
+        
           {/* Button 4 */}
           <div
           className="sidebar-btn"
-          onMouseEnter={() => toggleDropdown('btn4')}
-          onMouseLeave={() => toggleDropdown('btn4')}
+          onClick={() => toggleDropdown('btn4')}
+          //onMouseLeave={() => toggleDropdown('btn4')}
         >
           <img src={settings_icon} alt="Person" className="settings-icon" />
           General Settings
@@ -165,16 +142,16 @@ function Home() {
               <Link to="/user_settings" className="link-button">User Settings</Link>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn4_1')}
-                onMouseLeave={() => toggleDropdown('btn4_1')}
+                onClick={() => toggleDropdown('btn4_1')}
+                //onMouseLeave={() => toggleDropdown('btn4_1')}
               >
                 <a href="https://ubysdestek.iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">Help</a>
                 
               </div>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn4_2')}
-                onMouseLeave={() => toggleDropdown('btn4_2')}
+                onClick={() => toggleDropdown('btn4_2')}
+                //onMouseLeave={() => toggleDropdown('btn4_2')}
               >
                 <Link to="/log_out" className="link-button">Log out</Link>
                 
@@ -183,15 +160,31 @@ function Home() {
           )}
         </div>
 
-      </div>
 
-      {/* burası silinecek announcement.js'e geçecek */}
-      <div className="announcement-section">
-        <div className="title">Announcements</div>
-        <div className="title-underline"></div>
-        <div className="text">Currently, there are no announcements.</div>
+        <div className="sidebar-btn">
+          <img src={documents_icon} alt="Person" className="documents-icon" />
+              <Link to="/applications"  style={{textDecoration:"none", color:"black"}} >Applications</Link>
+        </div>
+
+        <div className="sidebar-btn">
+          <img src={documents_icon} alt="Person" className="documents-icon" />         
+              <Link to="/templates"  style={{textDecoration:"none", color:"black"}} >Templates</Link>             
+        </div>
+
+
+
+
+
+
+
+
+
+
+
       </div>
+      <main>{children}</main>
     </div>
+
   );
 }
 

@@ -50,8 +50,8 @@ function Companies() {
         {/* Button 1 */}
         <div
           className="sidebar-btn"
-          onMouseEnter={() => toggleDropdown('btn1')}
-          onMouseLeave={() => toggleDropdown('btn1')}
+          onClick={() => toggleDropdown('btn1')}
+          //onMouseLeave={() => toggleDropdown('btn1')}
         >
           <img src={internship_icon} alt="Person" className="internship-icon" />
           Internship Operations
@@ -60,16 +60,16 @@ function Companies() {
               <Link to="/apply" className="link-button">Apply for Internship</Link>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn1_1')}
-                onMouseLeave={() => toggleDropdown('btn1_1')}
+                onClick={() => toggleDropdown('btn1_1')}
+                //onMouseLeave={() => toggleDropdown('btn1_1')}
               >
               <Link to="/companies" className="link-button">Companies</Link>
                 
               </div>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn1_2')}
-                onMouseLeave={() => toggleDropdown('btn1_2')}
+                onClick={() => toggleDropdown('btn1_2')}
+                //onMouseLeave={() => toggleDropdown('btn1_2')}
               >
                 <Link to="" className="link-button">Upload Documents</Link>
                 {showDropdown.btn1_2 && <div className="mlink-button"> Upload Application Form</div>}
@@ -83,8 +83,8 @@ function Companies() {
         {/* Button 2 */}
         <div
           className="sidebar-btn"
-          onMouseEnter={() => toggleDropdown('btn2')}
-          onMouseLeave={() => toggleDropdown('btn2')}
+          onClick={() => toggleDropdown('btn2')}
+          //onMouseLeave={() => toggleDropdown('btn2')}
         >
           <img src={user_icon} alt="Person" className="user-icon" />
           User Actions
@@ -93,8 +93,8 @@ function Companies() {
               <Link to="/profile" className="link-button">Profile</Link>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn2_1')}
-                onMouseLeave={() => toggleDropdown('btn2_1')}
+                onClick={() => toggleDropdown('btn2_1')}
+                //onMouseLeave={() => toggleDropdown('btn2_1')}
               >
                 <a href="https://ubys.iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">UBYS</a>
                 
@@ -106,8 +106,8 @@ function Companies() {
         {/* Button 3 */}
         <div
           className="sidebar-btn"
-          onMouseEnter={() => toggleDropdown('btn3')}
-          onMouseLeave={() => toggleDropdown('btn3')}
+          onClick={() => toggleDropdown('btn3')}
+          //onMouseLeave={() => toggleDropdown('btn3')}
         >
           <img src={documents_icon} alt="Person" className="documents-icon" />
           General Documents
@@ -116,16 +116,16 @@ function Companies() {
               <Link to="" className="link-button">User Guide</Link>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn3_1')}
-                onMouseLeave={() => toggleDropdown('btn3_1')}
+                onClick={() => toggleDropdown('btn3_1')}
+                //onMouseLeave={() => toggleDropdown('btn3_1')}
               >
                 <Link to="" className="link-button">SGK Employment Certificate</Link>
                 {showDropdown.btn3_1 && <div className="mlink-button"> Download</div>}
               </div>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn3_2')}
-                onMouseLeave={() => toggleDropdown('btn3_2')}
+                onClick={() => toggleDropdown('btn3_2')}
+                //onMouseLeave={() => toggleDropdown('btn3_2')}
               >
                 <Link to="" className="link-button"><a href="https://iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">IZTECH Page</a></Link>
                 
@@ -136,8 +136,8 @@ function Companies() {
           {/* Button 4 */}
           <div
           className="sidebar-btn"
-          onMouseEnter={() => toggleDropdown('btn4')}
-          onMouseLeave={() => toggleDropdown('btn4')}
+          onClick={() => toggleDropdown('btn4')}
+          //onMouseLeave={() => toggleDropdown('btn4')}
         >
           <img src={settings_icon} alt="Person" className="settings-icon" />
           General Settings
@@ -146,16 +146,16 @@ function Companies() {
               <Link to="/user_settings" className="link-button">User Settings</Link>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn4_1')}
-                onMouseLeave={() => toggleDropdown('btn4_1')}
+                onClick={() => toggleDropdown('btn4_1')}
+                //onMouseLeave={() => toggleDropdown('btn4_1')}
               >
                 <a href="https://ubysdestek.iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">Help</a>
                 
               </div>
               <div
                 className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn4_2')}
-                onMouseLeave={() => toggleDropdown('btn4_2')}
+                onClick={() => toggleDropdown('btn4_2')}
+                //onMouseLeave={() => toggleDropdown('btn4_2')}
               >
                 <Link to="/log_out" className="link-button">Log out</Link>
                 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './LoginSignup.css';
 import { PostWithoutAuth } from "../Services/HttpService";
 import email_icon from '../Components/Assets/email.png';
@@ -49,7 +50,7 @@ const LoginSignup = () => {
                     alert(`${path} as a ${role} with email: ${email}`);
                 } 
                 else if (result.authorities.includes("SECRETARY")){
-                    history.push("/home"); 
+                    //history.push("/home"); 
                 }
             }
         })
