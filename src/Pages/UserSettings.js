@@ -32,36 +32,37 @@ return (
       </div>
       
       <div className="setting-item">
-          <label>User Email:<div>{userEmail}</div></label>
+          <label>User Email: <div>{userEmail}</div></label>
           
       </div>
 
       <form onSubmit={handleChangePassword}>
           <div className="setting-item">
-          <label>Current Password:</label>
-          <input
+          <label>Current Password: <div><input
               type="password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-          />
-          </div>
+          /></div> </label>
+          
+          </div><br/>
           <div className="setting-item">
-          <label>New Password:</label>
-          <input
+          <label>New Password: <div><input
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-          />
-          </div>
+          /></div> </label>
+          
+          </div><br/>
           <div className="setting-item">
-          <label>Confirm New Password:</label>
-          <input
+          <label>Confirm New Password: <div><input
               type="password"
               value={confirmNewPassword}
               onChange={(e) => setConfirmNewPassword(e.target.value)}
-          />
+          /></div> </label>
+          
           </div>
-          <button type="submit">Change Password</button>
+          <br />
+          <button type="submit" style={{marginTop:'15px'}}>Change Password</button>
       </form>
       
       {/* Add more settings items here */}
