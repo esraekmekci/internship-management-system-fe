@@ -32,7 +32,7 @@ const Home =({children}) => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await GetWithAuth("/users/token/" + localStorage.getItem("tokenKey"));
+            const response = await GetWithAuth("/students/token/" + localStorage.getItem("tokenKey"));
             const result = await response.json();
             console.log(result);
             setCurrentUser(result);
