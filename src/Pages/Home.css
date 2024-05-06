@@ -8,16 +8,34 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 50px;
+  width: 100% !important;
+  height: 30px !important;
   background-color: #f5f5f5 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start !important; /*flex-start*/
+}
+
+
+.right-content {
+  margin-left: auto;
+}
+.top-bar-button {
+  margin: 0 5px;
+  margin-left: auto;
+  float: right !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  background-color: transparent;
+  cursor: pointer;
 }
 
 /* Update announcement-section for better visibility and alignment */
 /* Announcement section occupies the remaining space */
 .announcement-section {
-  width: 100%; /* Full width minus sidebar width plus gap */
+  width: 60%; /* Full width minus sidebar width plus gap */
   margin-left: 320px; /* Offset by the width of the sidebar */
   padding: 20px;
   background-color: #f8f8f8;
@@ -25,6 +43,19 @@
   border-radius: 10px;
   border: 1px solid #ccc;
   margin-top: 15px; /* Offset from the top bar */
+}
+
+
+.iyte-logo {
+  height: 50px; /* Slightly less than the top bar's height for padding */
+  width: auto; /* Maintain aspect ratio */
+  margin-left: 50px; /* Push to the right, outside the sidebar */
+  left: 10px;
+}
+.user-icon {
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  /*margin-right: 10px !important; /* Adds some space between the image and the button text */
 }
 
 .title {
@@ -43,18 +74,19 @@
 .title-underline {
   height: 2px;
   background: #3a3232;
-  width: 50%;
+  width: 175px !important;
 }
 
 .sidebar {
   position: fixed;
   top: 50px; /* Below the top bar */
   left: 0;
-  width: 300px;
-  height: calc(100% - 50px); /* Height adjusted to be below the top bar */
+  width: 300px !important;
+  height: calc(100% - 50px) !important; /* Height adjusted to be below the top bar */
   background-color: #f5f5f5 !important;
   overflow-y: auto;
   z-index: 1;
+  
 }
 
 .companies-list-container {
@@ -71,9 +103,16 @@
 
 /* Ensure proper layout of sidebar buttons and info-blocks */
 .sidebar-btn, .info-blocks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  color: #000 !important;
+  gap: 9px;
   width: 100%;
-  color: #000000 !important;
-  text-decoration: none;
+  padding: 10px;
+  margin-top: 30px;
+  position: relative;
 }
 .sidebar-btn:hover {
   background-color: #a1a1a1 !important;
@@ -90,7 +129,7 @@
 
 /* Additional tweaks to ensure consistency */
 .info-blocks {
-  padding: 10px;
+  padding: 10px !important;
   background-color: #f5f5f5 !important; /* Dark background for consistency with sidebar */
   color: #000000 !important; /* Text color for readability */
 }
@@ -100,7 +139,7 @@
   display: block;
   padding: 10px 20px;
   margin: 5px 0;
-  background-color: #7e7676 !important; /* Adjust color to match your theme */
+  background-color: #8a8484 !important; /* Adjust color to match your theme */
   color: rgb(255, 255, 255) !important;
   text-decoration: none; /* Remove underline from links */
   border-radius: 5px; /* Optional: add border radius for rounded corners */
@@ -124,20 +163,25 @@
   transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
+.mlink-button:hover {
+  background-color: #a09b9b !important; /* Slightly darker on hover for visual feedback */
+}
+
 .link-button:hover {
-  background-color: #312f2f; /* Slightly darker on hover for visual feedback */
+  background-color: #a09b9b !important; /* Slightly darker on hover for visual feedback */
 }
 
 /* Ensure dropdown content does not overflow off the screen */
 .dropdown-content {
   position: relative; /* Adjust positioning */
-  background-color: #8b6363; /* Your preference for background */
+  padding: 10px;
+  background-color: #cabfbf !important; /* Your preference for background */
   border-radius: 5px; /* Rounded corners for dropdown */
-  box-shadow: 0 8px 16px 0 #a5a5a5 !important; /* Shadow for dropdown */
+  box-shadow: 0 8px 16px 0 #bdb8b8 !important; /* Shadow for dropdown */
   z-index: 1; /* Keeps dropdown on top of other content */
   overflow: hidden; /* Hide overflow */
   color: #000000 !important;
-}
+}   
 
 /* Additional styling for nested dropdowns to manage overflow */
 .nested-dropdown-content, .nested-dropdown {
@@ -172,7 +216,15 @@
   border-radius: 5px;
   cursor: pointer;
 }
-
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
 .download-button:hover {
   background-color: #0056b3;
 }

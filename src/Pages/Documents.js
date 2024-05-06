@@ -13,18 +13,15 @@ function Documents() {
       
     
     <Home>
-    <div className="announcement-section" style={{marginTop: '50px'}}>
-        <ul>
-            <li>
-                Application Letter
-                <button className="download-button"  onClick={() => downloadFile('ApplicationLetter.pdf')}>Download</button>
-            </li>
-            <br />
-            <li>
-                SGK
-                <button className="download-button" onClick={() => downloadFile('SGK.pdf')}>Download</button>
-            </li>
-        </ul>
+    <div className="announcement-section" style={{marginTop: '60px'}}>
+    
+        <div className="title">Summer Practice Application Letter (TR)
+        <button className="download-button"  onClick={() => downloadFile('ApplicationLetter.pdf')}>Download</button></div>
+      </div>
+      <div className="announcement-section">
+      <div className="title">SGK
+        <button className="download-button"  onClick={() => downloadFile('ApplicationLetter.pdf')}>Download</button></div>
+      
     </div>
     </Home>
   );
