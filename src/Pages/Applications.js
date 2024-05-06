@@ -10,7 +10,7 @@ const companies = [
     { name: 'Company C', status: 'Application Letter Approved' }
   ];
   
-  function Applications() {
+function Applications() {
     const [selectedCompany, setSelectedCompany] = useState(null);
   
     const handleClick = (company) => {
@@ -23,7 +23,7 @@ const companies = [
   
     return (
         <Home>
-      <div className="announcement-section" style={{marginTop: '50px'}}>
+      <div className="announcement-section" style={{marginTop: '60px'}}>
       <h1>Applications</h1>
       
     </div>
@@ -37,13 +37,13 @@ const companies = [
               
               {company.status === 'Application Letter Approved' && (
                 <div>
-                  <button >Show Application Letter</button>
+                  <button className='button'>Show Application Letter</button>
                     <br /><br />
-                  <button >Send Application Form</button>
+                  <button className='button'>Send Application Form</button>
                 </div>
               )}
               {company.status === 'Application Letter Pending' && (
-                <button className="btn btn-primary">Show Application Letter</button>
+                <button className='button'>Show Application Letter</button>
               )}
             </div>
           )}

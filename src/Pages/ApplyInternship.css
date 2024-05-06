@@ -126,12 +126,7 @@
   .sidebar::-webkit-scrollbar-thumb:hover {
     background: #555; /* Color when hovered */
   }
-  
 
-.iyte-logo {
-    height: 30px;
-    width: auto;
-}
 
 .companies-list-container {
     width: 80%;

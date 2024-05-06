@@ -9,6 +9,8 @@ import internship_icon from '../Components/Assets/internship.png';
 import documents_icon from '../Components/Assets/documents.png';
 import admin_icon from '../Components/Assets/shield.png';
 import company_icon from '../Components/Assets/company.png';
+import announcement_icon from '../Components/Assets/announcement-logo.png';
+
 
 const Home =({children}) => {
   var [currentUser, setCurrentUser] = useState({});
@@ -23,6 +25,13 @@ const Home =({children}) => {
     btn3_1: false, 
     btn3_2: false,
     btn4: false,
+    userbtn:false,
+    userbtn_1:false,
+    userbtn_2:false,
+    userbtn_3:false,
+    userbtn_4:false,
+    userbtn_5:false,
+    homebtn: false,
   });
 
   const toggleDropdown = (btn) => {
@@ -53,10 +62,40 @@ const Home =({children}) => {
 
   return (
     <div className="home-layout">
-      <div className="top-bar">
-        <img src={iyte_icon} alt="" className="iyte-logo" />
-      </div>
       
+      
+
+ 
+      <div className="top-bar">
+          <Link to="/home" style={{ textDecoration: "none", color: "black", display: "flex", alignItems: "center" }}> 
+              <img src={iyte_icon} alt="" className="iyte-logo" /><b>IZTECH IMS</b>
+          </Link>
+      
+            <div className="top-bar-button ">
+          <img src={user_icon} alt="User" className="user-icon" onClick={() => toggleDropdown('userbtn')} /> 
+            </div>
+          {showDropdown.userbtn && (
+            <div className="dropdown-content"   style={{ position: 'absolute',right: '0', top: '50px',  width:'150px',marginLeft:'auto'}}>
+
+              <Link to="/profile" className="link-button">Profile</Link>
+              
+              <div className="nested-dropdown" onClick={() => toggleDropdown('userbtn_2')}>
+                <a href="https://ubys.iyte.edu.tr" target="_blank" rel="noopener noreferrer" className="link-button">UBYS</a>
+              </div>
+              <div className="nested-dropdown" onClick={() => toggleDropdown('userbtn_3')} >
+                <Link to="/user_settings" className="link-button">User Settings</Link>   
+              </div>
+              <div className="nested-dropdown" onClick={() => toggleDropdown('userbtn_4')} >
+                <a href="https://ubysdestek.iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">Help</a>
+              </div>
+              <div className="nested-dropdown" onClick={() => toggleDropdown('userbtn_5')} >
+                <Link to="/log_out" className="link-button">Log out</Link> 
+              </div>
+            </div>
+          )}
+        </div>
+
+
       <div className="sidebar">
         <div className="info-blocks">
           <div className="internship-info">
@@ -77,14 +116,14 @@ const Home =({children}) => {
           {showDropdown.btn1 && (
             <div className="dropdown-content">
               <Link to="/apply" className="link-button">Apply for Internship</Link>
-              <div
+              {/* <div
                 className="nested-dropdown"
                 onClick={() => toggleDropdown('btn1_1')}
                 //onMouseLeave={() => toggleDropdown('btn1_1')}
               >
               <Link to="/companies" className="link-button">Companies</Link>
                 
-              </div>
+              </div> */}
               <div
                 className="nested-dropdown"
                 onMouseEnter={() => toggleDropdown('btn1_2')}
@@ -100,13 +139,12 @@ const Home =({children}) => {
         </div>
 
         {/* Button 2 */}
-        <div
+        {/* <div
           className="sidebar-btn"
           onClick={() => toggleDropdown('btn2')}
           //onMouseLeave={() => toggleDropdown('btn2')}
         >
-          <img src={user_icon} alt="Person" className="user-icon" />
-          User Actions
+          <img src={user_icon} alt="Person" className="user-icon" />User Actions
           {showDropdown.btn2 && (
             <div className="dropdown-content">
               <Link to="/profile" className="link-button">Profile</Link>
@@ -121,7 +159,7 @@ const Home =({children}) => {
 
             </div>
           )}
-        </div>
+        </div> */}
         {/* Button 3 */}
         <div className="sidebar-btn">
           <img src={documents_icon} alt="Person" className="documents-icon" />
@@ -130,7 +168,7 @@ const Home =({children}) => {
         
         
           {/* Button 4 */}
-          <div
+          {/* <div
           className="sidebar-btn"
           onClick={() => toggleDropdown('btn4')}
           //onMouseLeave={() => toggleDropdown('btn4')}
@@ -158,7 +196,7 @@ const Home =({children}) => {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
 
 
         <div className="sidebar-btn">
@@ -171,8 +209,15 @@ const Home =({children}) => {
               <Link to="/templates"  style={{textDecoration:"none", color:"black"}} >Templates</Link>             
         </div>
 
+        <div className="sidebar-btn">
+          <img src={announcement_icon} alt="Person" className="user-icon" />         
+              <Link to="/announcement"  style={{textDecoration:"none", color:"black"}} >Announcements</Link>             
+        </div>
 
-
+        <div className="sidebar-btn">
+          <img src={company_icon} alt="Person" className="company" />         
+              <Link to="/companies"  style={{textDecoration:"none", color:"black"}} >Companies</Link>             
+        </div>
 
 
 

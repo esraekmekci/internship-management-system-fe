@@ -12,7 +12,7 @@ function Templates() {
   
   return (
     <Home>
-      <div style={{marginTop:'50px'}}>
+      <div style={{marginTop:'60px'}}>
       <div className="announcement-section">
         <div className="title">Summer Practice Application Letter (TR)
         <button className="download-button"  onClick={() => downloadFile('ApplicationLetter.pdf')}>Download</button></div>
