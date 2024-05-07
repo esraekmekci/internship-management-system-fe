@@ -4,16 +4,19 @@ import { GetWithAuth } from "../Services/HttpService";
 import './Home.css';
 import iyte_icon from '../Components/Assets/iyte-logo.png';
 import user_icon from '../Components/Assets/user.png';
-import settings_icon from '../Components/Assets/settings.png';
 import internship_icon from '../Components/Assets/internship.png';
 import documents_icon from '../Components/Assets/documents.png';
 import admin_icon from '../Components/Assets/shield.png';
 import company_icon from '../Components/Assets/company.png';
 import announcement_icon from '../Components/Assets/announcement-logo.png';
+import Announcement from './Announcement.js';
 
 
 const Home =({children}) => {
   var [currentUser, setCurrentUser] = useState({});
+
+  const content = children || <Announcement/>;
+  
   const [showDropdown, setShowDropdown] = useState({
     btn1: false,
     btn1_1: false,
@@ -33,33 +36,40 @@ const Home =({children}) => {
     userbtn_5:false,
     homebtn: false,
   });
-
+  
   const toggleDropdown = (btn) => {
     setShowDropdown((prev) => ({ ...prev, [btn]: !prev[btn] }));
   };
 
   useEffect(() => {
+    console.log(currentUser.studentID); // currentUser her güncellendiğinde bu çalışır
+  }, [currentUser]);
+  
+  useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await GetWithAuth("/students/token/" + localStorage.getItem("tokenKey"));
-            const result = await response.json();
-            console.log(result);
-            setCurrentUser(result);
-            console.log(currentUser.name);
-        } catch (error) {
-            console.log(error);
-            console.log("User not found");
-        }
+      try {
+        const response = await GetWithAuth("/student/token/" + localStorage.getItem("tokenKey"));
+        const result = await response.json();
+        console.log(result);
+        setCurrentUser(result);
+      } catch (error) {
+        console.log(error);
+        console.log("User not found");
+      }
     };
-
+    
+    
     const timeout = setTimeout(() => {
-        fetchData();
-    }, 100); // 2 saniye bekleme süresi
-
+      fetchData();
+    }, 1); 
+    
+    
     return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
+    
+  }, []);
 
-}, []);
 
+  
   return (
     <div className="home-layout">
       
@@ -71,7 +81,8 @@ const Home =({children}) => {
               <img src={iyte_icon} alt="" className="iyte-logo" /><b>IZTECH IMS</b>
           </Link>
       
-            <div className="top-bar-button ">
+          <div className="top-bar-button" style={{ textDecoration: "none", color: "black", display: "flex", alignItems: "center" }} onClick={() => toggleDropdown('userbtn')}>
+          <h4>{currentUser.name}</h4>
           <img src={user_icon} alt="User" className="user-icon" onClick={() => toggleDropdown('userbtn')} /> 
             </div>
           {showDropdown.userbtn && (
@@ -100,43 +111,11 @@ const Home =({children}) => {
         <div className="info-blocks">
           <div className="internship-info">
             <img src={admin_icon} alt="" className="admin-icon" />
-            <h4>{currentUser.role}</h4>
-            <div>Name: {currentUser.name}</div>
+            {currentUser.role}
+            <br/>
           </div>
         </div>
 
-        {/* Button 1 */}
-        <div
-          className="sidebar-btn"
-          onClick={() => toggleDropdown('btn1')}
-          //onMouseLeave={() => toggleDropdown('btn1')}
-        >
-          <img src={internship_icon} alt="Person" className="internship-icon" />
-          Internship Operations
-          {showDropdown.btn1 && (
-            <div className="dropdown-content">
-              <Link to="/apply" className="link-button">Apply for Internship</Link>
-              {/* <div
-                className="nested-dropdown"
-                onClick={() => toggleDropdown('btn1_1')}
-                //onMouseLeave={() => toggleDropdown('btn1_1')}
-              >
-              <Link to="/companies" className="link-button">Companies</Link>
-                
-              </div> */}
-              <div
-                className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn1_2')}
-                onMouseLeave={() => toggleDropdown('btn1_2')}
-              >
-                <Link to="" className="link-button">Upload Documents</Link>
-                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Application Form</div>}
-                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Summer Practice Report</div>}
-                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Survey</div>}
-              </div>
-            </div>
-          )}
-        </div>
 
         {/* Button 2 */}
         {/* <div
@@ -160,11 +139,6 @@ const Home =({children}) => {
             </div>
           )}
         </div> */}
-        {/* Button 3 */}
-        <div className="sidebar-btn">
-          <img src={documents_icon} alt="Person" className="documents-icon" />
-          <Link to="/documents"  style={{textDecoration:"none", color:"black"}}>Documents</Link>
-        </div>
         
         
           {/* Button 4 */}
@@ -200,18 +174,13 @@ const Home =({children}) => {
 
 
         <div className="sidebar-btn">
-          <img src={documents_icon} alt="Person" className="documents-icon" />
-              <Link to="/applications"  style={{textDecoration:"none", color:"black"}} >Applications</Link>
-        </div>
-
-        <div className="sidebar-btn">
-          <img src={documents_icon} alt="Person" className="documents-icon" />         
-              <Link to="/templates"  style={{textDecoration:"none", color:"black"}} >Templates</Link>             
-        </div>
-
-        <div className="sidebar-btn">
           <img src={announcement_icon} alt="Person" className="user-icon" />         
               <Link to="/announcement"  style={{textDecoration:"none", color:"black"}} >Announcements</Link>             
+        </div>
+
+        <div className="sidebar-btn">
+          <img src={documents_icon} alt="Person" className="documents-icon" />
+              <Link to="/applications"  style={{textDecoration:"none", color:"black"}} >Applications</Link>
         </div>
 
         <div className="sidebar-btn">
@@ -219,15 +188,54 @@ const Home =({children}) => {
               <Link to="/companies"  style={{textDecoration:"none", color:"black"}} >Companies</Link>             
         </div>
 
+        <div className="sidebar-btn">
+          <img src={documents_icon} alt="Person" className="documents-icon" />         
+              <Link to="/templates"  style={{textDecoration:"none", color:"black"}} >Templates</Link>             
+        </div>
 
+        {/* Button 3 */}
+        <div className="sidebar-btn">
+          <img src={documents_icon} alt="Person" className="documents-icon" />
+          <Link to="/documents"  style={{textDecoration:"none", color:"black"}}>Documents</Link>
+        </div>
 
-
-
+        {/* Button 1 */}
+        <div
+          className="sidebar-btn"
+          onClick={() => toggleDropdown('btn1')}
+          //onMouseLeave={() => toggleDropdown('btn1')}
+        >
+          <img src={internship_icon} alt="Person" className="internship-icon" />
+          Internship Operations
+          {showDropdown.btn1 && (
+            <div className="dropdown-content">
+              <Link to="/apply" className="link-button">Apply for Internship</Link>
+              {/* <div
+                className="nested-dropdown"
+                onClick={() => toggleDropdown('btn1_1')}
+                //onMouseLeave={() => toggleDropdown('btn1_1')}
+              >
+              <Link to="/companies" className="link-button">Companies</Link>
+                
+              </div> */}
+              <div
+                className="nested-dropdown"
+                onMouseEnter={() => toggleDropdown('btn1_2')}
+                onMouseLeave={() => toggleDropdown('btn1_2')}
+              >
+                <Link to="" className="link-button">Upload Documents</Link>
+                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Application Form</div>}
+                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Summer Practice Report</div>}
+                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Survey</div>}
+              </div>
+            </div>
+          )}
+        </div>
 
 
 
       </div>
-      <main>{children}</main>
+      <main>{content}</main>
     </div>
 
   );

@@ -18,19 +18,27 @@
   justify-content: flex-start !important; /*flex-start*/
 }
 
-
 .right-content {
   margin-left: auto;
 }
 .top-bar-button {
   margin: 0 5px;
+  justify-content: space-between;
   margin-left: auto;
   float: right !important;
   border: none;
   color: rgb(0, 0, 0);
   background-color: transparent;
   cursor: pointer;
+  align-items: center;
 }
+
+.top-bar-button img {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
 
 /* Update announcement-section for better visibility and alignment */
 /* Announcement section occupies the remaining space */
@@ -121,10 +129,18 @@
 
 
 .internship-info, .company-info {
-  display: fixed;
+  /* display: fixed; */
   color: #000000 !important;
   align-items: center;
   font-family: 'Futura', sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  /* padding: 10px; */
+  /* margin-top: 30px; */
+  position: relative;
 }
 
 /* Additional tweaks to ensure consistency */

@@ -142,3 +142,29 @@ button:hover {
   padding: 5px;
 }
 
+.info-bar {
+  display: flex;
+  align-items: center; /* İçerikleri dikey olarak ortalar */
+  justify-content: space-between; /* İçerikleri yatay olarak kenarlara yayar */
+  margin-bottom: 10px; /* Gerekiyorsa alttan boşluk verir */
+}
+
+.info-bar img {
+  vertical-align: middle; /* İmajı metinle aynı hizaya getirir */
+  margin-right: 10px; /* İmaj ile metin arasında boşluk sağlar */
+}
+
+.info-bar-details {
+  display: flex;
+  justify-content: space-between; /* İçerikleri yatay olarak kenarlara yayar */
+  width: 100%; /* Tüm genişliği kaplar */
+}
+
+.info-bar-left {
+  flex: 1; /* Sol bölüm esnek genişlik alır */
+}
+
+.info-bar-right {
+  text-align: right; /* Sağ bölümdeki metin sağa dayalı */
+}
+

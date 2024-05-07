@@ -52,7 +52,7 @@ const LoginSignup = () => {
         .catch((err) => {
             console.log(err)
             console.log("User not found");
-            alert(`${path} as a ${role} is unsuccessful`);
+            alert(`Wrong student ID / password. Try again.`);
         })
     }
     return (
@@ -89,8 +89,12 @@ const LoginSignup = () => {
                                     required
                                 />
                             </div>
-                            <div className="form-actions">
-                                <button type="submit">Login</button>
+                            
+                            <div className="form-actions" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <button type="submit" >Login</button>
+                            </div>
+                            <div className="login-note">
+                                <p>Please enter your UBYS credentials.</p>
                             </div>
                         </form>
                     </div> 

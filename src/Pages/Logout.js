@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect }  from "react";
+import { useNavigate } from 'react-router-dom';
 import iyte_icon from "../Components/Assets/iyte-logo.png";
 
 function Logout() {
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigate('/');  // 3 saniye sonra /home sayfasına yönlendir
+        }, 1500);
+
+        return () => clearTimeout(timer);  // Cleanup function to clear the timer when the component unmounts
+    }, [navigate]);
+
     const boxStyle = {
         display: 'flex', // Use Flexbox for layout
         justifyContent: 'center', // Center horizontally
@@ -22,7 +33,7 @@ function Logout() {
         
         <div style={boxStyle}>
             <div style={messageStyle}>
-                You have been logged out
+                You have been logged out...
             </div>
             
         </div>
