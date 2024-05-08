@@ -5,12 +5,12 @@ import { PostWithoutAuth } from "../Services/HttpService";
 import email_icon from '../Components/Assets/email.png';
 import password_icon from '../Components/Assets/password.png';
 
-const roles = ["STUDENT", "COMPANY", "SECRETARY", "COORDINATOR"];
+const roles = ["COORDINATOR", "STUDENT", "COMPANY", "SECRETARY"];
 
 const LoginSignup = () => {
     localStorage.clear();
     const [isLogin, setIsLogin] = useState(true);
-    const [role, setRole] = useState("STUDENT");
+    const [role, setRole] = useState("COORDINATOR");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();

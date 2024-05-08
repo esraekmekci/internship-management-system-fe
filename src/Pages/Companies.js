@@ -59,7 +59,7 @@ function Companies() {
       }
       
       if (!(fileName.endsWith('.docx') || fileName.endsWith('.doc') || fileName.endsWith('.pdf'))) {
-        alert('Please select a word / pdf file!');
+        alert('Please select a word/pdf file!');
         return;
       }
       const formData = new FormData();
