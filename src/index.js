@@ -18,6 +18,13 @@ import Announcement from './Pages/Announcement';
 import Documents from './Pages/Documents';
 import Applications from './Pages/Applications';
 import Templates from './Pages/Templates';
+import CoordinatorHome from './Pages/Coordinator/CoordinatorHome';
+import CoordinatorAnnouncement from './Pages/Coordinator/CoordinatorAnnouncement';
+import CoordinatorStudents from './Pages/Coordinator/CoordinatorStudents';
+import CoordinatorGrades from './Pages/Coordinator/CoordinatorGrades';
+import Guidelines from './Pages/Coordinator/Guidelines';
+import CoordinatorSettings from './Pages/Coordinator/CoordinatorSettings';
+import CoordinatorProfile from './Pages/Coordinator/CoordinatorProfile';
 
 const router = createBrowserRouter([
   {
@@ -75,6 +82,34 @@ const router = createBrowserRouter([
   {
     path: 'templates',
     element: <Templates/>,
+  },
+  {
+    path: 'coor_home',
+    element: <CoordinatorHome />,
+  },
+  {
+    path: 'coor_announcements',
+    element: <CoordinatorAnnouncement />,
+  },
+  {
+    path: 'coor_students',
+    element: <CoordinatorStudents />,
+  },
+  {
+    path: 'coor_grades',
+    element: <CoordinatorGrades />,
+  },
+  {
+    path: 'guidelines',
+    element: <Guidelines />,
+  },
+  {
+    path: 'coor_settings',
+    element: <CoordinatorSettings />,
+  },
+  {
+    path: 'coor_profile',
+    element: <CoordinatorProfile />,
   },
 
 ]);
