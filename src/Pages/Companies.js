@@ -1,173 +1,233 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { GetWithAuth } from "../Services/HttpService";
+import Home from'./Home.js';
+import company_icon from '../Components/Assets/building.png';
+import calendar_icon from '../Components/Assets/calendar-day.png';
+import employees_icon from '../Components/Assets/employees.png';
 import './Companies.css';
-import iyte_icon from '../Components/Assets/iyte-logo.png';
-import user_icon from '../Components/Assets/user.png';
-import settings_icon from '../Components/Assets/settings.png';
-import internship_icon from '../Components/Assets/internship.png';
-import documents_icon from '../Components/Assets/documents.png';
-import admin_icon from '../Components/Assets/shield.png';
-import company_icon from '../Components/Assets/company.png';
 
+  
 function Companies() {
-  const [showDropdown, setShowDropdown] = useState({
-    btn1: false,
-    btn1_1: false,
-    btn1_2: false,
-    btn2: false,
-    btn2_1: false, 
-    btn2_2: false,
-    btn3: false,
-    btn3_1: false, 
-    btn3_2: false,
-    btn4: false,
-  });
+    const [selectedCompany, setSelectedCompany] = useState(null);
+    const [companies, setCompanies] = useState([]);
+    const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState('Select file');
+    const [currentUser, setCurrentUser] = useState({});
+    // const studentId = 280201050;
 
-  const toggleDropdown = (btn) => {
-    setShowDropdown((prev) => ({ ...prev, [btn]: !prev[btn] }));
-  };
-
-  return (
-    <div className="Companies-layout">
-      <div className="top-bar">
-        <img src={iyte_icon} alt="" className="iyte-logo" />
-      </div>
+    useEffect(() => {
+      console.log(currentUser.studentID); // currentUser her güncellendiğinde bu çalışır
+    }, [currentUser]);
+    
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await GetWithAuth("/student/token/" + localStorage.getItem("tokenKey"));
+          const result = await response.json();
+          console.log(result);
+          setCurrentUser(result);
+        } catch (error) {
+          console.log(error);
+          console.log("User not found");
+        }
+      };
       
-      <div className="sidebar">
-        <div className="info-blocks">
-          <div className="internship-info">
-            <img src={admin_icon} alt="" className="admin-icon" />
-            <h4>Internship Coordinator</h4>
-            <div>Name: -</div>
-          </div>
-          <div className="company-info">
-            <img src={company_icon} alt="" className="company-icon" />
-            <h4>Company</h4>
-            <div>Name: -</div>
-          </div>
-        </div>
+      
+      const timeout = setTimeout(() => {
+        fetchData();
+      }, 10); // 2 saniye bekleme süresi
+      
+      
+      return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
+      
+    }, []);
 
-        {/* Button 1 */}
-        <div
-          className="sidebar-btn"
-          onClick={() => toggleDropdown('btn1')}
-          //onMouseLeave={() => toggleDropdown('btn1')}
-        >
-          <img src={internship_icon} alt="Person" className="internship-icon" />
-          Internship Operations
-          {showDropdown.btn1 && (
-            <div className="dropdown-content">
-              <Link to="/apply" className="link-button">Apply for Internship</Link>
-              <div
-                className="nested-dropdown"
-                onClick={() => toggleDropdown('btn1_1')}
-                //onMouseLeave={() => toggleDropdown('btn1_1')}
-              >
-              <Link to="/companies" className="link-button">Companies</Link>
-                
-              </div>
-              <div
-                className="nested-dropdown"
-                onClick={() => toggleDropdown('btn1_2')}
-                //onMouseLeave={() => toggleDropdown('btn1_2')}
-              >
-                <Link to="" className="link-button">Upload Documents</Link>
-                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Application Form</div>}
-                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Summer Practice Report</div>}
-                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Survey</div>}
-              </div>
-            </div>
-          )}
-        </div>
+    const handleFileChange = (event) => {
+      const selectedFile = event.target.files[0];
+      if (selectedFile) {
+        setFile(selectedFile);
+        setFileName(selectedFile.name);
+      }
+    };
+  
+    const handleSubmit = (event) => {
+      console.log("Sending request to upload application letter");
+      event.preventDefault();
+      if (!file) {
+        alert('Please select a file first!');
+        return;
+      }
+      
+      if (!(fileName.endsWith('.docx') || fileName.endsWith('.doc') || fileName.endsWith('.pdf'))) {
+        alert('Please select a word/pdf file!');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('studentId', currentUser.studentID);
+      formData.append('companyName', selectedCompany.companyName);
+      
+      uploadApplicationLetter(formData);
 
-        {/* Button 2 */}
-        <div
-          className="sidebar-btn"
-          onClick={() => toggleDropdown('btn2')}
-          //onMouseLeave={() => toggleDropdown('btn2')}
-        >
-          <img src={user_icon} alt="Person" className="user-icon" />
-          User Actions
-          {showDropdown.btn2 && (
-            <div className="dropdown-content">
-              <Link to="/profile" className="link-button">Profile</Link>
-              <div
-                className="nested-dropdown"
-                onClick={() => toggleDropdown('btn2_1')}
-                //onMouseLeave={() => toggleDropdown('btn2_1')}
-              >
-                <a href="https://ubys.iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">UBYS</a>
-                
-              </div>
 
-            </div>
-          )}
-        </div>
-        {/* Button 3 */}
-        <div
-          className="sidebar-btn"
-          onClick={() => toggleDropdown('btn3')}
-          //onMouseLeave={() => toggleDropdown('btn3')}
-        >
-          <img src={documents_icon} alt="Person" className="documents-icon" />
-          General Documents
-          {showDropdown.btn3 && (
-            <div className="dropdown-content">
-              <Link to="" className="link-button">User Guide</Link>
-              <div
-                className="nested-dropdown"
-                onClick={() => toggleDropdown('btn3_1')}
-                //onMouseLeave={() => toggleDropdown('btn3_1')}
-              >
-                <Link to="" className="link-button">SGK Employment Certificate</Link>
-                {showDropdown.btn3_1 && <div className="mlink-button"> Download</div>}
-              </div>
-              <div
-                className="nested-dropdown"
-                onClick={() => toggleDropdown('btn3_2')}
-                //onMouseLeave={() => toggleDropdown('btn3_2')}
-              >
-                <Link to="" className="link-button"><a href="https://iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">IZTECH Page</a></Link>
-                
-              </div>
-            </div>
-          )}
-        </div>
-          {/* Button 4 */}
-          <div
-          className="sidebar-btn"
-          onClick={() => toggleDropdown('btn4')}
-          //onMouseLeave={() => toggleDropdown('btn4')}
-        >
-          <img src={settings_icon} alt="Person" className="settings-icon" />
-          General Settings
-          {showDropdown.btn4 && (
-            <div className="dropdown-content">
-              <Link to="/user_settings" className="link-button">User Settings</Link>
-              <div
-                className="nested-dropdown"
-                onClick={() => toggleDropdown('btn4_1')}
-                //onMouseLeave={() => toggleDropdown('btn4_1')}
-              >
-                <a href="https://ubysdestek.iyte.edu.tr" className="link-button" target="_blank" rel="noopener noreferrer">Help</a>
-                
-              </div>
-              <div
-                className="nested-dropdown"
-                onClick={() => toggleDropdown('btn4_2')}
-                //onMouseLeave={() => toggleDropdown('btn4_2')}
-              >
-                <Link to="/log_out" className="link-button">Log out</Link>
-                
-              </div>
-            </div>
-          )}
-        </div>
+      console.log("Sending request to upload application letter");
 
-      </div>
+      };
+  
+    const handleClick = (company) => {
+      if (selectedCompany === company) {
+        setSelectedCompany(null); 
+      } else {
+        setSelectedCompany(company);
+      }
+      setFile(null);
+      setFileName('Select file');
+    };
 
+    const uploadApplicationLetter = (formData) => {
+      fetch("/student/" + currentUser.studentID + "/uploadApplicationLetter", {
+        method: 'POST',
+        body: formData,
+        headers: {
+          // Don't set 'Content-Type': 'multipart/form-data',
+          // Fetch will set it automatically along with the boundary
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        return response;
+      })
+      .then(result => {
+        console.log(result);
+        alert("Application letter uploaded successfully");
+        setFile(null);
+        setFileName('Select file');
+      })
+      .catch(err => {
+        console.error("Error occurred:", err);
+        alert("Application letter upload is unsuccessful");
+      });
+    }
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await GetWithAuth("/company");
+              const result = await response.json();
+              console.log(result);
+              setCompanies(result);
+              companies.map((company) => {
+                  console.log(company.companyName);
+              });
+          } catch (error) {
+              console.log(error);
+              console.log("comp not found");
+          }
+      };
+  
+      const timeout = setTimeout(() => {
+          fetchData();
+      }, 1);
+  
+      return () => clearTimeout(timeout);
+  
+  }, []);
+
+    return (
+        <Home>
+      <div className="announcement-section" style={{marginTop: '60px'}}>
+      <h1>Companies</h1>
+      
     </div>
-  );
-}
+
+    <div>
+    {companies.map((company,index) => (
+      <div key={index}  className="announcement-section">
+          <h2  onClick={() => handleClick(company)} style={{ cursor: 'pointer' }}>{company.companyName}<span style={{float:'right', fontSize:'15px'}}>Representative: {company.name}</span></h2>
+          {selectedCompany === company && (
+            <div>
+              <div className='info-bar'>
+                <div className="info-bar-left">
+                  <img src={company_icon} alt="Company" className="user-icon" />
+                  {company.companyAddress} ({company.internshipType})
+                </div>
+                <div className="info-bar-right">
+                  <p>+{company.employeeSize} Employees <img src={employees_icon} alt="Company" className="user-icon" />  </p>
+                  <p> {company.foundationYear} <img src={calendar_icon} alt="Company" className="user-icon" />    </p>
+                </div>
+              </div>
+              <br /><br /><br />
+              <div>
+              {/* <div>
+                <label htmlFor="fileInput" className='button'
+                style={{ 
+                background: '#4CAF50',
+                color: 'white',
+                padding: '10px 20px',
+                width: '20%',
+                cursor:'pointer',
+                borderRadius:'4px'
+                }}
+                >
+                  Choose Application Letter
+                  <input type="file" id="fileInput" style={{ display: 'none' }} accept=".docx, .doc" onInput={handleFileChange} />
+                </label>
+                <label className='button' style={{
+                  background: '#4CAF50',
+                  color: 'white',
+                  padding: '10px 20px',
+                  width: '4%',
+                  cursor:'pointer',
+                  borderRadius:'4px',
+                  float:'right'
+                  }}>
+                    Send
+                  <input type='submit' style={{ display: 'none' }} onClick={handleSubmit} />
+                </label>
+
+                <label for="avatar">Choose a profile picture:</label>
+
+                <input type="file" id="avatar" name="avatar"  accept="image/png, image/jpeg" />
+
+              </div>  */}
+
+<form onSubmit={handleSubmit}>
+      <label htmlFor="fileInput" className='button' style={{ 
+        background: '#4CAF50',
+        color: 'white',
+        padding: '10px 20px',
+        width: '20%',
+        cursor:'pointer',
+        borderRadius:'4px'
+      }}>
+        Choose Application Letter
+        <input type="file" id="fileInput" style={{ display: 'none' }} accept=".docx, .doc, .pdf" onChange={handleFileChange} />
+      </label>
+      {fileName && <span style={{ marginLeft: '10px' }}>{fileName}</span>} {/* Dosya adını göster */}
+      <label className='button' style={{
+        background: '#4CAF50',
+        color: 'white',
+        padding: '10px 20px',
+        width: '4%',
+        cursor:'pointer',
+        borderRadius:'4px',
+        float:'right'
+      }}>
+        Send
+        <input type='submit' style={{ display: 'none' }} />
+      </label>
+    </form>
+              <br/>
+            </div>
+              
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+      </Home>
+    );
+  }
 
 export default Companies;

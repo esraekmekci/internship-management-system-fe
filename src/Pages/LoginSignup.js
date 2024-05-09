@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 import './LoginSignup.css';
 import { PostWithoutAuth } from "../Services/HttpService";
 import email_icon from '../Components/Assets/email.png';
 import password_icon from '../Components/Assets/password.png';
 
-const roles = ["Student", "Company", "Secretary", "Coordinator"];
+const roles = ["COORDINATOR", "STUDENT", "COMPANY", "SECRETARY"];
 
 const LoginSignup = () => {
     localStorage.clear();
     const [isLogin, setIsLogin] = useState(true);
-    const [role, setRole] = useState("Student");
+    const [role, setRole] = useState("COORDINATOR");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-
-    const handleRoleChange = (event) => {
-        setRole(event.target.value);
-    };
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -46,8 +41,8 @@ const LoginSignup = () => {
             if (result.token) {
                 localStorage.setItem("tokenKey", result.token);
                 if (result.authorities.includes("STUDENT")) {
-                    navigate("/home"); 
                     alert(`${path} as a ${role} with email: ${email}`);
+                    navigate("/home"); 
                 } 
                 else if (result.authorities.includes("SECRETARY")){
                     //history.push("/home"); 
@@ -57,7 +52,7 @@ const LoginSignup = () => {
         .catch((err) => {
             console.log(err)
             console.log("User not found");
-            alert(`${path} as a ${role} is unsuccessful`);
+            alert(`Wrong student ID / password. Try again.`);
         })
     }
     return (
@@ -65,40 +60,76 @@ const LoginSignup = () => {
             <div className="top-bar">
                 {roles.map((r) => (
                     <button key={r} className={role === r ? "active" : ""} onClick={() => setRole(r)}>
-                        {r}
+                        {r.charAt(0).toUpperCase() + r.slice(1).toLowerCase()}
                     </button>
                 ))}
             </div>
             <div className="form-container">
-                <h2>{isLogin ? "Login" : "Signup"}</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="input-container">
-                        <img src={email_icon} alt="Email" />
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={handleEmailChange}
-                            required
-                        />
-                    </div>
-                    <div className="input-container">
-                        <img src={password_icon} alt="Password" />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={handlePasswordChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-actions">
-                        <button type="button" onClick={() => setIsLogin(!isLogin)}>
-                            {isLogin ? "Switch to Signup" : "Switch to Login"}
-                        </button>
-                        <button type="submit">{isLogin ? "Login" : "Signup"}</button>
-                    </div>
-                </form>
+                {role === "STUDENT" ? 
+                        <div>
+                        <h2>Login with UBYS</h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="input-container">
+                                <img src={email_icon} alt="Student ID" />
+                                <input
+                                    type="text"
+                                    placeholder="Student ID"
+                                    value={email}
+                                    onChange={handleEmailChange}
+                                    required
+                                />
+                            </div>
+                            <div className="input-container">
+                                <img src={password_icon} alt="Password" />
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                    required
+                                />
+                            </div>
+                            
+                            <div className="form-actions" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <button type="submit" >Login</button>
+                            </div>
+                            <div className="login-note">
+                                <p>Please enter your UBYS credentials.</p>
+                            </div>
+                        </form>
+                    </div> 
+                    : 
+                    <div>
+                    <h2>{isLogin ? "Login" : "Signup"}</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-container">
+                            <img src={email_icon} alt="Email" />
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={handleEmailChange}
+                                required
+                            />
+                        </div>
+                        <div className="input-container">
+                            <img src={password_icon} alt="Password" />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={handlePasswordChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-actions">
+                            <button type="button" onClick={() => setIsLogin(!isLogin)}>
+                                {isLogin ? "Switch to Signup" : "Switch to Login"}
+                            </button>
+                            <button type="submit">{isLogin ? "Login" : "Signup"}</button>
+                        </div>
+                    </form>
+                </div>}
             </div>
         </div>
     );
