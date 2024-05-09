@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './CoordinatorAnnouncement.css';
-
 import CoordinatorHome from './CoordinatorHome';
 
 const announcements = [
