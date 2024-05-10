@@ -1,17 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './CoordinatorProfile.css';
-import iyte_icon from '../../Components/Assets/iyte-logo.png';
-import user_icon from '../../Components/Assets/user.png';
-import settings_icon from '../../Components/Assets/settings.png';
-import internship_icon from '../../Components/Assets/internship.png';
-import documents_icon from '../../Components/Assets/documents.png';
-import admin_icon from '../../Components/Assets/shield.png';
-import company_icon from '../../Components/Assets/company.png';
+import CoordinatorHome from './CoordinatorHome';
+import profile_icon from '../../Components/Assets/profile-picture.png'
+
 
 function CoordinatorProfile() {
+
+    const [userName, setUserName] = useState('-'); // Example user name, replace with dynamic data
+    const [userEmail, setUserEmail] = useState('-'); // Example user email, replace with dynamic data
+
     return(
-        <div>hello world</div>
+        <CoordinatorHome>
+            <div className="announcement-section" style={{marginTop:'60px'}}>
+                <div className="profile-section">
+                    <img src={profile_icon} alt="" className="profile-icon" />
+                    <h2>User Profile</h2>
+                    
+                    <div className="profile-item">
+                        <label>User Name: <div>{userName}</div></label>
+                    </div>
+                    
+                    <div className="profile-item">
+                        <label>User Email:<div>{userEmail}</div></label>
+                    </div>
+                </div>
+            </div>
+        </CoordinatorHome>
     );
 }
 
