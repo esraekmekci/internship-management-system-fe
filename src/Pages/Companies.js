@@ -35,10 +35,10 @@ function Companies() {
       
       const timeout = setTimeout(() => {
         fetchData();
-      }, 10); // 2 saniye bekleme süresi
+      }, 10); 
       
       
-      return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
+      return () => clearTimeout(timeout); 
       
     }, []);
 
@@ -64,7 +64,6 @@ function Companies() {
       }
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('studentId', currentUser.studentID);
       formData.append('companyName', selectedCompany.companyName);
       
       uploadApplicationLetter(formData);
