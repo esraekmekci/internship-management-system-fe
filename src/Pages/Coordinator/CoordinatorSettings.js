@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './CoordinatorSettings.css';
 import CoordinatorHome from './CoordinatorHome';
 import settings_icon from '../../Components/Assets/settings.png';

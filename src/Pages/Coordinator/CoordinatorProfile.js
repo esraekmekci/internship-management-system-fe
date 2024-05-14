@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './CoordinatorProfile.css';
 import CoordinatorHome from './CoordinatorHome';
 import profile_icon from '../../Components/Assets/profile-picture.png'
