@@ -1,3 +1,10 @@
+/* Reset margin and padding for body and html */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
 
 .student-list {
     margin-top: 100px;
@@ -10,22 +17,21 @@
 }
 
 .send-feedback-button {
-    padding: 10px 20px;       
-    margin-top: 20px;         
-    margin-left: 350px;       
-    background-color: #4CAF50; 
-    color: white;             
-    font-size: 16px;          
-    border: none;             
-    border-radius: 5px;       
-    cursor: pointer;          
-    display: inline-block;    
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-left: 350px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
 }
 
 .send-feedback-button:hover {
     background-color: #367B3A; /* Darker green background on hover for visual feedback */
 }
-
 
 .student-item {
     padding: 10px;
@@ -78,7 +84,7 @@
 }
 
 .student-details div {
-    margin-top: 10px; 
+    margin-top: 10px;
 }
 
 .student-details button {
@@ -116,9 +122,6 @@
     font-size: 16px;
 }
 
-.alert-feedback {
-    background-color: #ff9800; /* Orange color for feedback */
-}
 
 textarea {
     margin-top: 10px;
@@ -132,7 +135,7 @@ textarea {
 }
 
 button.send-feedback {
-    margin-top: 5px;
+    margin-top: 2px;
     background-color: #4CAF50;
 }
 
@@ -145,3 +148,78 @@ button.send-feedback:hover {
     margin-bottom: 20px;
     margin-top: 20px;
 }
+
+/* Ensure the main container fills the viewport height */
+.CoordinatorHome {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.grade-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.confirmation-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.confirm-button, .cancel-button {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-button:hover, .cancel-button:hover {
+    background-color: #367B3A;
+}
+
+.confirm-button {
+    background-color: #4CAF50;
+}
+
+.cancel-button {
+    background-color: #f44336;
+}
+
+.cancel-button:hover {
+    background-color: #d32f2f;
+}
+
+.enter-grade-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #FFA500; /* Orange color */
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+.enter-grade-button:hover {
+    background-color: #FF8C00; /* Darker orange for hover effect */
+}
+

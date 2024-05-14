@@ -1,0 +1,50 @@
+/* CoordinatorGrades.css */
+
+.coordinator-grades {
+    margin-left: 350px; /* Adjust this value to match the width of your sidebar */
+    margin-top: 100px;   /* Adjust this value to match the height of your topbar */
+    margin-right: 100px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background color for better readability */
+    border-radius: 8px;        /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.coordinator-grades h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.coordinator-grades form {
+    display: flex;
+    flex-direction: column;
+}
+
+.coordinator-grades label {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #666;
+}
+
+.coordinator-grades select {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.coordinator-grades button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.coordinator-grades button:hover {
+    background-color: #0056b3;
+}
