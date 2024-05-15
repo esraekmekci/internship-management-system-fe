@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { GetWithAuth } from "../Services/HttpService";
+import { GetWithAuth } from "../Services/HttpService.js";
 import './Home.css';
 import iyte_icon from '../Components/Assets/iyte-logo.png';
 import user_icon from '../Components/Assets/user.png';
@@ -8,7 +8,7 @@ import internship_icon from '../Components/Assets/internship.png';
 import documents_icon from '../Components/Assets/documents.png';
 import admin_icon from '../Components/Assets/shield.png';
 import company_icon from '../Components/Assets/company.png';
-import announcement_icon from '../Components/Assets/announcement-logo.png';
+import announcements_icon from '../Components/Assets/announcements.png';
 import Announcement from './Announcement.js';
 
 
@@ -83,7 +83,7 @@ const Home =({children}) => {
       
           <div className="top-bar-button" style={{ textDecoration: "none", color: "black", display: "flex", alignItems: "center" }} onClick={() => toggleDropdown('userbtn')}>
           <h4>{currentUser.name}</h4>
-          <img src={user_icon} alt="User" className="user-icon" onClick={() => toggleDropdown('userbtn')} /> 
+          <img src={user_icon} alt="User" className="user-icon" /> 
             </div>
           {showDropdown.userbtn && (
             <div className="dropdown-content"   style={{ position: 'absolute',right: '0', top: '50px',  width:'150px',marginLeft:'auto'}}>
@@ -174,7 +174,7 @@ const Home =({children}) => {
 
 
         <div className="sidebar-btn">
-          <img src={announcement_icon} alt="Person" className="user-icon" />         
+          <img src={announcements_icon} alt="Person" className="user-icon" />         
               <Link to="/announcement"  style={{textDecoration:"none", color:"black"}} >Announcements</Link>             
         </div>
 

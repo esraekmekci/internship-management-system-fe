@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GetWithAuth } from "../Services/HttpService";
+import { GetWithAuth } from "../Services/HttpService.js";
 import Home from'./Home.js';
 import company_icon from '../Components/Assets/building.png';
 import calendar_icon from '../Components/Assets/calendar-day.png';
