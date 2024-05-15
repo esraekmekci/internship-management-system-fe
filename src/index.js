@@ -25,6 +25,14 @@ import CoordinatorGrades from './Pages/Coordinator/CoordinatorGrades';
 import Guidelines from './Pages/Coordinator/Guidelines';
 import CoordinatorSettings from './Pages/Coordinator/CoordinatorSettings';
 import CoordinatorProfile from './Pages/Coordinator/CoordinatorProfile';
+import CompanyHome from  './Pages/Company/CompanyHome';
+import CompanyProfile from  './Pages/Company/CompanyProfile';
+import CompanySettings from  './Pages/Company/CompanySettings';
+import CompanyStudents from  './Pages/Company/CompanyStudents';
+import CompanyAnnouncements from  './Pages/Company/CompanyAnnouncements';
+import CompanyInterns from  './Pages/Company/CompanyInterns';
+
+
 
 const router = createBrowserRouter([
   {
@@ -110,6 +118,30 @@ const router = createBrowserRouter([
   {
     path: 'coor_profile',
     element: <CoordinatorProfile />,
+  },
+  {
+    path: 'comp-home',
+    element: <CompanyHome />,
+  },  
+  {
+    path: 'comp-profile',
+    element: <CompanyProfile />,
+  },  
+  {
+    path: 'comp-settings',
+    element: <CompanySettings />,
+  },
+  {
+    path: 'comp-announcements',
+    element: <CompanyAnnouncements />,
+  },
+  {
+    path: 'comp-students',
+    element: <CompanyStudents />,
+  },
+  {
+    path: 'comp-interns',
+    element: <CompanyInterns />,
   },
 
 ]);

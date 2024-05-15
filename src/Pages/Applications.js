@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GetWithAuth } from "../Services/HttpService";
+import { GetWithAuth } from "../Services/HttpService.js";
 import Home from'./Home.js';
 import { wait } from '@testing-library/user-event/dist/utils/index.js';
 
