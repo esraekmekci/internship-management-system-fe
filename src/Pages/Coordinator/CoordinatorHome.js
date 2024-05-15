@@ -10,6 +10,13 @@ import student_icon from '../../Components/Assets/studentbook.png';
 import grade_icon from '../../Components/Assets/grades.png';
 import announcement_icon from '../../Components/Assets/announcements.png';
 
+
+/*
+Coordinator home'u template olarak kullanıyoruz
+Coordinator olarak giriş yapıldığında direkt Coordinator Announcement'a yönlendirilmeli
+Benimle çalışan kişi yaptıkça commentleri silmeyi unutma pls.
+*/
+
 const CoordinatorHome =({children}) => {
     var [currentUser, setCurrentUser] = useState({});
     const [showDropdown, setShowDropdown] = useState({

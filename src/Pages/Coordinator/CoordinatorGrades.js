@@ -5,6 +5,9 @@ import CoordinatorHome from './CoordinatorHome';
 /*
 Use Case olarak sadece download işlemi olduğu için sadece bir form oluşturuldu.
 Çok anlamadım use-case'e de bir bakmak lazım şimdilik böyle bıraktım.
+Duru da silinecek dedi ve bence de gerçekten böyle bir sayfaya ihtiyaç yok
+CoordinatorStudents sayfasında zaten grade girme işlemi yapılıyo. Bütün gradeleri görmek için böyle 
+bir sayfaya ihtiyaç var mı çözemedim.
 */
 
 function CoordinatorGrades() {
@@ -16,10 +19,8 @@ function CoordinatorGrades() {
 
     const handleDownload = (event) => {
         event.preventDefault();
-        // Logic to download the grade list based on the selected document type
         if (documentType) {
-            // For demonstration, we'll just alert the document type
-            // Replace this with actual download logic
+            // Dummy dowload (değiştirelecek)
             alert(`Downloading grade list as: ${documentType}`);
         } else {
             alert('Please select a document type.');
