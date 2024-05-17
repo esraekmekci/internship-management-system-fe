@@ -1,21 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import CompanyHome from './CompanyHome.js';
+import { GetWithAuth } from "../../Services/HttpService";
 import './CompanyStudents.css';
 
 function CompanyStudents() {
-    const [students, setStudents] = useState([]);
+    var [currentUser, setCurrentUser] = useState({});
+    const [applications, setApplications] = useState([]);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [feedback, setFeedback] = useState("");
     const [showPopup, setShowPopup] = useState({ show: false, type: "", student: null });
 
     useEffect(() => {
-        // Example data
-        const sampleStudents = [
-            { id: 1, name: "Beyza", applicationLetter: "burda pdf veya docx önizlemesi" },
-            { id: 2, name: "Esra", applicationLetter: "letter" },
-        ];
-        setStudents(sampleStudents);
-    }, []);
+        const fetchCompany = async () => {
+          try {
+            const response = await GetWithAuth("/company/token/" + localStorage.getItem("tokenKey"));
+            const result = await response.json();
+            console.log(result);
+            setCurrentUser(result);
+            await fetchStudents(result);
+          } catch (error) {
+            console.log(error);
+            console.log("User not found");
+          }
+        };
+        
+        const fetchStudents = async (user) => {
+          try {
+              const response = await GetWithAuth("/company/" + user.companyid + "/applicants");
+              const result = await response.json();
+              console.log(result);
+              setApplications(result);
+          } catch (error) {
+              console.log(error);
+              console.log("application not found");
+          }
+      };
+  
+      
+      fetchCompany();
+     
+        
+      }, []);
+
 
     const handleSelectStudent = (student) => {
         setSelectedStudent(selectedStudent === student ? null : student);
@@ -31,7 +57,9 @@ function CompanyStudents() {
 
     const confirmApproval = () => {
         // Handle email sending logic here for approval
-        alert("Approved successfully");
+        evaluateApplicationLetter("approve");
+        
+
         // Reset state
         setShowPopup({ show: false, type: "", student: null });
         setSelectedStudent(null);
@@ -43,6 +71,7 @@ function CompanyStudents() {
             return;
         }
         // Handle email sending logic here for rejection with feedback
+        evaluateApplicationLetter("reject");
         alert("Rejection email sent with feedback.");
         // Reset state
         setShowPopup({ show: false, type: "", student: null });
@@ -50,21 +79,49 @@ function CompanyStudents() {
         setFeedback("");
     };
 
+    const evaluateApplicationLetter = async (type) => {
+        fetch("company/" + currentUser.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
+            method: 'PUT',
+            headers: {
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response;
+        })
+        .then(result => {
+            if (type === "approve") {
+                alert("Approved successfully");
+            } else {    
+                alert("Rejected successfully");
+            }
+            window.location.reload();
+            console.log(result);
+        })
+        .catch(err => {
+            console.error("Error occurred:", err);
+            alert("Error occurred:", err);
+        });
+    }
+
     return (
         <CompanyHome>
             <div className="announcement-section" style={{ marginTop: '60px' }}>
                 <h1>Students</h1>
             </div>
             <div>
-                {students.map((student) => (
-                    <div key={student.id} className="announcement-section">
-                        <h2 onClick={() => handleSelectStudent(student)} style={{ cursor: 'pointer' }}>
-                            {student.name}
+                {applications.map((application) => (
+                    <div key={application.applicationId} className="announcement-section">
+                        <h2 onClick={() => handleSelectStudent(application)} style={{ cursor: 'pointer' }}>
+                            {application.studentName}
+                            <span style={{float:'right', fontSize:'15px'}}>Status: {application.applicationStatus}</span>
                         </h2>
-                        {selectedStudent === student && (
+                        {selectedStudent === application && (
                             <div className="student-details">
                                 <h3>Application Letter</h3>
-                                <p>{student.applicationLetter}</p>
+                                <p>{application.applicationStatus}</p>
                                 <div style={{ display: 'flex' }}> 
                                     <button onClick={handleApprove}>Approve</button>
                                     <button onClick={handleReject}>Reject</button>

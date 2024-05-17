@@ -9,7 +9,7 @@ function Applications() {
     const [selectedCompany, setSelectedCompany] = useState(null);
     const [currentUser, setCurrentUser] = useState({});
     const [showModal, setShowModal] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState('Select file');
         
     useEffect(() => {
@@ -53,8 +53,8 @@ function Applications() {
       setShowModal(false);
     };
 
-    const downloadApplicationLetter = () => {
-      fetch("/student/" + currentUser.studentID + "/downloadApplicationLetter?companyName=" + selectedCompany.companyName, {
+    const downloadDocument = (type) => {
+      fetch("/student/" + currentUser.studentID + "/downloadApplication"+ type +"?companyName=" + selectedCompany.companyName, {
         method: 'GET',
       })
       .then(response => {
@@ -67,40 +67,76 @@ function Applications() {
         const url = window.URL.createObjectURL(blob); // Blob'dan bir URL oluştur
         const a = document.createElement('a'); // Yeni bir anchor elementi oluştur
         a.href = url;
-        a.download = "ApplicationLetter_" + selectedCompany.companyName + ".docx"; // İndirilecek dosyanın adını belirle
+        a.download = "Application" + type + "_" + selectedCompany.companyName + ".docx"; // İndirilecek dosyanın adını belirle
         document.body.appendChild(a); // Anchor elementini document'e ekle
         a.click(); // Programatik olarak tıklayarak indirme işlemini başlat
         a.remove(); // Anchor elementini temizle
         window.URL.revokeObjectURL(url); // Oluşturulan URL'i iptal et
-        alert("Application letter downloaded successfully");
+        alert(`Application ${type} downloaded successfully`);
       })
       .catch(err => {
         console.error("Error occurred:", err);
-        alert("Application letter download is unsuccessful");
+        alert(`Application ${type} download is unsuccessful`);
       });
-    }
-    
+    };
 
     const handleFileChange = (event) => {
       const selectedFile = event.target.files[0];
       if (selectedFile) {
-        setSelectedFile(selectedFile);
+        setFile(selectedFile);
         setFileName(selectedFile.name);
       }
     };
 
-    const handleSubmit = () => {
-      // Burada seçilen dosyayı yüklemek için gerekli işlemleri yapabilirsiniz.
-      // Örneğin, dosyayı bir API'ye gönderebilirsiniz.
-      console.log("Selected file:", selectedFile);
-      // Dosya yükleme işlemi tamamlandıktan sonra modalı kapatın:
-      if (!selectedFile) {
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      if (!file) {
         alert('Please select a file first!');
-        setShowModal(false);
+        return;
       }
-        
+      
+      if (!(fileName.endsWith('.docx') || fileName.endsWith('.doc') || fileName.endsWith('.pdf'))) {
+        alert('Please select a word/pdf file!');
+        return;
+      }
+    
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('companyName', selectedCompany.companyName);
+    
+      uploadApplicationForm(formData);
+    
+      console.log("Sending request to upload application form");
     };
 
+    const uploadApplicationForm = (formData) => {
+      fetch("/student/" + currentUser.studentID + "/uploadApplicationForm", {
+        method: 'POST',
+        body: formData,
+        headers: {
+          // Don't set 'Content-Type': 'multipart/form-data',
+          // Fetch will set it automatically along with the boundary
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        return response;
+      })
+      .then(result => {
+        console.log(result);
+        alert("Application form uploaded successfully");
+        setFile(null);
+        setFileName('Select file');
+        setShowModal(false);
+        window.location.reload();
+      })
+      .catch(err => {
+        console.error("Error occurred:", err);
+        alert("Application form upload is unsuccessful.");
+      });
+    }
   
     return (
         <Home>
@@ -116,13 +152,20 @@ function Applications() {
             <div>
               <div>
                 {application.applicationStatus === "Application Letter Pending" && (
-                  <button className='button' onClick={downloadApplicationLetter}>Show Application Letter</button>
+                  <button className='button' onClick={ () => downloadDocument("Letter")}>Show Application Letter</button>
                 )}
                 {application.applicationStatus === "Application Letter Approved" && (
                   <div>
-                    <button className='button' onClick={downloadApplicationLetter}>Show Application Letter</button>
+                    <button className='button' onClick={ () => downloadDocument("Letter")}>Show Application Letter</button>
                     <br />
                     <button className='button' onClick={() => {showModal ? setShowModal(false) : setShowModal(true)}}>Send Application Form</button>
+                  </div>
+                )}
+                {application.applicationStatus === "Application Form Pending for Company Edit" && (
+                  <div>
+                    <button className='button' onClick={ () => downloadDocument("Letter")}>Show Application Letter</button>
+                    <br />
+                    <button className='button' onClick={ () => downloadDocument("Form")}>Show Application Form</button>
                   </div>
                 )}
               </div>

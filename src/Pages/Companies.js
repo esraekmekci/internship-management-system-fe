@@ -50,7 +50,6 @@ function Companies() {
     };
   
     const handleSubmit = (event) => {
-      console.log("Sending request to upload application letter");
       event.preventDefault();
       if (!file) {
         alert('Please select a file first!');
@@ -70,8 +69,6 @@ function Companies() {
       uploadApplicationLetter(formData);
     
       console.log("Sending request to upload application letter");
-
-
     };
   
     const handleClick = (company) => {
@@ -110,10 +107,11 @@ function Companies() {
         alert("You already uploaded an application letter for this company.");
       });
     }
+
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await GetWithAuth("/company");
+              const response = await GetWithAuth("/company/approved");
               const result = await response.json();
               console.log(result);
               setCompanies(result);

@@ -34,13 +34,16 @@ const CompanyHome =({children}) => {
     const toggleDropdown = (btn) => {
       setShowDropdown((prev) => ({ ...prev, [btn]: !prev[btn] }));
     };
+
+    useEffect(() => {
+      console.log(currentUser.name); // currentUser her güncellendiğinde bu çalışır
+    }, [currentUser]);
   
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await GetWithAuth("/students/token/" + localStorage.getItem("tokenKey"));
+              const response = await GetWithAuth("/company/token/" + localStorage.getItem("tokenKey"));
               const result = await response.json();
-              console.log(result);
               setCurrentUser(result);
               console.log(currentUser.name);
           } catch (error) {
@@ -55,7 +58,7 @@ const CompanyHome =({children}) => {
   
       return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
   
-    },);
+    }, []);
   
     return (
       <div className="home-layout">
@@ -94,7 +97,6 @@ const CompanyHome =({children}) => {
             <div className="internship-info">
               <img src={admin_icon} alt="" className="admin-icon" />
               <h4>{currentUser.role}</h4>
-              <div>{currentUser.name}</div>
             </div>
           </div>
   
