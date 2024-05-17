@@ -6,8 +6,8 @@ import profile_icon from '../../Components/Assets/profile-picture.png'
 
 function CoordinatorProfile() {
 
-    const [userName, setUserName] = useState('-'); // Example user name, replace with dynamic data
-    const [userEmail, setUserEmail] = useState('-'); // Example user email, replace with dynamic data
+    const [userName, setUserName] = useState('-'); // Backende bağlanacak
+    const [userEmail, setUserEmail] = useState('-'); // Backende bağlanacak
 
     return(
         <CoordinatorHome>

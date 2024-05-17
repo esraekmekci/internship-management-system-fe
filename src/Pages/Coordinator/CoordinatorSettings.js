@@ -6,16 +6,17 @@ import settings_icon from '../../Components/Assets/settings.png';
 
 function CoordinatorSettings() {
 
-    const [userName, setUserName] = useState('-'); // Example user name, replace with dynamic data
-    const [userEmail, setUserEmail] = useState('-'); // Example user email, replace with dynamic data
+    const [userName, setUserName] = useState('-'); // Backende bağlanacak
+    const [userEmail, setUserEmail] = useState('-'); // Backende bağlanacak
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
   
     const handleChangePassword = (e) => {
         e.preventDefault();
-        // Add password change logic here
-        // Verify current password, check newPassword and confirmNewPassword match, then update
+       
+        //Password change logic eklenip backende bağlanacak
+
         console.log("Password change requested.");
     };
 
@@ -63,11 +64,6 @@ function CoordinatorSettings() {
                     <br />
                     <button type="submit" style={{marginTop:'15px'}}>Change Password</button>
                 </form>
-                
-                {/* Add more settings items here */}
-            
-
-
             </div>
         </CoordinatorHome>
     );

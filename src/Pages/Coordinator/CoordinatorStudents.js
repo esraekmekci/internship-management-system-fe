@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './CoordinatorStudents.css';
 import CoordinatorHome from './CoordinatorHome';
 
+
+//Bir tek "Enter Grade" butonunun rengini değiştiremedim onun dışında bir sorun yok.
+
 const initialStudents = [
     { id: 1, name: 'Student 1', applicationStatus: 'Pending', reportStatus: 'Pending', formStatus: 'Pending', grade: '' },
     { id: 2, name: 'Student 2', applicationStatus: 'Pending', reportStatus: 'Pending', formStatus: 'Pending', grade: '' },

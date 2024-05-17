@@ -1,0 +1,24 @@
+.modal {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+  
+.modal-content {
+    padding: 20px;
+}
+  
+.modal-buttons-container {
+    display: flex;
+    justify-content: space-between; /* Butonları sağa ve sola dayalı yapar */
+    align-items: center; /* Dikeyde ortalar */
+    width: 100%;
+}
+
+.file-name{
+    margin-left: 15px !important;
+}
+  
+  

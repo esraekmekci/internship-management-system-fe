@@ -32,6 +32,7 @@ function CoordinatorAnnouncement() {
     const handleAction = (type, announcement) => {
         const actions = {
             approve: () => {
+                //Kullanıcıya mesaj gösterme
                 if (window.confirm('Are you sure, the announcement will be posted to all students?')) {
                     alert('Announcement is made.');
                 } else {
