@@ -13,7 +13,6 @@ function Companies() {
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState('Select file');
     const [currentUser, setCurrentUser] = useState({});
-    // const studentId = 280201050;
 
     useEffect(() => {
       console.log(currentUser.studentID); // currentUser her güncellendiğinde bu çalışır
@@ -62,16 +61,18 @@ function Companies() {
         alert('Please select a word/pdf file!');
         return;
       }
+    
+
       const formData = new FormData();
       formData.append('file', file);
       formData.append('companyName', selectedCompany.companyName);
-      
+    
       uploadApplicationLetter(formData);
-
-
+    
       console.log("Sending request to upload application letter");
 
-      };
+
+    };
   
     const handleClick = (company) => {
       if (selectedCompany === company) {
@@ -106,7 +107,7 @@ function Companies() {
       })
       .catch(err => {
         console.error("Error occurred:", err);
-        alert("Application letter upload is unsuccessful");
+        alert("You already uploaded an application letter for this company.");
       });
     }
     useEffect(() => {

@@ -10,15 +10,17 @@ import calendar_icon from '../Components/Assets/calendar-day.png';
 import companyAddress from '../Components/Assets/location.png';
 import iyte_icon from '../Components/Assets/iyte-logo.png';
 import studentID from '../Components/Assets/id-card.png';
+import representative_icon from '../Components/Assets/employee-man.png';
+
 const roles = ["COORDINATOR", "STUDENT", "COMPANY", "SECRETARY"];
 
 const LoginSignup = () => {
     localStorage.clear();
-    const [isLogin, setIsLogin] = useState(true);
     const [role, setRole] = useState("COORDINATOR");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [compName, setCompName] = useState("");
+    const [compRepName, setCompRepName] = useState("");
     const [compAddress, setCompAddress] = useState("");
     const [foundationYear, setFoundationYear] = useState("");
     const [employeeSize, setEmployeeSize] = useState("");
@@ -34,8 +36,12 @@ const LoginSignup = () => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        const path = isLogin ? "login" : "register";
-        sendRequest(path);
+        if (role === "COMPANY" && action === "Sign Up as Company"){
+            registerAsCompany();
+        }
+        else {
+            login();
+        }
     };
     
     
@@ -54,32 +60,98 @@ const LoginSignup = () => {
     const handleEmployeeSizeChange = (event) => {
         setEmployeeSize(event.target.value);
     };
-    const sendRequest = (path) => {
-        console.log("Sending request to", path);
-        PostWithoutAuth(("/auth/"+ path), {
-            email : email, 
+    const handleCompRepNameChange = (event) => {
+        setCompRepName(event.target.value);
+    };
+
+    const login = () => {
+        PostWithoutAuth(("/auth/login"), {
+            email : role === "STUDENT" ? stID : email, 
             password : password,
             role : role
           })
           .then((res) => res.json())
-          .then((result) => {
-            if (result.token) {
-                localStorage.setItem("tokenKey", result.token);
-                if (result.authorities.includes("STUDENT")) {
-                    alert(`${path} as a ${role} with email: ${email}`);
+          .then((res) => {
+            if (res.token) {
+                localStorage.setItem("tokenKey", res.token);
+                if (res.authorities.includes("STUDENT")) {
+                    alert(`Logging in as a ${role} with student ID: ${stID}`);
                     navigate("/home"); 
                 } 
-                else if (result.authorities.includes("SECRETARY")){
-                    //history.push("/home"); 
+                else if (res.authorities.includes("SECRETARY")){
+                    alert(`Logging in as a ${role} with email: ${email}`);
+                    navigate("/sec_home"); 
+                }
+                else if (res.authorities.includes("COORDINATOR")){
+                    alert(`Logging in as a ${role} with email: ${email}`);
+                    navigate("/coor_home"); 
+                }
+                else if (res.authorities.includes("COMPANY")){
+                    alert(`Logging in as a ${role} with email: ${email}`);
+                    navigate("/comp-home"); 
                 }
             }
         })
         .catch((err) => {
             console.log(err)
             console.log("User not found");
-            alert(`Wrong student ID / password. Try again.`);
+            if (role === "STUDENT") {
+                alert(`Wrong student ID or password. Try again.`);
+            }
+            else {
+                alert(`Wrong email or password. Try again.`);
+            }
         })
     }
+
+    const registerAsCompany = () => {
+        PostWithoutAuth(("/auth/register"), {
+            compName : compName,
+            compAddress : compAddress,
+            foundationYear : foundationYear,
+            empSize : employeeSize,
+            name : compRepName,
+            email : email, 
+            password : password,
+            role : role
+          })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.token) {
+                localStorage.setItem("tokenKey", res.token);
+                alert(`Logging in as a ${role} with ${email}`);
+                if (res.authorities.includes("STUDENT")) {
+                    navigate("/home"); 
+                } 
+                else if (res.authorities.includes("SECRETARY")){
+                    navigate("/sec_home"); 
+                }
+                else if (res.authorities.includes("COORDINATOR")){
+                    navigate("/coor_home"); 
+                }
+                else if (res.authorities.includes("COMPANY")){
+                    navigate("/comp-home"); 
+                }
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+            console.log("User not found");
+            alert(`Registration failed. Try again.`);
+        })
+    }
+
+    const handleAction = (event) => {
+        if (action === "Login" && event.target.innerText === "Sign Up") {
+            setAction("Sign Up as Company");
+        } else if (action === "Sign Up as Company" && event.target.innerText === "Login") {
+            setAction("Login");
+        }
+        setEmail("");
+        setPassword("");
+    }
+
+
     return (
         <div className="login-signup-container">
             <div className="top-bar">
@@ -101,7 +173,7 @@ const LoginSignup = () => {
                         <form onSubmit={handleSubmit}>
                         <div className="inputs" >
                             <div className="input-container">
-                                <img src={studentID} style={{height:'20x'}}  alt="Student ID" />
+                                <img src={studentID} style={{height:'25px'}}  alt="Student ID" />
                                 <input
                                     type="text"
                                     placeholder="Student ID"
@@ -125,8 +197,8 @@ const LoginSignup = () => {
                                 <p style={{color:'#797979', fontSize:'14px'}}>*Please enter your UBYS credentials.</p>
                             </div>
                             <div className="submit-container" style={{justifyContent:'flex-end'}}>
-                                <button class="submit" onClick={()=>(setAction("Login"))} >
-                                    <span class="submitspan">Login</span>
+                                <button className="submit" onClick={()=>(setAction("Login"))} >
+                                    <span className="submitspan">Login</span>
                                 </button>
                             </div>
                         </form>
@@ -186,6 +258,16 @@ const LoginSignup = () => {
                                             required
                                         />
                                     </div>
+                                    <div className="input-container">
+                                        <img src={representative_icon} style={{height:'25px'}} alt="Representative Name" />
+                                        <input
+                                            type="text"
+                                            placeholder="Representative Name"
+                                            value={compRepName}
+                                            onChange={handleCompRepNameChange}
+                                            required
+                                        />
+                                    </div>
                                     
                                 </div>
                                 }
@@ -217,8 +299,8 @@ const LoginSignup = () => {
                                 </div>
                                 
                                 <div className="submit-container">
-                                    <button class={action === "Login"?"submit gray":"submit"} onClick={()=>(setAction("Sign Up as Company"))}><span class="submitspan">Sign Up</span></button>
-                                    <button class={action === "Sign Up as Company"?"submit gray":"submit"} onClick={()=>(setAction("Login"))}><span class="submitspan">Login</span></button>
+                                    <button className={action === "Login"?"submit gray":"submit"} onClick={handleAction}><span class="submitspan">Sign Up</span></button>
+                                    <button className={action === "Sign Up as Company"?"submit gray":"submit"} onClick={handleAction}><span class="submitspan">Login</span></button>
                                 </div>
                             </form>
                         </div>
@@ -251,8 +333,8 @@ const LoginSignup = () => {
                         </div>
                         </div>
                         <div className="submit-container" style={{justifyContent:'flex-end'}}>
-                            <button class="submit" onClick={()=>(setAction("Login"))}>
-                                <span class="submitspan">Login</span>
+                            <button className="submit" onClick={()=>(setAction("Login"))}>
+                                <span className="submitspan">Login</span>
                             </button>
                         </div>
                     </form>

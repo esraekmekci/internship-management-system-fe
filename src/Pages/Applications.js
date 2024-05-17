@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { GetWithAuth } from "../Services/HttpService.js";
 import Home from'./Home.js';
-import { wait } from '@testing-library/user-event/dist/utils/index.js';
-
+import './Applications.css';
 
   
 function Applications() {
-    const [companies, setCompanies] = useState([]);
+    const [applications, setApplications] = useState([]);
     const [selectedCompany, setSelectedCompany] = useState(null);
     const [currentUser, setCurrentUser] = useState({});
+    const [showModal, setShowModal] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [fileName, setFileName] = useState('Select file');
         
     useEffect(() => {
       const fetchStudent = async () => {
@@ -29,13 +31,10 @@ function Applications() {
             const response = await GetWithAuth("/student/" + user.studentID + "/appliedcompanies");
             const result = await response.json();
             console.log(result);
-            setCompanies(result);
-            companies.map((company) => {
-                console.log(company.companyName);
-            });
+            setApplications(result);
         } catch (error) {
             console.log(error);
-            console.log("comp not found");
+            console.log("application not found");
         }
     };
 
@@ -51,6 +50,7 @@ function Applications() {
       } else {
         setSelectedCompany(company);
       }
+      setShowModal(false);
     };
 
     const downloadApplicationLetter = () => {
@@ -81,6 +81,26 @@ function Applications() {
     }
     
 
+    const handleFileChange = (event) => {
+      const selectedFile = event.target.files[0];
+      if (selectedFile) {
+        setSelectedFile(selectedFile);
+        setFileName(selectedFile.name);
+      }
+    };
+
+    const handleSubmit = () => {
+      // Burada seçilen dosyayı yüklemek için gerekli işlemleri yapabilirsiniz.
+      // Örneğin, dosyayı bir API'ye gönderebilirsiniz.
+      console.log("Selected file:", selectedFile);
+      // Dosya yükleme işlemi tamamlandıktan sonra modalı kapatın:
+      if (!selectedFile) {
+        alert('Please select a file first!');
+        setShowModal(false);
+      }
+        
+    };
+
   
     return (
         <Home>
@@ -89,16 +109,59 @@ function Applications() {
           </div>
 
     <div>
-    {companies.map((company, index) => (
+    {applications.map((application, index) => (
         <div key={index}  className="announcement-section">
-          <h2 onClick={() => handleClick(company)} style={{ cursor: 'pointer' }}>{company.companyName}<span style={{float:'right', fontSize:'15px'}}>Status: {company.name}</span></h2>
-          {selectedCompany === company && (
+          <h2 onClick={() => handleClick(application)} style={{ cursor: 'pointer' }}>{application.companyName}<span style={{float:'right', fontSize:'15px'}}>Status: {application.applicationStatus}</span></h2>
+          {selectedCompany === application && (
             <div>
               <div>
-                <button className='button' onClick={downloadApplicationLetter}>Show Application Letter</button>
-                  <br /><br />
-                <button className='button'>Send Application Form</button>
+                {application.applicationStatus === "Application Letter Pending" && (
+                  <button className='button' onClick={downloadApplicationLetter}>Show Application Letter</button>
+                )}
+                {application.applicationStatus === "Application Letter Approved" && (
+                  <div>
+                    <button className='button' onClick={downloadApplicationLetter}>Show Application Letter</button>
+                    <br />
+                    <button className='button' onClick={() => {showModal ? setShowModal(false) : setShowModal(true)}}>Send Application Form</button>
+                  </div>
+                )}
               </div>
+            </div>
+          )}
+          {showModal && selectedCompany === application && (
+            <div className="modal">
+              <form onSubmit={handleSubmit}>
+                <div className="modal-content">
+                  <div className="modal-buttons-container">
+                    <div>
+                    <label htmlFor="fileInput" className='button' style={{ 
+                      background: '#4CAF50',
+                      color: 'white',
+                      padding: '10px 20px',
+                      width: '20%',
+                      cursor:'pointer',
+                      borderRadius:'4px'
+                    }}>
+                      Choose Application Form
+                      <input type="file" id="fileInput" style={{ display: 'none' }} accept=".docx, .doc, .pdf" onChange={handleFileChange} />
+                    </label>
+                    {fileName && <span style={{ marginLeft: '10px' }} className="file-name">{fileName}</span>} {/* Dosya adını göster */}
+                    </div>
+                    <label className='button' style={{
+                      background: '#4CAF50',
+                      color: 'white',
+                      padding: '10px 20px',
+                      width: '4%',
+                      cursor:'pointer',
+                      borderRadius:'4px',
+                      float:'right'
+                    }}>
+                      Send
+                      <input type='submit' style={{ display: 'none' }}/>
+                    </label>
+                  </div>
+                </div>
+              </form>
             </div>
           )}
         </div>
