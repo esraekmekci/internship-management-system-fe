@@ -46,7 +46,7 @@ const CoordinatorHome =({children}) => {
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await GetWithAuth("/students/token/" + localStorage.getItem("tokenKey"));
+              const response = await GetWithAuth("/coordinator/token/" + localStorage.getItem("tokenKey"));
               const result = await response.json();
               console.log(result);
               setCurrentUser(result);
@@ -63,7 +63,7 @@ const CoordinatorHome =({children}) => {
   
       return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
   
-    },);
+    }, []);
   
     return (
       <div className="coordinatorhome-layout">
@@ -102,7 +102,6 @@ const CoordinatorHome =({children}) => {
             <div className="internship-info">
               <img src={admin_icon} alt="" className="admin-icon" />
               <h4>{currentUser.role}</h4>
-              <div>Name: {currentUser.name}</div>
             </div>
           </div>
   
@@ -134,16 +133,6 @@ const CoordinatorHome =({children}) => {
             <img src={documents_icon} alt="" className="documents-icon" />         
                 <Link to="/guidelines"  style={{textDecoration:"none", color:"black"}} >Guidelines</Link>             
           </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
         </div>
         <main>{children}</main>

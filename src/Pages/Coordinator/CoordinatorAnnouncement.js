@@ -22,7 +22,7 @@ function CoordinatorAnnouncement() {
     const [announcements, setAnnouncements] = useState([]);
 
     const handleViewClick = (announcement) => {
-        if (selectedAnnouncement && selectedAnnouncement.id === announcement.id) {
+        if (selectedAnnouncement && selectedAnnouncement.announcement_id === announcement.announcement_id) {
             setSelectedAnnouncement(null);
         } else {
             setSelectedAnnouncement(announcement);
@@ -73,21 +73,22 @@ function CoordinatorAnnouncement() {
                 <h1>Announcements</h1>
                 <div className="announcement-underline"></div>
                 {announcements.map((announcement) => (
-                    <div key={announcement.id} className="announcement-item">
+                    <div key={announcement.announcement_id} className="announcement-item">
                         <h2>{announcement.comp_name}</h2>
                         <button
                             onClick={() => handleViewClick(announcement)}
                             style={{
-                                backgroundColor: selectedAnnouncement && selectedAnnouncement.id === announcement.id ? '#007BFF' : '#4CAF50',
+                                backgroundColor: selectedAnnouncement && selectedAnnouncement.announcement_id === announcement.announcement_id ? '#007BFF' : '#4CAF50',
                                 color: 'white'
                             }}
                         >
                             View
                         </button>
                         <div className="announcement-mini-underline"></div>
-                        {selectedAnnouncement && selectedAnnouncement.id === announcement.id && (
+                        {selectedAnnouncement && selectedAnnouncement.announcement_id === announcement.announcement_id && (
                             <div className="announcement-details">
-                                <p>{announcement.content}</p>
+                                <h2>{announcement.title}</h2>
+                                <p>{announcement.description}</p>
                                 <button className='btn' onClick={() => handleAction('approve', announcement)}>Approve</button>
                                 <button onClick={() => handleAction('reject', announcement)}>Reject</button>
                             </div>
