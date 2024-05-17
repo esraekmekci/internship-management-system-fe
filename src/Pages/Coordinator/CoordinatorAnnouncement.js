@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GetWithAuth } from "../../Services/HttpService";
+import { PutWithAuth } from "../../Services/HttpService";
+
 import './CoordinatorAnnouncement.css';
 import CoordinatorHome from './CoordinatorHome';
 
@@ -31,15 +33,18 @@ function CoordinatorAnnouncement() {
 
     const handleAction = (type, announcement) => {
         const actions = {
-            approve: () => {
+            approve: async () => {
                 //Kullanıcıya mesaj gösterme
                 if (window.confirm('Are you sure, the announcement will be posted to all students?')) {
+                    await PutWithAuth(`/coordinator/approveAnnouncement?announcementId=${announcement.announcement_id}`);
                     alert('Announcement is made.');
                 } else {
+                    await PutWithAuth(`/coordinator/rejectAnnouncement?announcementId=${announcement.announcement_id}`);
                     alert('Announcement is rejected.');
                 }
             },
-            reject: () => {
+            reject: async () => {
+                await PutWithAuth(`/coordinator/rejectAnnouncement?announcementId=${announcement.announcement_id}`);
                 alert('Announcement is rejected.');
             }
         };
