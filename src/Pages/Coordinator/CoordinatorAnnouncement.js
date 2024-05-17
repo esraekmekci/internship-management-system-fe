@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { GetWithAuth } from "../../Services/HttpService";
 import './CoordinatorAnnouncement.css';
 import CoordinatorHome from './CoordinatorHome';
-
-const announcements = [
-    { id: 1, name: 'Announcement 1', content: 'Contents of Announcement 1.' },
-    { id: 2, name: 'Announcement 2', content: 'Contents of Announcement 2.' },
-    { id: 3, name: 'Announcement 3', content: 'Contents of Announcement 3.' }
-];
 
 function Modal({ onClose, onConfirm, message }) {
     return (
@@ -24,6 +19,7 @@ function CoordinatorAnnouncement() {
     const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [modalConfig, setModalConfig] = useState({});
+    const [announcements, setAnnouncements] = useState([]);
 
     const handleViewClick = (announcement) => {
         if (selectedAnnouncement && selectedAnnouncement.id === announcement.id) {
@@ -50,6 +46,26 @@ function CoordinatorAnnouncement() {
         actions[type]();
     };
     
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await GetWithAuth("/announcement");
+                const result = await response.json();
+                console.log(result);
+                setAnnouncements(result);
+            } catch (error) {
+                console.log(error);
+                console.log("ann not found");
+            }
+        };
+    
+        const timeout = setTimeout(() => {
+            fetchData();
+        }, 1);
+    
+        return () => clearTimeout(timeout);
+    
+    }, []);
 
     return (
         <CoordinatorHome>
@@ -58,7 +74,7 @@ function CoordinatorAnnouncement() {
                 <div className="announcement-underline"></div>
                 {announcements.map((announcement) => (
                     <div key={announcement.id} className="announcement-item">
-                        <h2>{announcement.name}</h2>
+                        <h2>{announcement.comp_name}</h2>
                         <button
                             onClick={() => handleViewClick(announcement)}
                             style={{
