@@ -7,9 +7,9 @@ import user_icon from '../../Components/Assets/user.png';
 import documents_icon from '../../Components/Assets/documents.png';
 import admin_icon from '../../Components/Assets/shield.png';
 import student_icon from '../../Components/Assets/studentbook.png';
-import grade_icon from '../../Components/Assets/grades.png';
 import announcement_icon from '../../Components/Assets/announcements.png';
 import loading_icon from '../../Components/Assets/loading.png';
+import company_icon from '../../Components/Assets/company.png';
 
 
 /*
@@ -137,8 +137,8 @@ const CoordinatorHome =({children}) => {
           </div>
 
           <div className="sidebar-btn">
-            <img src={grade_icon} alt="" className="grade-icon" />
-                <Link to="/coor_grades"  style={{textDecoration:"none", color:"black"}} >Grades</Link>
+            <img src={company_icon} alt="" className="company-icon" />
+                <Link to="/coor_companies"  style={{textDecoration:"none", color:"black"}} >Companies</Link>
           </div>
   
           <div className="sidebar-btn">
