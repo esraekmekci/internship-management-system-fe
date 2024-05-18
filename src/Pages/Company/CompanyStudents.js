@@ -9,10 +9,10 @@ function CompanyStudents() {
     const [showPopup, setShowPopup] = useState({ show: false, type: "", student: null });
 
     useEffect(() => {
-        // Example data
+        // Örnek öğrenci verileri, her öğrenci için dosya URL'leri de eklenmiş
         const sampleStudents = [
-            { id: 1, name: "Beyza", applicationLetter: "burda pdf veya docx önizlemesi" },
-            { id: 2, name: "Esra", applicationLetter: "letter" },
+            { id: 1, name: "XX", fileUrl: "https://example.pdf" },
+            { id: 2, name: "YY", fileUrl: "https://ornek.docx" },
         ];
         setStudents(sampleStudents);
     }, []);
@@ -30,9 +30,7 @@ function CompanyStudents() {
     };
 
     const confirmApproval = () => {
-        // Handle email sending logic here for approval
         alert("Approved successfully");
-        // Reset state
         setShowPopup({ show: false, type: "", student: null });
         setSelectedStudent(null);
     };
@@ -42,12 +40,23 @@ function CompanyStudents() {
             alert("Please provide feedback for rejection.");
             return;
         }
-        // Handle email sending logic here for rejection with feedback
         alert("Rejection email sent with feedback.");
-        // Reset state
         setShowPopup({ show: false, type: "", student: null });
         setSelectedStudent(null);
         setFeedback("");
+    };
+
+    const renderFilePreview = (student) => {
+        if (!student.fileUrl) return null;
+        if (student.fileUrl.endsWith('.pdf')) {
+            return <embed src={student.fileUrl} type="application/pdf" width="100%" height="500px" />;
+        } else if (student.fileUrl.endsWith('.docx')) {
+            return (
+                <iframe src={`https://docs.google.com/gview?url=${encodeURIComponent(student.fileUrl)}&embedded=true`} 
+                        style={{ width: '100%', height: '500px' }} >
+                </iframe>
+            );
+        } 
     };
 
     return (
@@ -64,8 +73,8 @@ function CompanyStudents() {
                         {selectedStudent === student && (
                             <div className="student-details">
                                 <h3>Application Letter</h3>
-                                <p>{student.applicationLetter}</p>
-                                <div style={{ display: 'flex' }}> 
+                                {renderFilePreview(student)}
+                                <div style={{ display: 'flex' }}>
                                     <button onClick={handleApprove}>Approve</button>
                                     <button onClick={handleReject}>Reject</button>
                                 </div>
