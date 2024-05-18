@@ -3,11 +3,8 @@ import './CoordinatorGrades.css';
 import CoordinatorHome from './CoordinatorHome';
 
 /*
-Use Case olarak sadece download işlemi olduğu için sadece bir form oluşturuldu.
-Çok anlamadım use-case'e de bir bakmak lazım şimdilik böyle bıraktım.
-Duru da silinecek dedi ve bence de gerçekten böyle bir sayfaya ihtiyaç yok
-CoordinatorStudents sayfasında zaten grade girme işlemi yapılıyo. Bütün gradeleri görmek için böyle 
-bir sayfaya ihtiyaç var mı çözemedim.
+Coordinator Companies ile değiştirildi hiçbir şekilde bu sayfaya ulaşılamıyor şu an
+Belki ilerde lazım olur diye silmedim
 */
 
 function CoordinatorGrades() {
