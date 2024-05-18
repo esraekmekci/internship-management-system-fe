@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { GetWithAuth } from "../../Services/HttpService";
+import { PutWithAuth } from "../../Services/HttpService";
+
 import './CoordinatorAnnouncement.css';
 import CoordinatorHome from './CoordinatorHome';
-
-const announcements = [
-    { id: 1, name: 'Announcement 1', content: 'Contents of Announcement 1.' },
-    { id: 2, name: 'Announcement 2', content: 'Contents of Announcement 2.' },
-    { id: 3, name: 'Announcement 3', content: 'Contents of Announcement 3.' }
-];
 
 function Modal({ onClose, onConfirm, message }) {
     return (
@@ -24,9 +21,10 @@ function CoordinatorAnnouncement() {
     const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [modalConfig, setModalConfig] = useState({});
+    const [announcements, setAnnouncements] = useState([]);
 
     const handleViewClick = (announcement) => {
-        if (selectedAnnouncement && selectedAnnouncement.id === announcement.id) {
+        if (selectedAnnouncement && selectedAnnouncement.announcement_id === announcement.announcement_id) {
             setSelectedAnnouncement(null);
         } else {
             setSelectedAnnouncement(announcement);
@@ -35,21 +33,44 @@ function CoordinatorAnnouncement() {
 
     const handleAction = (type, announcement) => {
         const actions = {
-            approve: () => {
+            approve: async () => {
                 //Kullanıcıya mesaj gösterme
                 if (window.confirm('Are you sure, the announcement will be posted to all students?')) {
+                    await PutWithAuth(`/coordinator/approveAnnouncement?announcementId=${announcement.announcement_id}`);
                     alert('Announcement is made.');
                 } else {
+                    await PutWithAuth(`/coordinator/rejectAnnouncement?announcementId=${announcement.announcement_id}`);
                     alert('Announcement is rejected.');
                 }
             },
-            reject: () => {
+            reject: async () => {
+                await PutWithAuth(`/coordinator/rejectAnnouncement?announcementId=${announcement.announcement_id}`);
                 alert('Announcement is rejected.');
             }
         };
         actions[type]();
     };
     
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await GetWithAuth("/announcement");
+                const result = await response.json();
+                console.log(result);
+                setAnnouncements(result);
+            } catch (error) {
+                console.log(error);
+                console.log("ann not found");
+            }
+        };
+    
+        const timeout = setTimeout(() => {
+            fetchData();
+        }, 1);
+    
+        return () => clearTimeout(timeout);
+    
+    }, []);
 
     return (
         <CoordinatorHome>
@@ -57,21 +78,22 @@ function CoordinatorAnnouncement() {
                 <h1>Announcements</h1>
                 <div className="announcement-underline"></div>
                 {announcements.map((announcement) => (
-                    <div key={announcement.id} className="announcement-item">
-                        <h2>{announcement.name}</h2>
+                    <div key={announcement.announcement_id} className="announcement-item">
+                        <h2>{announcement.comp_name}</h2>
                         <button
                             onClick={() => handleViewClick(announcement)}
                             style={{
-                                backgroundColor: selectedAnnouncement && selectedAnnouncement.id === announcement.id ? '#007BFF' : '#4CAF50',
+                                backgroundColor: selectedAnnouncement && selectedAnnouncement.announcement_id === announcement.announcement_id ? '#007BFF' : '#4CAF50',
                                 color: 'white'
                             }}
                         >
                             View
                         </button>
                         <div className="announcement-mini-underline"></div>
-                        {selectedAnnouncement && selectedAnnouncement.id === announcement.id && (
+                        {selectedAnnouncement && selectedAnnouncement.announcement_id === announcement.announcement_id && (
                             <div className="announcement-details">
-                                <p>{announcement.content}</p>
+                                <h2>{announcement.title}</h2>
+                                <p>{announcement.description}</p>
                                 <button className='btn' onClick={() => handleAction('approve', announcement)}>Approve</button>
                                 <button onClick={() => handleAction('reject', announcement)}>Reject</button>
                             </div>

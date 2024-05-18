@@ -9,6 +9,7 @@ import admin_icon from '../../Components/Assets/shield.png';
 import student_icon from '../../Components/Assets/studentbook.png';
 import grade_icon from '../../Components/Assets/grades.png';
 import announcement_icon from '../../Components/Assets/announcements.png';
+import loading_icon from '../../Components/Assets/loading.png';
 
 
 /*
@@ -19,6 +20,7 @@ Benimle çalışan kişi yaptıkça commentleri silmeyi unutma pls.
 
 const CoordinatorHome =({children}) => {
     var [currentUser, setCurrentUser] = useState({});
+    const [loading, setLoading] = useState(true);
     const [showDropdown, setShowDropdown] = useState({
       btn1: false,
       btn1_1: false,
@@ -46,7 +48,7 @@ const CoordinatorHome =({children}) => {
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await GetWithAuth("/students/token/" + localStorage.getItem("tokenKey"));
+              const response = await GetWithAuth("/coordinator/token/" + localStorage.getItem("tokenKey"));
               const result = await response.json();
               console.log(result);
               setCurrentUser(result);
@@ -54,16 +56,26 @@ const CoordinatorHome =({children}) => {
           } catch (error) {
               console.log(error);
               console.log("User not found");
+          } finally {
+              setLoading(false);
           }
       };
   
       const timeout = setTimeout(() => {
           fetchData();
-      }, 100); // 2 saniye bekleme süresi
+      }, 1);
   
-      return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
+      return () => clearTimeout(timeout);
   
-    },);
+    }, []);
+
+    if (loading) {
+      return (
+      <div className='loading-container'>
+        <img src={loading_icon} alt="loading" className="loading-img" />
+      </div>
+      )
+    }
   
     return (
       <div className="coordinatorhome-layout">
@@ -102,7 +114,6 @@ const CoordinatorHome =({children}) => {
             <div className="internship-info">
               <img src={admin_icon} alt="" className="admin-icon" />
               <h4>{currentUser.role}</h4>
-              <div>Name: {currentUser.name}</div>
             </div>
           </div>
   
@@ -134,16 +145,6 @@ const CoordinatorHome =({children}) => {
             <img src={documents_icon} alt="" className="documents-icon" />         
                 <Link to="/guidelines"  style={{textDecoration:"none", color:"black"}} >Guidelines</Link>             
           </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
         </div>
         <main>{children}</main>

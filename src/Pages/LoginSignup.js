@@ -120,6 +120,9 @@ const LoginSignup = () => {
             if (role === "STUDENT") {
                 alert(`Wrong student ID or password. Try again.`);
             }
+            else if (role === "COMPANY") {
+                alert(`No company account approved by the coordinator was found with this email: ${email}`)
+            }
             else {
                 alert(`Wrong email or password. Try again.`);
             }
@@ -158,19 +161,7 @@ const LoginSignup = () => {
           .then((res) => {
             if (res.token) {
                 localStorage.setItem("tokenKey", res.token);
-                alert(`Logging in as a ${role} with ${email}`);
-                if (res.authorities.includes("STUDENT")) {
-                    navigate("/home"); 
-                } 
-                else if (res.authorities.includes("SECRETARY")){
-                    navigate("/sec_home"); 
-                }
-                else if (res.authorities.includes("COORDINATOR")){
-                    navigate("/coor_home"); 
-                }
-                else if (res.authorities.includes("COMPANY")){
-                    navigate("/comp-home"); 
-                }
+                alert(`Registration as ${compName} is successful. Waiting for the approval of the internship committee coordinator.`);
             }
         })
         .catch((err) => {
@@ -183,11 +174,19 @@ const LoginSignup = () => {
     const handleAction = (event) => {
         if (action === "Login" && event.target.innerText === "Sign Up") {
             setAction("Sign Up as Company");
+            // registerAsCompany();
         } else if (action === "Sign Up as Company" && event.target.innerText === "Login") {
             setAction("Login");
         }
-        setEmail("");
-        setPassword("");
+        setTimeout(() => {
+            setEmail("");
+            setPassword("");
+            setCompName("");
+            setCompAddress("");
+            setFoundationYear("");
+            setEmployeeSize("");
+            setCompRepName("");
+        }, 1000);
     }
 
 
@@ -401,8 +400,8 @@ const LoginSignup = () => {
                                 </div>
                                 
                                 <div className="submit-container">
-                                    <button className={action === "Login"?"submit gray":"submit"} onClick={handleAction}><span class="submitspan">Sign Up</span></button>
-                                    <button className={action === "Sign Up as Company"?"submit gray":"submit"} onClick={handleAction}><span class="submitspan">Login</span></button>
+                                    <button className={action === "Login"?"submit gray":"submit"} onClick={handleAction}><span className="submitspan">Sign Up</span></button>
+                                    <button className={action === "Sign Up as Company"?"submit gray":"submit"} onClick={handleAction}><span className="submitspan">Login</span></button>
                                 </div>
                             </form>
                         </div>

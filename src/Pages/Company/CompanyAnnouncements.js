@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { GetWithAuth } from "../../Services/HttpService";
 import CompanyHome from './CompanyHome.js';
 import './CompanyAnnouncement.css';
 
 function CompanyAnnouncement() {
+    var [currentUser, setCurrentUser] = useState({});
     const [announcements, setAnnouncements] = useState([]);
     const [newTitle, setNewTitle] = useState("");
     const [newDescription, setNewDescription] = useState("");
@@ -14,11 +16,34 @@ function CompanyAnnouncement() {
     const [showDeletePopup, setShowDeletePopup] = useState({ show: false, index: null });
 
     useEffect(() => {
-        const sampleAnnouncements = [
-            { title: "Sample Announcement 1", description: "Description of sample announcement 1", date: "2024-05-15", status: "Published" },
-            { title: "Sample Announcement 2", description: "Description of sample announcement 2", date: "2024-05-14", status: "Pending" },
-        ];
-        setAnnouncements(sampleAnnouncements);
+        const fetchCompany = async () => {
+          try {
+            const response = await GetWithAuth("/company/token/" + localStorage.getItem("tokenKey"));
+            const result = await response.json();
+            console.log(result);
+            setCurrentUser(result);
+            await fetchAnnouncements(result);
+          } catch (error) {
+            console.log(error);
+            console.log("User not found");
+          }
+        };
+        
+        const fetchAnnouncements = async (user) => {
+          try {
+              const response = await GetWithAuth("/company/" + user.companyid + "/announcements");
+              const result = await response.json();
+              console.log(result);
+              setAnnouncements(result);
+          } catch (error) {
+              console.log(error);
+              console.log("announcement not found");
+          }
+      };
+  
+      
+      fetchCompany();
+         
     }, []);
 
     const handleNewTitleChange = (event) => {
@@ -42,21 +67,58 @@ function CompanyAnnouncement() {
     };
 
     const confirmNewAnnouncement = () => {
-        const newAnnouncement = {
+        makeAnnouncement();
+    };
+
+    const makeAnnouncement = () => {
+        fetch("/company/" + currentUser.companyid + "/makeAnnouncement", {
+          method: 'POST',
+          body: JSON.stringify({
             title: newTitle,
-            description: newDescription,
-            date: new Date().toISOString().split('T')[0],
-            status: "Waiting for approval",
-            file: newFile ? newFile.name : null
-        };
-        setAnnouncements([...announcements, newAnnouncement]);
-        setShowPopup(false);
-        setShowDropdown({ newAnn: false });
-        setNewTitle("");
-        setNewDescription("");
-        setNewFile(null);
-        setErrorMessage("");
-        alert("Announcement saved. Waiting for the approval of the internship committee coordinator.");
+            description: newDescription
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
+          }
+          return response;
+        })
+        .then(result => {
+          console.log(result);
+          alert("Announcement saved. Waiting for the approval of the internship committee coordinator.");
+          window.location.reload();
+        })
+        .catch(err => {
+          console.error("Error occurred:", err);
+          alert("Announcement upload is unsuccessful");
+        });
+    }
+
+    const deleteAnnouncement = () => {
+        fetch("/company/" + currentUser.companyid + "/deleteAnnouncement?announcementId=" + announcements[showDeletePopup.index].id, {
+            method: 'DELETE',
+            headers: {
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response;
+        })
+        .then(result => {
+            alert("Announcement deleted successfully");
+            window.location.reload();
+            console.log(result);
+        })
+        .catch(err => {
+            console.error("Error occurred:", err);
+            alert("Error occurred:", err);
+        });
     };
 
     const toggleDropdown = () => {
@@ -68,8 +130,7 @@ function CompanyAnnouncement() {
     };
 
     const confirmDeleteAnnouncement = () => {
-        const updatedAnnouncements = announcements.filter((_, i) => i !== showDeletePopup.index);
-        setAnnouncements(updatedAnnouncements);
+        deleteAnnouncement();
         setSelectedAnnouncement(null);
         setShowDeletePopup({ show: false, index: null });
     };
@@ -94,7 +155,7 @@ function CompanyAnnouncement() {
                         {selectedAnnouncement === index && (
                             <>
                                 <p>{announcement.description}</p>
-                                <p>Date: {announcement.date}</p>
+                                <p>Date: {announcement.uploadDate}</p>
                                 {announcement.file && <p>File: {announcement.file}</p>}
                                 <button onClick={() => handleDeleteClick(index)}>Delete</button>
                             </>
