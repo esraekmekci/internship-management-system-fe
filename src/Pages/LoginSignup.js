@@ -10,6 +10,7 @@ import calendar_icon from '../Components/Assets/calendar-day.png';
 import companyAddress from '../Components/Assets/location.png';
 import iyte_icon from '../Components/Assets/iyte-logo.png';
 import studentID from '../Components/Assets/id-card.png';
+import internTypeIcon from '../Components/Assets/online-work.png';
 import representative_icon from '../Components/Assets/employee-man.png';
 
 const roles = ["COORDINATOR", "STUDENT", "COMPANY", "SECRETARY"];
@@ -24,6 +25,15 @@ const LoginSignup = () => {
     const [compAddress, setCompAddress] = useState("");
     const [foundationYear, setFoundationYear] = useState("");
     const [employeeSize, setEmployeeSize] = useState("");
+    const [internshipType, setInternshipType] = useState("");
+    
+
+    const [showCheckboxPopup , setShowCheckboxPopup ] = useState(false);
+    const [showKVKKPopup , setShowKVKKPopup  ] = useState(false);
+    const [showPopupForStudent, setShowPopupForStudent] = useState(localStorage.getItem('showPopupForStudent') !== 'false');
+    const [checkbox1, setCheckbox1] = useState(false);
+    const [checkbox2, setCheckbox2] = useState(false);
+
     const [stID, setStudentID] = useState("");
     const [action,setAction] = useState("Sign Up as Company");
     const navigate = useNavigate();
@@ -39,11 +49,20 @@ const LoginSignup = () => {
         if (role === "COMPANY" && action === "Sign Up as Company"){
             registerAsCompany();
         }
-        else {
+        else if (role === "STUDENT"){
+            if (showPopupForStudent) {
+                setShowCheckboxPopup(true);
+            }
+            else{
+                login();
+            }
+        }
+        else{
             login();
         }
     };
     
+
     
     const handleStudentIDChange = (event) => {
         setStudentID(event.target.value);
@@ -63,7 +82,10 @@ const LoginSignup = () => {
     const handleCompRepNameChange = (event) => {
         setCompRepName(event.target.value);
     };
-
+    const handleInternshipTypeChange = (event) => {
+        setInternshipType(event.target.value);
+    };
+    
     const login = () => {
         PostWithoutAuth(("/auth/login"), {
             email : role === "STUDENT" ? stID : email, 
@@ -106,6 +128,23 @@ const LoginSignup = () => {
             }
         })
     }
+    const handleCheckbox1Change = (event) => {
+        setCheckbox1(event.target.checked);
+    };
+
+    const handleCheckbox2Change = (event) =>{
+        setCheckbox2(event.target.checked);
+    };
+
+    const handlePopupSubmit = () => {
+        if (checkbox1 && checkbox2) {
+            localStorage.setItem('showPopupForStudent', 'false');
+            setShowCheckboxPopup(false);
+            login();
+        } else {
+            alert('Please check both checkboxes before proceeding.');
+        }
+    };
 
     const registerAsCompany = () => {
         PostWithoutAuth(("/auth/register"), {
@@ -200,6 +239,59 @@ const LoginSignup = () => {
                                     <span className="submitspan">Login</span>
                                 </button>
                             </div>
+                            {showCheckboxPopup && (
+                            <div className="popup">
+                                <h3>Please accept the terms and conditions</h3>
+                                <div style={{ textAlign: 'left' }}>
+                                    <input
+                                        type="checkbox"
+                                        id="checkbox1"
+                                        checked={checkbox1}
+                                        onChange={handleCheckbox1Change}
+                                    />
+                                    <label htmlFor="checkbox1">I agree to transfer my UBYS information to the Internship Management System.</label>
+                                </div>
+                                <br />
+                                <div style={{ textAlign: 'left' }}>
+                                    <input
+                                        type="checkbox"
+                                        id="checkbox2"
+                                        checked={checkbox2}
+                                        onChange={handleCheckbox2Change}
+                                    />
+                                    <label htmlFor="checkbox2">I have read and approve the 
+                                        <span onClick={() => setShowKVKKPopup(true)} style={{ color: 'blue', cursor: 'pointer' }}> KVKK</span>
+                                    .</label>
+                                </div>
+                                <div className="popup-buttons">
+                                    <button onClick={handlePopupSubmit}>Confirm</button>
+                                    <button onClick={() => setShowCheckboxPopup(false)}>Cancel</button>
+                                </div>
+                            </div>
+                        )}
+
+                        {showKVKKPopup && (
+                            <div className="popup">
+                                <h3>KVKK</h3>
+                                <div style={{ textAlign: 'left', maxHeight: '200px', overflowY: 'auto' }}>
+                                    KVKK metni buraya gelecek.
+                                    KVKK metni buraya gelecek.
+                                    ssıkıcı yazılar falan.
+                                    KVKK metni buraya gelecek.
+                                    KVKK metni buraya gelecek.3131313131 
+                                    KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.
+                                    KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.
+                                    KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.
+                                    KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.
+                                </div>
+                                <div className="popup-buttons">
+                                    <button onClick={() => setShowKVKKPopup(false)}>Kapat</button>
+                                </div>
+                            </div>
+                        )}
+
+
+                            
                         </form>
                     </div> 
                     : role === "COMPANY" ? (
@@ -247,6 +339,16 @@ const LoginSignup = () => {
                                             required
                                         />
                                     </div>
+                                    <div className="input-container">
+                                        <img src={internTypeIcon} style={{height:'28px'}} alt="Internship Type" />
+                                        <select className="selectInternshipType" required defaultValue="">
+                                            <option value="" onChange={handleInternshipTypeChange}>Internship Type</option>
+                                            <option value={internshipType} onChange={handleInternshipTypeChange}>Hybrid</option>
+                                            <option value={internshipType} onChange={handleInternshipTypeChange}>Remote</option>
+                                            <option value={internshipType} onChange={handleInternshipTypeChange}>On-Site</option>
+                                        </select>
+                                    </div>
+                                    
                                     <div className="input-container">
                                         <img src={employees_icon} style={{height:'25px'}} alt="Employee Size" />
                                         <input
