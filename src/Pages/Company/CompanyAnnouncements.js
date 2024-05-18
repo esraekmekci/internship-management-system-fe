@@ -171,7 +171,7 @@ function CompanyAnnouncement() {
                         <input type="text" placeholder="Title" value={newTitle} style={{ marginLeft: '10px' }} onChange={handleNewTitleChange} />
                         <textarea placeholder="Description" value={newDescription} style={{ marginLeft: '10px' }} onChange={handleNewDescriptionChange}></textarea>
                         <input type="file" onChange={handleFileChange} style={{ margin: '10px' }}/>
-                        <button onClick={handleNewAnnouncement}>Enter</button>
+                        <button onClick={handleNewAnnouncement} style={{ margin: '10px' }}>Enter</button>
                         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                     </div>
                 )}
@@ -183,8 +183,10 @@ function CompanyAnnouncement() {
                     <p>Title: {newTitle}</p>
                     <p>Description: {newDescription}</p>
                     {newFile && <p>File: {newFile.name}</p>}
+                    <div style={{ display:'flex',justifyContent:'flex-end'}}>
                     <button onClick={confirmNewAnnouncement}>Yes</button>
                     <button onClick={() => setShowPopup(false)}>No</button>
+                    </div>
                 </div>
             )}
 
