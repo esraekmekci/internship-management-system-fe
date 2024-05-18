@@ -23,10 +23,43 @@ function Guidelines() {
             alert("No file selected. Please choose a PDF file to announce.");
             return;
         }
+        const formData = new FormData();
+        formData.append('file', file);
+    
+        uploadGuideline(formData);
+
         console.log("File uploaded:", file);
         setAnnouncementMade(true);
         alert("Announcement successfully made.");
     };
+
+    const uploadGuideline = (formData) => {
+        fetch("/coordinator/uploadGuidelines", {
+          method: 'POST',
+          body: formData,
+          headers: {
+            // Don't set 'Content-Type': 'multipart/form-data',
+            // Fetch will set it automatically along with the boundary
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
+          }
+          return response;
+        })
+        .then(result => {
+          console.log(result);
+          alert("Guideline uploaded successfully");
+          setFile(null);
+          //setFileName('Select file');
+        })
+        .catch(err => {
+          console.error("Error occurred:", err);
+          //alert("You already uploaded an application letter for this company.");
+        });
+      }
+  
 
     const handleCancel = () => {
         setFile(null);

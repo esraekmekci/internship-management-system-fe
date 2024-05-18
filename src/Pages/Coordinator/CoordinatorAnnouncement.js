@@ -79,7 +79,7 @@ function CoordinatorAnnouncement() {
                 <div className="announcement-underline"></div>
                 {announcements.map((announcement) => (
                     <div key={announcement.announcement_id} className="announcement-item">
-                        <h2>{announcement.comp_name}</h2>
+                        <h2>{announcement.comp_name + " - " + announcement.status}</h2>
                         <button
                             onClick={() => handleViewClick(announcement)}
                             style={{
