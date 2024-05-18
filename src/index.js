@@ -21,7 +21,6 @@ import Templates from './Pages/Templates';
 import CoordinatorHome from './Pages/Coordinator/CoordinatorHome';
 import CoordinatorAnnouncement from './Pages/Coordinator/CoordinatorAnnouncement';
 import CoordinatorStudents from './Pages/Coordinator/CoordinatorStudents';
-import CoordinatorGrades from './Pages/Coordinator/CoordinatorGrades';
 import Guidelines from './Pages/Coordinator/Guidelines';
 import CoordinatorSettings from './Pages/Coordinator/CoordinatorSettings';
 import CoordinatorProfile from './Pages/Coordinator/CoordinatorProfile';
@@ -31,6 +30,7 @@ import CompanySettings from  './Pages/Company/CompanySettings';
 import CompanyStudents from  './Pages/Company/CompanyStudents';
 import CompanyAnnouncements from  './Pages/Company/CompanyAnnouncements';
 import CompanyInterns from  './Pages/Company/CompanyInterns';
+import CoordinatorCompanies from './Pages/Coordinator/CoordinatorCompanies';
 
 
 
@@ -104,10 +104,6 @@ const router = createBrowserRouter([
     element: <CoordinatorStudents />,
   },
   {
-    path: 'coor_grades',
-    element: <CoordinatorGrades />,
-  },
-  {
     path: 'guidelines',
     element: <Guidelines />,
   },
@@ -142,6 +138,10 @@ const router = createBrowserRouter([
   {
     path: 'comp-interns',
     element: <CompanyInterns />,
+  },
+  {
+    path: 'coor_companies',
+    element: <CoordinatorCompanies />,
   },
 
 ]);
