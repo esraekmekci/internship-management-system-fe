@@ -174,21 +174,34 @@ import './CompanyStudents.css';
 
 function CompanyStudents() {
     var [currentUser, setCurrentUser] = useState({});
-    const [applications, setApplications] = useState([]);
+    //const [applications, setApplications] = useState([]);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [feedback, setFeedback] = useState("");
     const [showPopup, setShowPopup] = useState({ show: false, type: "", student: null });
+    const [applicationLetter, setApplicationLetter] = useState("");
+
+    const [applications, setApplications] = useState([
+        {
+            applicationId: 'app1',
+            studentName: 'John Doe',
+            applicationStatus: 'Pending',
+            pdfUrl: 'https://www.example.com/pdf/sample1.pdf' // This should be replaced with an actual URL
+        },
+        {
+            applicationId: 'app2',
+            studentName: 'Jane Smith',
+            applicationStatus: 'Reviewed',
+            pdfUrl: 'https://www.example.com/pdf/sample2.pdf' // This should be replaced with an actual URL
+        },
+        {
+            applicationId: 'app3',
+            studentName: 'Alice Johnson',
+            applicationStatus: 'Approved',
+            pdfUrl: 'https://www.example.com/pdf/sample3.pdf' // This should be replaced with an actual URL
+        }
+    ]);
 
     useEffect(() => {
-
-        // Örnek öğrenci verileri, her öğrenci için dosya URL'leri de eklenmiş
-        const sampleStudents = [
-            { id: 1, name: "XX", fileUrl: "https://example.pdf" },
-            { id: 2, name: "YY", fileUrl: "https://ornek.docx" },
-        ];
-        setStudents(sampleStudents);
-    }, []);
-
         const fetchCompany = async () => {
           try {
             const response = await GetWithAuth("/company/token/" + localStorage.getItem("tokenKey"));
@@ -218,7 +231,7 @@ function CompanyStudents() {
       fetchCompany();
      
         
-      };
+      }, []);
 
 
     const handleSelectStudent = (student) => {
@@ -234,9 +247,6 @@ function CompanyStudents() {
     };
 
     const confirmApproval = () => {
-
-        alert("Approved successfully");
-
         // Handle email sending logic here for approval
         evaluateApplicationLetter("approve");
         
@@ -251,26 +261,13 @@ function CompanyStudents() {
             alert("Please provide feedback for rejection.");
             return;
         }
-
         // Handle email sending logic here for rejection with feedback
         evaluateApplicationLetter("reject");
         alert("Rejection email sent with feedback.");
+        // Reset state
         setShowPopup({ show: false, type: "", student: null });
         setSelectedStudent(null);
         setFeedback("");
-    };
-
-    const renderFilePreview = (student) => {
-        if (!student.fileUrl) return null;
-        if (student.fileUrl.endsWith('.pdf')) {
-            return <embed src={student.fileUrl} type="application/pdf" width="100%" height="500px" />;
-        } else if (student.fileUrl.endsWith('.docx')) {
-            return (
-                <iframe src={`https://docs.google.com/gview?url=${encodeURIComponent(student.fileUrl)}&embedded=true`} 
-                        style={{ width: '100%', height: '500px' }} >
-                </iframe>
-            );
-        } 
     };
 
     const evaluateApplicationLetter = async (type) => {
@@ -315,9 +312,9 @@ function CompanyStudents() {
                         {selectedStudent === application && (
                             <div className="student-details">
                                 <h3>Application Letter</h3>
-
-                                {renderFilePreview(student)}
-                                <div style={{ display: 'flex' }}>
+                                <p>burda önizlemesi olacak</p>
+                                <iframe src={application.pdfUrl} title="Application Letter" className="pdf-preview" style={{ width: '100%', height: '500px' }}></iframe>
+                                <div style={{ display: 'flex' }}> 
                                     <button onClick={handleApprove}>Approve</button>
                                     <button onClick={handleReject}>Reject</button>
                                 </div>
@@ -348,6 +345,7 @@ function CompanyStudents() {
             )}
         </CompanyHome>
     );
+}
 
 export default CompanyStudents;
-*/
+
