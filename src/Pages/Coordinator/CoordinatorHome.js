@@ -9,6 +9,7 @@ import admin_icon from '../../Components/Assets/shield.png';
 import student_icon from '../../Components/Assets/studentbook.png';
 import grade_icon from '../../Components/Assets/grades.png';
 import announcement_icon from '../../Components/Assets/announcements.png';
+import loading_icon from '../../Components/Assets/loading.png';
 
 
 /*
@@ -19,6 +20,7 @@ Benimle çalışan kişi yaptıkça commentleri silmeyi unutma pls.
 
 const CoordinatorHome =({children}) => {
     var [currentUser, setCurrentUser] = useState({});
+    const [loading, setLoading] = useState(true);
     const [showDropdown, setShowDropdown] = useState({
       btn1: false,
       btn1_1: false,
@@ -54,16 +56,26 @@ const CoordinatorHome =({children}) => {
           } catch (error) {
               console.log(error);
               console.log("User not found");
+          } finally {
+              setLoading(false);
           }
       };
   
       const timeout = setTimeout(() => {
           fetchData();
-      }, 100); // 2 saniye bekleme süresi
+      }, 1);
   
-      return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
+      return () => clearTimeout(timeout);
   
     }, []);
+
+    if (loading) {
+      return (
+      <div className='loading-container'>
+        <img src={loading_icon} alt="loading" className="loading-img" />
+      </div>
+      )
+    }
   
     return (
       <div className="coordinatorhome-layout">
