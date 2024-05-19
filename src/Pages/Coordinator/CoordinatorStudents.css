@@ -68,17 +68,17 @@ html, body {
 }
 
 .student-details {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    margin-left: 350px; /* Align with the student list */
-    margin-right: 100px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 2; /* Ensure this appears above other elements */
+    margin-top: 20px !important;
+    padding: 15px !important;
+    background-color: #fff !important;
+    border: 1px solid #ddd !important;
+    margin-left: 350px !important; /* Align with the student list */
+    margin-right: 100px !important;
+    border-radius: 5px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    z-index: 2 !important; /* Ensure this appears above other elements */
 }
 
 .student-details h2 {
@@ -224,9 +224,6 @@ button.send-feedback:hover {
     border-radius: 3px;
 }
 
-.enter-grade-button:hover {
-    background-color: #FF8C00; 
-}
 
 .dropdown-menu {
     position: absolute;
