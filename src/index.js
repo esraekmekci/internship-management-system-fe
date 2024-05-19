@@ -78,6 +78,11 @@ const router = createBrowserRouter([
     element: <SecretaryHomeV2 />,
     children: [
       {
+        path: '',
+        element: '',
+      },
+
+      {
         path: 'settings',
         element: <SecretaryUserSettings />
       },

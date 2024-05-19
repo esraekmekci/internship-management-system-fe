@@ -6,16 +6,18 @@ export default function Header({ role }) {
       style={{
         width: "100vw",
         backgroundColor: "white",
-        boxShadow:
-          "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        flex: '0 0 auto',
+        border: '1px solid grey',
+        borderColor: 'rgb(226 232 240)',
+
       }}
     >
       <div
         style={{
-          maxWidth: "90vw",
+          maxWidth: "95vw",
           width: "inherit",
           margin: "0 auto",
-          padding: "8px 2px",
+          padding: "10px 4px",
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
