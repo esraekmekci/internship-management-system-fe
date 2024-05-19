@@ -31,6 +31,7 @@ import CompanyStudents from  './Pages/Company/CompanyStudents';
 import CompanyAnnouncements from  './Pages/Company/CompanyAnnouncements';
 import CompanyInterns from  './Pages/Company/CompanyInterns';
 import CoordinatorCompanies from './Pages/Coordinator/CoordinatorCompanies';
+import SecretaryHomeV2 from './Pages/Secretary/SecretaryHomeV2';
 
 
 
@@ -69,11 +70,19 @@ const router = createBrowserRouter([
   },
   {
     path: 'sec_home',
-    element: <SecretaryHome />,
+    element: <SecretaryHome />
+    
   },
   {
-    path: 'sec_settings',
-    element: <SecretaryUserSettings />,
+    path: 'secretary',
+    element: <SecretaryHomeV2 />,
+    children: [
+      {
+        path: 'settings',
+        element: <SecretaryUserSettings />
+      },
+
+    ]
   },
   {
     path: 'announcement',

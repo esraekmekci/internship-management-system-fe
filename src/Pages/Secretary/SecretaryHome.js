@@ -33,7 +33,7 @@ function SecretaryHome() {
         <img src={iyte_icon} alt="" className="iyte-logo" />
       </div>
       
-      <div className="sidebar">
+      <div className="sec-sidebar">
  
 
         {/* Button 1 */}
