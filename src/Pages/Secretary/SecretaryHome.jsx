@@ -11,7 +11,7 @@ import company_icon from "../../Components/Assets/company.png";
 import Header from "../../Components/Header";
 import Sidebar from "../../Components/Sidebar";
 
-export default function SecretaryHomeV2() {
+export default function SecretaryHome() {
   return (
     <div style={{ backgroundColor: "white", width: "100vw", height: "100vh" }}>
       <div style={{display: 'flex', flexDirection: 'column', height: '100vh' }}>

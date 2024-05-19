@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const tabs = [
   { name: "Secretary Actions", link: "" },
@@ -7,7 +8,7 @@ const tabs = [
 ];
 
 const subtabs = {
-  "Secretary Actions": [{ name: "Students", link: "" }],
+  "Secretary Actions": [{ name: "Students", link: "/secretary/students" }],
   "General Documents": [
     { name: "User Guide", link: "" },
     { name: "IZTECH Website", link: "" },
@@ -83,12 +84,12 @@ export default function Sidebar() {
                     cursor: "pointer",
                   }}
                 >
-                  <a href={subtab.link}>
+                  <Link to={subtab.link} style={{ textDecoration: "none", color: "inherit" }}>
                     <div style={{ display: "flex" }}>
                       <i className="material-icons">chevron_right</i>
                       {subtab.name}
                     </div>
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>

@@ -1,6 +1,9 @@
+import { useLocation } from "react-router-dom";
 import iyte_icon from "../Components/Assets/iyte-logo.png";
 
 export default function Header({ role }) {
+  const breadcrumb = useLocation().pathname.slice(1).split('/');
+  console.log(breadcrumb);
   return (
     <div
       style={{
@@ -31,8 +34,13 @@ export default function Header({ role }) {
             <a href="/home">
               <img src={iyte_icon} alt="iyte icon" width={"60px"} />
             </a>
-            <p style={{ color: "gray" }}>IZTECH IMS /</p>
-            <p style={{ color: "rgb(153 27 27)" }}>{role}</p>
+            <p style={{ color: "gray" }}>IZTECH IMS</p>
+            {breadcrumb.map((path) => (
+              <p>
+                <span style={{ color: "gray" }}> /</span>
+                <span style={{ color: "rgb(153 27 27)" }}> {path.charAt(0).toUpperCase() + path.slice(1)}</span>
+              </p>
+            ))}
           </div>
           <div></div>
         </div>

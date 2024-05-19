@@ -12,7 +12,6 @@ import Profile from './Pages/Profile';
 import Companies from './Pages/Companies'; 
 import ApplyInternship from './Pages/ApplyInternship';
 import UploadSummerPractice from './Pages/UploadSummerPractice';
-import SecretaryHome from './Pages/Secretary/SecretaryHome';
 import SecretaryUserSettings from './Pages/Secretary/SecretaryUserSettings';
 import Announcement from './Pages/Announcement'; 
 import Documents from './Pages/Documents';
@@ -31,7 +30,8 @@ import CompanyStudents from  './Pages/Company/CompanyStudents';
 import CompanyAnnouncements from  './Pages/Company/CompanyAnnouncements';
 import CompanyInterns from  './Pages/Company/CompanyInterns';
 import CoordinatorCompanies from './Pages/Coordinator/CoordinatorCompanies';
-import SecretaryHomeV2 from './Pages/Secretary/SecretaryHomeV2';
+import SecretaryHome from './Pages/Secretary/SecretaryHome';
+import Students from './Pages/Secretary/Students';
 
 
 
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'secretary',
-    element: <SecretaryHomeV2 />,
+    element: <SecretaryHome />,
     children: [
       {
         path: '',
@@ -86,6 +86,11 @@ const router = createBrowserRouter([
         path: 'settings',
         element: <SecretaryUserSettings />
       },
+
+      {
+        path: 'students',
+        element: <Students />
+      }
 
     ]
   },
