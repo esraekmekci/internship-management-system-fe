@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Guidelines.css';
 import CoordinatorHome from './CoordinatorHome';
 
@@ -6,73 +6,117 @@ function Guidelines() {
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState('');
     const [announcementMade, setAnnouncementMade] = useState(false);
+    const [uploadedFiles, setUploadedFiles] = useState([]);
+
+    /*
+    app.get('/coordinator/getUploadedGuidelines', (req, res) => {
+    });
+
+
+    app.delete('/coordinator/deleteGuideline/:filename', (req, res) => {
+        const filename = req.params.filename;
+    });
+
+    */
+
+    useEffect(() => {
+        // Fetch the list of uploaded files on component mount
+        fetchUploadedFiles();
+    }, []);
+
+    const fetchUploadedFiles = () => {
+        fetch('/coordinator/getUploadedGuidelines')
+            .then(response => response.json())
+            .then(data => {
+                setUploadedFiles(data);
+            })
+            .catch(error => {
+                console.error('Error fetching uploaded files:', error);
+            });
+    };
 
     const handleFileChange = event => {
         const file = event.target.files[0];
-        if (file && file.type === "application/pdf") {
+        if (file && file.type === 'application/pdf') {
             setFile(file);
             setPreview(URL.createObjectURL(file));
         } else {
-            alert("Please select a PDF file.");
+            alert('Please select a PDF file.');
             event.target.value = null;
         }
     };
 
     const handleAnnounce = () => {
         if (!file) {
-            alert("No file selected. Please choose a PDF file to announce.");
+            alert('No file selected. Please choose a PDF file to announce.');
             return;
         }
         const formData = new FormData();
         formData.append('file', file);
-    
+
         uploadGuideline(formData);
 
-        console.log("File uploaded:", file);
+        console.log('File uploaded:', file);
         setAnnouncementMade(true);
-        alert("Announcement successfully made.");
+        alert('Announcement successfully made.');
     };
 
-    const uploadGuideline = (formData) => {
-        fetch("/coordinator/uploadGuidelines", {
-          method: 'POST',
-          body: formData,
-          headers: {
-            // Don't set 'Content-Type': 'multipart/form-data',
-            // Fetch will set it automatically along with the boundary
-          }
+    const uploadGuideline = formData => {
+        fetch('/coordinator/uploadGuidelines', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                // Don't set 'Content-Type': 'multipart/form-data',
+                // Fetch will set it automatically along with the boundary
+            },
         })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
-          }
-          return response;
-        })
-        .then(result => {
-          console.log(result);
-          alert("Guideline uploaded successfully");
-          setFile(null);
-          //setFileName('Select file');
-        })
-        .catch(err => {
-          console.error("Error occurred:", err);
-          //alert("You already uploaded an application letter for this company.");
-        });
-      }
-  
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log(result);
+                alert('Guideline uploaded successfully');
+                setFile(null);
+                fetchUploadedFiles(); // Refresh the list of uploaded files
+            })
+            .catch(err => {
+                console.error('Error occurred:', err);
+            });
+    };
 
     const handleCancel = () => {
         setFile(null);
         setPreview('');
     };
 
-    const handleDelete = () => {
-        if (window.confirm("Are you sure you want to delete this guideline?")) {
-            setFile(null);
-            setPreview('');
-            setAnnouncementMade(false);
-            alert("Announcement deleted.");
+    const handleDelete = filename => {
+        if (window.confirm('Are you sure you want to delete this guideline?')) {
+            fetch(`/coordinator/deleteGuideline/${filename}`, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    console.log(result);
+                    alert('Guideline deleted successfully');
+                    fetchUploadedFiles(); // Refresh the list of uploaded files
+                })
+                .catch(err => {
+                    console.error('Error occurred:', err);
+                });
         }
+    };
+
+    const handleDeleteAnnouncement = () => {
+        setAnnouncementMade(false);
+        alert('Announcement deleted.');
     };
 
     return (
@@ -82,14 +126,33 @@ function Guidelines() {
                 <input type="file" accept=".pdf" onChange={handleFileChange} />
                 {file && (
                     <div>
-                        <button onClick={handleCancel} className="cancel-button">Cancel</button>
-                        <button onClick={handleDelete} className="delete-button">Delete Guideline</button>
+                        <button onClick={handleCancel} className="cancel-button">
+                            Cancel
+                        </button>
                         <h3>Preview:</h3>
                         <iframe src={preview} title="Document Preview" className="preview"></iframe>
                     </div>
                 )}
                 <button onClick={handleAnnounce}>Announce</button>
-                {announcementMade && <p>Announcement made.</p>}
+                {announcementMade && (
+                    <div>
+                        <p>Announcement made.</p>
+                        <button onClick={handleDeleteAnnouncement} className="delete-button">
+                            Delete Announcement
+                        </button>
+                    </div>
+                )}
+                <h3>Uploaded Files:</h3>
+                <ul>
+                    {uploadedFiles.map(file => (
+                        <li key={file}>
+                            <a href={`/uploads/${file}`} target="_blank" rel="noopener noreferrer">
+                                {file}
+                            </a>
+                            <button onClick={() => handleDelete(file)}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </CoordinatorHome>
     );
