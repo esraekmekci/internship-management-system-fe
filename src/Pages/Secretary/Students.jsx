@@ -46,6 +46,7 @@ export default function Students({ studentList = initialStudentList }) {
         padding: "10px 20px",
         width: "100%",
         borderRadius: "10px",
+        overflowY: "auto"
       }}
     >
       <div style={{ marginBottom: "5px", display: "flex", justifyContent: "space-between", paddingInline: "8px" }}>

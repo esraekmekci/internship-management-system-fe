@@ -37,7 +37,7 @@ export default function SecretaryHome() {
       <div style={{display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <Header role={"Secretary"} />
         <div
-          style={{ display: "flex", flexGrow: '1', backgroundColor: "white", overflowY: "auto"}}
+          style={{ display: "flex", flexGrow: '1', backgroundColor: "white", overflowY: "hidden"}}
         >
           <Sidebar tabs={tabs} subtabs={subtabs} />
           <Outlet />  {/*/secretary'nin child objeleri buraya geliyor. */}
