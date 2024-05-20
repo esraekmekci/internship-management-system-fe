@@ -42,15 +42,17 @@ function CoordinatorCompanies() {
   };
 
   const handleApprove = async (company , index) => {
-    await PutWithAuth(`/coordinator/approveCompanyAccount?companyId=${company.id}`);
-    alert(`Approved ${companies[index].name}`);
+    await PutWithAuth(`/coordinator/approveCompanyAccount?companyId=${company.companyid}`);
+    alert(`Approved ${company.name}`);
     setCompanies(companies.filter((_, i) => i !== index));
+    window.location.reload();
   };
 
   const handleReject = async (company, index) => {
-    await PutWithAuth(`/coordinator/rejectCompanyAccount?companyId=${company.id}`);
+    await PutWithAuth(`/coordinator/rejectCompanyAccount?companyId=${company.companyid}`);
     alert(`Rejected ${companies[index].name}`);
     setCompanies(companies.filter((_, i) => i !== index));
+    window.location.reload();
   };
 
   useEffect(() => {

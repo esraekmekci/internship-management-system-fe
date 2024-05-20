@@ -183,10 +183,10 @@ const Home =({children}) => {
               <Link to="/applications"  style={{textDecoration:"none", color:"black"}} >Applications</Link>
         </div>
 
-        <div className="sidebar-btn">
+        {/* <div className="sidebar-btn">
           <img src={company_icon} alt="Person" className="company" />         
               <Link to="/companies"  style={{textDecoration:"none", color:"black"}} >Companies</Link>             
-        </div>
+        </div> */}
 
         <div className="sidebar-btn">
           <img src={documents_icon} alt="Person" className="documents-icon" />         
@@ -199,38 +199,7 @@ const Home =({children}) => {
           <Link to="/documents"  style={{textDecoration:"none", color:"black"}}>Documents</Link>
         </div>
 
-        {/* Button 1 */}
-        <div
-          className="sidebar-btn"
-          onClick={() => toggleDropdown('btn1')}
-          //onMouseLeave={() => toggleDropdown('btn1')}
-        >
-          <img src={internship_icon} alt="Person" className="internship-icon" />
-          Internship Operations
-          {showDropdown.btn1 && (
-            <div className="dropdown-content">
-              <Link to="/apply" className="link-button">Apply for Internship</Link>
-              {/* <div
-                className="nested-dropdown"
-                onClick={() => toggleDropdown('btn1_1')}
-                //onMouseLeave={() => toggleDropdown('btn1_1')}
-              >
-              <Link to="/companies" className="link-button">Companies</Link>
-                
-              </div> */}
-              <div
-                className="nested-dropdown"
-                onMouseEnter={() => toggleDropdown('btn1_2')}
-                onMouseLeave={() => toggleDropdown('btn1_2')}
-              >
-                <Link to="" className="link-button">Upload Documents</Link>
-                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Application Form</div>}
-                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Summer Practice Report</div>}
-                {showDropdown.btn1_2 && <div className="mlink-button"> Upload Survey</div>}
-              </div>
-            </div>
-          )}
-        </div>
+
 
 
 

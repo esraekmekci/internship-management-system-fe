@@ -54,7 +54,7 @@ const CompanyHome =({children}) => {
   
       const timeout = setTimeout(() => {
           fetchData();
-      }, 100); 
+      }, 1); 
   
       return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
   

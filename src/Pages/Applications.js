@@ -161,7 +161,7 @@ function Applications() {
                     <button className='button' onClick={() => {showModal ? setShowModal(false) : setShowModal(true)}}>Send Application Form</button>
                   </div>
                 )}
-                {application.applicationStatus === "Application Form Pending for Company Edit" && (
+                {application.applicationStatus === "Application Form Sent to Company" && (
                   <div>
                     <button className='button' onClick={ () => downloadDocument("Letter")}>Show Application Letter</button>
                     <br />
