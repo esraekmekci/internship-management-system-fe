@@ -204,7 +204,9 @@ function CompanyInterns() {
                     </div>
                 ))
             ) : (
-                <p>No students with partially filled forms. Please check back later.</p>
+                <div className='announcement-section'>
+                    <p>No students with partially filled forms. Please check back later.</p>
+                </div>
             )}
         </CompanyHome>
     );
