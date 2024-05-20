@@ -32,6 +32,7 @@ import CompanyInterns from  './Pages/Company/CompanyInterns';
 import CoordinatorCompanies from './Pages/Coordinator/CoordinatorCompanies';
 import SecretaryHome from './Pages/Secretary/SecretaryHome';
 import Students from './Pages/Secretary/Students';
+import Settings from './Pages/Secretary/Settings';
 
 
 
@@ -69,11 +70,6 @@ const router = createBrowserRouter([
     element: <UploadSummerPractice />,
   },
   {
-    path: 'sec_home',
-    element: <SecretaryHome />
-    
-  },
-  {
     path: 'secretary',
     element: <SecretaryHome />,
     children: [
@@ -81,15 +77,13 @@ const router = createBrowserRouter([
         path: '',
         element: '',
       },
-
-      {
-        path: 'settings',
-        element: <SecretaryUserSettings />
-      },
-
       {
         path: 'students',
         element: <Students />
+      },
+      {
+        path: 'settings',
+        element: <Settings />
       }
 
     ]

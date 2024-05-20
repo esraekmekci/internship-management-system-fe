@@ -1,26 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const tabs = [
-  { name: "Secretary Actions", link: "" },
-  { name: "General Documents", link: "" },
-  { name: "General Settings", link: "" },
-];
 
-const subtabs = {
-  "Secretary Actions": [{ name: "Students", link: "/secretary/students" }],
-  "General Documents": [
-    { name: "User Guide", link: "" },
-    { name: "IZTECH Website", link: "" },
-  ],
-  "General Settings": [
-    { name: "User Settings", link: "" },
-    { name: "Help", link: "" },
-    { name: "Log out", link: "" },
-  ],
-};
-
-export default function Sidebar() {
+export default function Sidebar({ tabs, subtabs }) {
   const [expandedTabs, setExpandedTabs] = useState({});
 
   const handleTabClick = (tab) => {

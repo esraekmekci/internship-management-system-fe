@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './SecretaryUserSettings.css';
 import iyte_icon from '../../Components/Assets/iyte-logo.png';
 import user_icon from '../../Components/Assets/user.png';
 import settings_icon from '../../Components/Assets/settings.png';
