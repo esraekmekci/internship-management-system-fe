@@ -3,7 +3,6 @@ import iyte_icon from "../Components/Assets/iyte-logo.png";
 
 export default function Header({ role }) {
   const breadcrumb = useLocation().pathname.slice(1).split('/');
-  console.log(breadcrumb);
   return (
     <div
       style={{
