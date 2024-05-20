@@ -3,35 +3,26 @@ html, body {
     padding: 0;
     height: 100%;
     overflow-x: hidden;
+    font-family: Arial, sans-serif; 
+}
+
+.CoordinatorHome {
+    min-height: 100vh;
+    display: flex; 
+    flex-direction: column;
+}
+
+.student-list, .student-details, .alert {
+    margin-left: 350px !important;
+    margin-right: 100px !important;
 }
 
 .student-list {
     margin-top: 100px;
-    margin-left: 350px; /* Assuming sidebar width is 350px */
-    margin-right: 100px;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
     background-color: #f9f9f9;
-    position: relative;
-    z-index: 1; /* Ensure this appears below the student details view */
-}
-
-.send-feedback-button {
-    padding: 10px 20px;
-    margin-top: 20px;
-    margin-left: 0; /* Adjusted to start where student list starts */
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.send-feedback-button:hover {
-    background-color: #367B3A; 
 }
 
 .student-item {
@@ -64,21 +55,16 @@ html, body {
 }
 
 .student-item button:hover {
-    background-color: #136616;
+    background-color: #367B3A;
 }
 
 .student-details {
-    margin-top: 20px !important;
-    padding: 15px !important;
-    background-color: #fff !important;
-    border: 1px solid #ddd !important;
-    margin-left: 350px !important; /* Align with the student list */
-    margin-right: 100px !important;
-    border-radius: 5px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    position: relative !important;
-    z-index: 2 !important; /* Ensure this appears above other elements */
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    position: relative;
 }
 
 .student-details h2 {
@@ -86,168 +72,72 @@ html, body {
     color: #444;
 }
 
-.student-details div {
+.student-details .status-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 10px;
+}
+
+.student-details .status-container p {
+    margin: 0;
+}
+
+.student-details .status-container .download-button {
+    margin-left: 10px;
+}
+
+.student-details .action-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .student-details button {
     padding: 10px 15px;
-    margin-right: 10px;
     font-size: 14px;
     cursor: pointer;
     border: none;
     border-radius: 3px;
-    background-color: #008CBA;
-    color: white;
 }
 
-.student-details button:hover {
-    background-color: #005f6b;
+.student-details button.download-button {
+    background-color: #007BFF !important; 
 }
 
-.student-details button:last-child {
+.student-details button.download-button:hover {
+    background-color: #005f6b !important;
+}
+
+.student-details .approve-button {
+    background-color: #4CAF50;
+}
+
+.student-details .approve-button:hover {
+    background-color: #367B3A;
+}
+
+.student-details .reject-button {
     background-color: #ce1b1b;
 }
 
-.student-details button:last-child:hover {
+.student-details .reject-button:hover {
     background-color: #8a0909;
 }
 
 .alert {
     margin-top: 20px;
-    margin-left: 350px; /* Align with the student list */
-    margin-right: 100px;
     padding: 10px;
     background-color: #4CAF50; 
     color: white;
     text-align: center;
     border-radius: 3px;
     font-size: 16px;
-    position: relative;
-    z-index: 1; /* Ensure this appears below the student details view */
-}
-
-textarea {
-    margin-top: 10px;
-    margin-left: 350px; /* Align with the student list */
-    margin-right: 100px;
-    width: calc(100% - 472px); 
-    height: 50px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    position: relative;
-    z-index: 1; /* Ensure this appears below the student details view */
-}
-
-button.send-feedback {
-    margin-top: 2px;
-    background-color: #4CAF50;
-}
-
-button.send-feedback:hover {
-    background-color: #136616;
 }
 
 .student-underline {
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #000;
     margin-bottom: 20px;
     margin-top: 20px;
-}
-
-.CoordinatorHome {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.grade-popup {
-    position: fixed;
-    top: 50%;
-    left: calc(350px + 50%); /* Adjusted to align with the student list */
-    transform: translateX(-50%);
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.confirmation-popup {
-    position: fixed;
-    top: 50%;
-    left: calc(350px + 50%); /* Adjusted to align with the student list */
-    transform: translateX(-50%);
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.confirm-button, .cancel-button {
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.confirm-button:hover, .cancel-button:hover {
-    background-color: #367B3A;
-}
-
-.confirm-button {
-    background-color: #4CAF50;
-}
-
-.cancel-button {
-    background-color: #f44336;
-}
-
-.cancel-button:hover {
-    background-color: #d32f2f;
-}
-
-.enter-grade-button {
-    padding: 10px 15px;
-    font-size: 14px;
-    cursor: pointer;
-    background-color: #FFA500; 
-    color: white;
-    border: none;
-    border-radius: 3px;
-}
-
-
-.dropdown-menu {
-    position: absolute;
-    left: 350px; /* Align with the start of the student list */
-    top: 0; /* Adjust based on where you want the dropdown to start vertically */
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure this appears above other elements */
-    width: calc(100% - 450px); /* Adjust based on sidebar width */
-}
-
-.dropdown-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.dropdown-menu li {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-.dropdown-menu li:hover {
-    background-color: #f0f0f0;
 }
