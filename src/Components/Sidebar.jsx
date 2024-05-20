@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 export default function Sidebar({ tabs, subtabs }) {
   const [expandedTabs, setExpandedTabs] = useState({});
 
@@ -51,28 +50,31 @@ export default function Sidebar({ tabs, subtabs }) {
           {expandedTabs[tab.name] && (
             <div style={{}}>
               {subtabs[tab.name].map((subtab) => (
-                <div
-                  key={subtab.name}
-                  className="sidebar-item"
-                  style={{
-                    padding: "5px 20px",
-                    fontWeight: "500",
-                    borderRadius: "8px",
-                    opacity: expandedTabs[tab.name] ? 1 : 0,
-                    transform: expandedTabs[tab.name]
-                      ? "translateY(0)"
-                      : "translateY(-10px)",
-                    transition: "0.2s",
-                    cursor: "pointer",
-                  }}
+                <Link
+                  to={subtab.link}
+                  style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <Link to={subtab.link} style={{ textDecoration: "none", color: "inherit" }}>
+                  <div
+                    key={subtab.name}
+                    className="sidebar-item"
+                    style={{
+                      padding: "5px 20px",
+                      fontWeight: "500",
+                      borderRadius: "8px",
+                      opacity: expandedTabs[tab.name] ? 1 : 0,
+                      transform: expandedTabs[tab.name]
+                        ? "translateY(0)"
+                        : "translateY(-10px)",
+                      transition: "0.2s",
+                      cursor: "pointer",
+                    }}
+                  >
                     <div style={{ display: "flex" }}>
                       <i className="material-icons">chevron_right</i>
                       {subtab.name}
                     </div>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               ))}
             </div>
           )}
