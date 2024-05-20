@@ -33,9 +33,11 @@ const LoginSignup = () => {
     const [showPopupForStudent, setShowPopupForStudent] = useState(localStorage.getItem('showPopupForStudent') !== 'false');
     const [checkbox1, setCheckbox1] = useState(false);
     const [checkbox2, setCheckbox2] = useState(false);
+    const [showKVKKPopupForCompany, setShowKVKKPopupForCompany] = useState(false);
+
 
     const [stID, setStudentID] = useState("");
-    const [action,setAction] = useState("Sign Up as Company");
+    const [action,setAction] = useState("Login");
     const navigate = useNavigate();
 
     const handleEmailChange = (event) => {
@@ -44,20 +46,23 @@ const LoginSignup = () => {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (role === "COMPANY" && action === "Sign Up as Company"){
-            registerAsCompany();
+        if (role === "COMPANY" && action === "Sign Up as Company") {
+            if (!showKVKKPopupForCompany) {
+                setShowKVKKPopupForCompany(true);
+            } else {
+                registerAsCompany();
+            }
         }
-        else if (role === "STUDENT"){
+        else if (role === "STUDENT") {
             if (showPopupForStudent) {
                 setShowCheckboxPopup(true);
-            }
-            else{
+            } else {
                 login();
             }
-        }
-        else{
+        } else {
             login();
         }
     };
@@ -85,6 +90,19 @@ const LoginSignup = () => {
     const handleInternshipTypeChange = (event) => {
         setInternshipType(event.target.value);
     };
+    const handleRoleChange = (newRole) => {
+        setRole(newRole);
+        setEmail('');
+        setPassword('');
+        setCompName('');
+        setCompRepName('');
+        setCompAddress('');
+        setFoundationYear('');
+        setEmployeeSize('');
+        setInternshipType('');
+        setStudentID('');
+    };
+    
     
     const login = () => {
         PostWithoutAuth(("/auth/login"), {
@@ -196,7 +214,7 @@ const LoginSignup = () => {
             <img src={iyte_icon} alt="" className="iyte-logo" /><b>IZTECH IMS</b>
             <div className="top-bar-container" style={{ right: '0',marginLeft:'auto'}}>
                 {roles.map((r) => (
-                    <button key={r} className={role === r ? "active" : ""} onClick={() => setRole(r)}  >
+                    <button key={r} className={role === r ? "active" : ""} onClick={() => handleRoleChange(r)}  >
                         {r.charAt(0).toUpperCase() + r.slice(1).toLowerCase()}
                     </button>
                 ))}
@@ -274,18 +292,41 @@ const LoginSignup = () => {
                             <div className="popup">
                                 <h3>KVKK</h3>
                                 <div style={{ textAlign: 'left', maxHeight: '200px', overflowY: 'auto' }}>
-                                    KVKK metni buraya gelecek.
-                                    KVKK metni buraya gelecek.
-                                    ssıkıcı yazılar falan.
-                                    KVKK metni buraya gelecek.
-                                    KVKK metni buraya gelecek.3131313131 
-                                    KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.
-                                    KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.
-                                    KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.
-                                    KVKK metni buraya gelecek.KVKK metni buraya gelecek.KVKK metni buraya gelecek.
+                                In accordance with the Law on the Protection of Personal Data No. 6698 ("KVKK"), we inform you about the purposes of processing your personal data, the legal reasons, the methods of collecting data, and your rights regarding your personal data.
+                                <br></br>
+                                1. Data Controller<br></br>
+                                The data controller is Internship Management System.<br></br>
+                                
+                                2. Purposes of Data Processing<br></br>
+                                Your personal data will be processed for the following purposes:
+                                To manage and provide the services of the Internship Management System
+                                To communicate with users
+                                To improve our services
+                                To fulfill legal obligations<br></br>
+
+                                3. Legal Basis for Data Processing<br></br>
+                                Your personal data is processed based on the following legal grounds:
+                                Your explicit consent
+                                The necessity for the performance of a contract
+                                Compliance with legal obligations<br></br>
+
+                                4. Methods of Collecting Personal Data<br></br>
+                                Your personal data is collected through:
+                                Information you provide during registration and use of the system
+                                Automatic data collection methods when using our platform<br></br>
+
+                                5. Your Rights<br></br>
+                                In accordance with KVKK, you have the following rights:
+                                To learn whether your personal data is processed
+                                To request information about data processing
+                                To request the correction of inaccurate data
+                                To request the deletion or destruction of your personal data
+                                To object to processing under certain conditions<br></br><br></br>
+
+                                By accepting this notice, you acknowledge that you have read, understood, and consent to the processing of your personal data as described above.
                                 </div>
                                 <div className="popup-buttons">
-                                    <button onClick={() => setShowKVKKPopup(false)}>Kapat</button>
+                                    <button onClick={() => setShowKVKKPopup(false)}>Close</button>
                                 </div>
                             </div>
                         )}
@@ -369,7 +410,6 @@ const LoginSignup = () => {
                                             required
                                         />
                                     </div>
-                                    
                                 </div>
                                 }
 
@@ -403,6 +443,86 @@ const LoginSignup = () => {
                                     <button className={action === "Login"?"submit gray":"submit"} onClick={handleAction}><span className="submitspan">Sign Up</span></button>
                                     <button className={action === "Sign Up as Company"?"submit gray":"submit"} onClick={handleAction}><span className="submitspan">Login</span></button>
                                 </div>
+
+
+                                {showKVKKPopupForCompany && (
+                                    <div className="popup">
+                                        <h3>Please accept the terms and conditions</h3>
+                                        <div style={{ textAlign: 'left' }}>
+                                            <input
+                                                type="checkbox"
+                                                id="checkbox1"
+                                                checked={checkbox1}
+                                                onChange={handleCheckbox1Change}
+                                            />
+                                            <label htmlFor="checkbox1">"I agree to the Terms of Service and the Terms of Use.</label>
+                                        </div>
+                                        <br />
+                                        <div style={{ textAlign: 'left' }}>
+                                            <input
+                                                type="checkbox"
+                                                id="checkbox2"
+                                                checked={checkbox2}
+                                                onChange={handleCheckbox2Change}
+                                            />
+                                            <label htmlFor="checkbox2">I have read and approve the 
+                                                <span onClick={() => setShowKVKKPopupForCompany(true)} style={{ color: 'blue', cursor: 'pointer' }}> KVKK</span>
+                                            .</label>
+                                        </div>
+                                        <div className="popup-buttons">
+                                            <button onClick={handlePopupSubmit}>Confirm</button>
+                                            <button onClick={() => setShowKVKKPopupForCompany(false)}>Cancel</button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {showKVKKPopup && (
+                                    <div className="popup">
+                                        <h3>KVKK</h3>
+                                        <div style={{ textAlign: 'left', maxHeight: '200px', overflowY: 'auto' }}>
+                                            In accordance with the Law on the Protection of Personal Data No. 6698 ("KVKK"), we inform you about the purposes of processing your personal data, the legal reasons, the methods of collecting data, and your rights regarding your personal data.
+                                            <br></br>
+                                            1. Data Controller<br></br>
+                                            The data controller is Internship Management System.<br></br>
+                                            
+                                            2. Purposes of Data Processing<br></br>
+                                            Your personal data will be processed for the following purposes:
+                                            To manage and provide the services of the Internship Management System
+                                            To communicate with users
+                                            To improve our services
+                                            To fulfill legal obligations<br></br>
+
+                                            3. Legal Basis for Data Processing<br></br>
+                                            Your personal data is processed based on the following legal grounds:
+                                            Your explicit consent
+                                            The necessity for the performance of a contract
+                                            Compliance with legal obligations<br></br>
+
+                                            4. Methods of Collecting Personal Data<br></br>
+                                            Your personal data is collected through:
+                                            Information you provide during registration and use of the system
+                                            Automatic data collection methods when using our platform<br></br>
+
+                                            5. Your Rights<br></br>
+                                            In accordance with KVKK, you have the following rights:
+                                            To learn whether your personal data is processed
+                                            To request information about data processing
+                                            To request the correction of inaccurate data
+                                            To request the deletion or destruction of your personal data
+                                            To object to processing under certain conditions<br></br><br></br>
+
+                                            By accepting this notice, you acknowledge that you have read, understood, and consent to the processing of your personal data as described above.
+                                        </div>
+                                        <div className="popup-buttons">
+                                            <button onClick={() => setShowKVKKPopupForCompany(false)}>Close</button>
+                                        </div>
+                                    </div>
+                                )}
+
+
+
+
+
                             </form>
                         </div>
                       ) :

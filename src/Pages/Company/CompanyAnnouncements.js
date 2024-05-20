@@ -168,9 +168,8 @@ function CompanyAnnouncement() {
                 <button onClick={() => toggleDropdown('newAnn')} style={{ display: 'block' }}>New Announcement</button>
                 {showDropdown.newAnn && (
                     <div className="new-announcement-form">
-                        <input type="text" placeholder="Title" value={newTitle} style={{ marginLeft: '10px' }} onChange={handleNewTitleChange} />
-                        <textarea placeholder="Description" value={newDescription} style={{ marginLeft: '10px' }} onChange={handleNewDescriptionChange}></textarea>
-                        <input type="file" onChange={handleFileChange} style={{ margin: '10px' }}/>
+                        <input className='input-title' type="text" placeholder="Enter Announcement Title" value={newTitle} style={{ marginLeft: '10px' }} onChange={handleNewTitleChange} /><br></br>
+                        <textarea className='textarea-description' placeholder="Enter Announcement Description" value={newDescription} style={{ marginLeft: '10px' }} onChange={handleNewDescriptionChange}></textarea>
                         <button onClick={handleNewAnnouncement} style={{ margin: '10px' }}>Enter</button>
                         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                     </div>
@@ -180,9 +179,11 @@ function CompanyAnnouncement() {
             {showPopup && (
                 <div className="popup">
                     <h2>Confirm New Announcement</h2>
+
+                    <div style={{ textAlign: 'left', overflowY: 'auto',maxHeight:'350px' }}>
                     <p>Title: {newTitle}</p>
                     <p>Description: {newDescription}</p>
-                    {newFile && <p>File: {newFile.name}</p>}
+                    </div>
                     <div style={{ display:'flex',justifyContent:'flex-end'}}>
                     <button onClick={confirmNewAnnouncement}>Yes</button>
                     <button onClick={() => setShowPopup(false)}>No</button>
