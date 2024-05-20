@@ -69,7 +69,7 @@ export default function Sidebar({ tabs, subtabs }) {
                       cursor: "pointer",
                     }}
                   >
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
                       <i className="material-icons">chevron_right</i>
                       {subtab.name}
                     </div>
