@@ -244,3 +244,11 @@ button {
 .download-button:hover {
   background-color: #0056b3;
 }
+
+.v2-button-bg {
+  background-color: rgb(153 27 27) !important;
+}
+
+.v2-button-bg:hover {
+  background-color: rgb(185 27 27) !important;
+}

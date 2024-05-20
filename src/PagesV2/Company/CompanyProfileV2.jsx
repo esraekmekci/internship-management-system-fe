@@ -8,8 +8,7 @@ function CompanyProfileV2() {
   const [userEmail, setUserEmail] = useState('-'); // Example user email, replace with dynamic data
 
   return (
-    <CompanyHome>
-      <div className="announcement-section" style={{marginTop:'60px'}}>
+      <div className="" style={{ width: "100%", padding: "20px 40px" }}>
         <div className="profile-section">
             <img src={profile_icon} alt="" className="profile-icon" />
             <h2>Company Profile</h2>
@@ -33,7 +32,6 @@ function CompanyProfileV2() {
         
         </div>
       </div>
-    </CompanyHome>
   );
 }
 

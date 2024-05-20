@@ -149,8 +149,8 @@ function CompanyInternsV2() {
       }
 
     return (
-        <CompanyHome>
-            <div className="announcement-section" style={{ marginTop: '60px' }}>
+        <div style={{width: "100%", padding: "20px 40px"}}>
+            <div className="" style={{  }}>
                 <h1>My Interns</h1>
             </div>
             {interns.length > 0 ? (
@@ -206,7 +206,7 @@ function CompanyInternsV2() {
             ) : (
                 <p>No students with partially filled forms. Please check back later.</p>
             )}
-        </CompanyHome>
+        </div>
     );
 }
 

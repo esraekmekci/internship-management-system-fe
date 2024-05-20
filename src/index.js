@@ -231,11 +231,11 @@ const router = createBrowserRouter([
   },
   {
     path: "company",
-    element: "",
+    element: <CompanyHomeV2 />,
     children: [
       {
         path: "",
-        element: <CompanyHomeV2 />,
+        element: "",
       },
       {
         path: "announcements",
@@ -253,6 +253,10 @@ const router = createBrowserRouter([
         path: "interns",
         element: <CompanyInternsV2 />,
       },
+      {
+        path: "profile",
+        element: <CompanyProfileV2 />
+      }
     ],
   },
 

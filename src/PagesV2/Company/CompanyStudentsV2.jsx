@@ -114,8 +114,8 @@ function CompanyStudentsV2() {
     }
 
     return (
-        <CompanyHomeV2>
-            <div className="announcement-section" style={{ marginTop: '60px' }}>
+        <div>
+            <div className="" style={{ padding: "20px 40px" }}>
                 <h1>Students</h1>
             </div>
             <div>
@@ -158,7 +158,7 @@ function CompanyStudentsV2() {
                     )}
                 </div>
             )}
-        </CompanyHomeV2>
+        </div>
     );
 }
 
