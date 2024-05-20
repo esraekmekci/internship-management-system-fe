@@ -158,8 +158,8 @@ export default function ApplicationsV2() {
   };
 
   return (
-    <Home>
-      <div className="announcement-section" style={{ marginTop: "60px" }}>
+    <div className="w-full-padding">
+      <div className="" style={{  }}>
         <h1>Applications</h1>
       </div>
 
@@ -288,6 +288,6 @@ export default function ApplicationsV2() {
           </div>
         ))}
       </div>
-    </Home>
+    </div>
   );
 }

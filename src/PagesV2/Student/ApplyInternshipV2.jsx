@@ -52,8 +52,8 @@ export default function ApplyInternshipV2() {
   };
 
   return (
-    <Home>
-      <div className="announcement-section" style={{ marginTop: "60px" }}>
+    <div className="w-full-padding">
+      <div>
         <h3>Companies</h3>
         <div className="companies-list">
           {companies.map((company) => (
@@ -85,6 +85,6 @@ export default function ApplyInternshipV2() {
           ))}
         </div>
       </div>
-    </Home>
+    </div>
   );
 }

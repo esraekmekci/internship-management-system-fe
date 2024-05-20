@@ -193,11 +193,11 @@ const router = createBrowserRouter([
   },
   {
     path: "student",
-    element: "",
+    element: <HomeV2 />,
     children: [
       {
         path: "",
-        element: <HomeV2 />,
+        element: "",
       },
       {
         path: "apply",
