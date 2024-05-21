@@ -155,50 +155,52 @@ function CompanyInterns() {
             </div>
             {interns.length > 0 ? (
                 interns.map((intern) => (
-                    <div key={intern.studentId} className="announcement-section" onClick={() => handleSelectIntern(intern)}>
+                    <div key={intern.studentId} className="announcement-section" onClick={() => handleSelectIntern(intern)} style={{ cursor: 'pointer' }}>
                         <h2>{intern.studentName}<span style={{ float: 'right', fontSize: '15px' }}>Status: {intern.applicationStatus}</span></h2>
                         {selectedIntern === intern && (
                             <div>
                                 <button onClick={downloadForm}>Download Form</button><br />
-                                <div>
-                                    <button onClick={handleUploadClick}>Upload Form</button>
-                                    {uploading && (
-                                        <div className="modal">
-                                        <form onSubmit={handleSubmitUpload}>
-                                        <div className="modal-content">
-                                            <div className="modal-buttons-container">
-                                            <div>
-                                            <label htmlFor="fileInput" className='button' style={{ 
-                                                background: '#4CAF50',
-                                                color: 'white',
-                                                padding: '10px 20px',
-                                                width: '20%',
-                                                cursor:'pointer',
-                                                borderRadius:'4px'
-                                            }}>
-                                                Choose Application Form
-                                                <input type="file" id="fileInput" style={{ display: 'none' }} accept=".docx, .doc, .pdf" onChange={handleFileChange} />
-                                            </label>
-                                            {fileName && <span style={{ marginLeft: '10px' }} className="file-name">{fileName}</span>} {/* Dosya adını göster */}
+                                {intern.applicationStatus === "Application Form Sent to Company" && (
+                                    <div>
+                                        <button onClick={handleUploadClick}>Upload Form</button>
+                                        {uploading && (
+                                            <div className="modal">
+                                                <form onSubmit={handleSubmitUpload}>
+                                                    <div className="modal-content">
+                                                        <div className="modal-buttons-container">
+                                                            <div>
+                                                                <label htmlFor="fileInput" className='button' style={{ 
+                                                                    background: '#4CAF50',
+                                                                    color: 'white',
+                                                                    padding: '10px 20px',
+                                                                    width: '20%',
+                                                                    cursor:'pointer',
+                                                                    borderRadius:'4px'
+                                                                }}>
+                                                                    Choose Application Form
+                                                                    <input type="file" id="fileInput" style={{ display: 'none' }} accept=".docx, .doc, .pdf" onChange={handleFileChange} />
+                                                                </label>
+                                                                {fileName && <span style={{ marginLeft: '10px' }} className="file-name">{fileName}</span>} {/* Dosya adını göster */}
+                                                            </div>
+                                                            <label className='button' style={{
+                                                                background: '#4CAF50',
+                                                                color: 'white',
+                                                                padding: '10px 20px',
+                                                                width: '4%',
+                                                                cursor:'pointer',
+                                                                borderRadius:'4px',
+                                                                float:'right'
+                                                            }}>
+                                                                Send
+                                                                <input type='submit' style={{ display: 'none' }}/>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            <label className='button' style={{
-                                                background: '#4CAF50',
-                                                color: 'white',
-                                                padding: '10px 20px',
-                                                width: '4%',
-                                                cursor:'pointer',
-                                                borderRadius:'4px',
-                                                float:'right'
-                                            }}>
-                                                Send
-                                                <input type='submit' style={{ display: 'none' }}/>
-                                            </label>
-                                            </div>
-                                        </div>
-                                        </form>
+                                        )}
                                     </div>
-                                    )}
-                                </div>
+                                )}
                             </div>
                         )}
                     </div>

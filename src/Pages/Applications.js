@@ -95,8 +95,8 @@ function Applications() {
         return;
       }
       
-      if (!(fileName.endsWith('.docx') || fileName.endsWith('.doc') || fileName.endsWith('.pdf'))) {
-        alert('Please select a word/pdf file!');
+      if (!(fileName.endsWith('.docx') || fileName.endsWith('.doc'))) {
+        alert('Please select a word file!');
         return;
       }
     
@@ -186,7 +186,7 @@ function Applications() {
                       borderRadius:'4px'
                     }}>
                       Choose Application Form
-                      <input type="file" id="fileInput" style={{ display: 'none' }} accept=".docx, .doc, .pdf" onChange={handleFileChange} />
+                      <input type="file" id="fileInput" style={{ display: 'none' }} accept=".docx, .doc" onChange={handleFileChange} />
                     </label>
                     {fileName && <span style={{ marginLeft: '10px' }} className="file-name">{fileName}</span>} {/* Dosya adını göster */}
                     </div>

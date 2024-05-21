@@ -1,36 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import CompanyHome from './CompanyHome';
 import profile_icon from '../../Components/Assets/profile-picture.png';
 import { GetWithAuth } from "../../Services/HttpService.js"; 
 
 function CompanyProfile() {
-  const [currentUser, setCurrentUser] = useState({
-    companyName: '-',
-    email: '-',
-    address: '-',
-    foundationYear: '-',
-    employeeSize: '-'
-  });
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await GetWithAuth("/company/profile/" + localStorage.getItem("tokenKey"));
-        if (response.ok) {
-          const data = await response.json();
-          setCurrentUser({
-            companyName: data.companyName,
-            email: data.email,
-            address: data.address,
-            foundationYear: data.foundationYear,
-            employeeSize: data.employeeSize
-          });
-        } else {
-          throw new Error('Failed to fetch company profile');
-        }
+        const response = await GetWithAuth("/company/token/" + localStorage.getItem("tokenKey"));
+        const result = await response.json();
+        setCurrentUser(result);
       } catch (error) {
-        console.error('Error fetching company profile:', error);
+        console.log(error);
         console.log("User not found");
       }
     };
@@ -45,19 +28,27 @@ function CompanyProfile() {
           <img src={profile_icon} alt="Profile Icon" className="profile-icon" />
           <h2>Company Profile</h2>
           <div className="profile-item">
-            <label>Company Name: <div>{currentUser.companyName}</div></label>
+            <label><b>Company Name:</b> {currentUser.companyName}</label>
           </div>
+          <br />
           <div className="profile-item">
-            <label>Company Email:<div>{currentUser.email}</div></label>
+            <label><b>Company Email:</b> {currentUser.email}</label>
           </div>
+          <br />
           <div className="profile-item">
-            <label>Company Address:<div>{currentUser.address}</div></label>
+            <label><b>Company Representative Name:</b> {currentUser.name}</label>
           </div>
+          <br />
           <div className="profile-item">
-            <label>Foundation Year:<div>{currentUser.foundationYear}</div></label>
+            <label><b>Company Address:</b> {currentUser.companyAddress}</label>
           </div>
+          <br />
           <div className="profile-item">
-            <label>Employee Size:<div>{currentUser.employeeSize}</div></label>
+            <label><b>Foundation Year:</b> {currentUser.foundationYear}</label>
+          </div>
+          <br />
+          <div className="profile-item">
+            <label><b>Employee Size:</b> {currentUser.employeeSize}</label>
           </div>
         </div>
       </div>
