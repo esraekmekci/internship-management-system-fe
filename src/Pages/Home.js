@@ -10,10 +10,12 @@ import admin_icon from '../Components/Assets/shield.png';
 import company_icon from '../Components/Assets/company.png';
 import announcements_icon from '../Components/Assets/announcements.png';
 import Announcement from './Announcement.js';
+import loading_gif from '../Components/Assets/loading.gif';
 
 
 const Home =({children}) => {
   var [currentUser, setCurrentUser] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const content = children || <Announcement/>;
   
@@ -55,6 +57,8 @@ const Home =({children}) => {
       } catch (error) {
         console.log(error);
         console.log("User not found");
+      } finally {
+        setLoading(false);
       }
     };
     
@@ -68,7 +72,13 @@ const Home =({children}) => {
     
   }, []);
 
-
+  if (loading) {
+    return (
+    <div className='loading-container'>
+      <img src={loading_gif} alt="loading" className="loading-img" />
+    </div>
+    )
+  }
   
   return (
     <div className="home-layout">

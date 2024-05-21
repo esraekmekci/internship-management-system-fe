@@ -8,9 +8,11 @@ import admin_icon from '../../Components/Assets/shield.png';
 import student_icon from '../../Components/Assets/studentbook.png';
 import grade_icon from '../../Components/Assets/grades.png';
 import announcement_icon from '../../Components/Assets/announcements.png';
+import loading_gif from '../../Components/Assets/loading.gif';
 
 const CompanyHome =({children}) => {
     var [currentUser, setCurrentUser] = useState({});
+    const [loading, setLoading] = useState(true);
     const [showDropdown, setShowDropdown] = useState({
       btn1: false,
       btn1_1: false,
@@ -49,6 +51,8 @@ const CompanyHome =({children}) => {
           } catch (error) {
               console.log(error);
               console.log("User not found");
+          } finally {
+            setLoading(false);
           }
       };
   
@@ -59,6 +63,14 @@ const CompanyHome =({children}) => {
       return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
   
     }, []);
+
+    if (loading) {
+      return (
+      <div className='loading-container'>
+        <img src={loading_gif} alt="loading" className="loading-img" />
+      </div>
+      )
+    }
   
     return (
       <div className="home-layout">

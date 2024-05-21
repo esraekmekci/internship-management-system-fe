@@ -73,7 +73,7 @@ function Documents() {
 
     //backend duzenlenince degisecek
     const downloadGuideline = () => {
-      fetch("/student/" + currentUser.studentID + "/downloadSGKDocument", {
+      fetch("/coordinator/downloadGuideline", {
         method: 'GET',
       })
       .then(response => {
