@@ -26,11 +26,12 @@ const LoginSignup = () => {
     const [foundationYear, setFoundationYear] = useState("");
     const [employeeSize, setEmployeeSize] = useState("");
     const [internshipType, setInternshipType] = useState("");
+
+    const [token, setToken] = useState("");
     
 
     const [showCheckboxPopup , setShowCheckboxPopup ] = useState(false);
     const [showKVKKPopup , setShowKVKKPopup  ] = useState(false);
-    const [showPopupForStudent, setShowPopupForStudent] = useState(localStorage.getItem('showPopupForStudent') !== 'false');
     const [checkbox1, setCheckbox1] = useState(false);
     const [checkbox2, setCheckbox2] = useState(false);
     const [showKVKKPopupForCompany, setShowKVKKPopupForCompany] = useState(false);
@@ -56,18 +57,10 @@ const LoginSignup = () => {
                 registerAsCompany();
             }
         }
-        else if (role === "STUDENT") {
-            if (showPopupForStudent) {
-                setShowCheckboxPopup(true);
-            } else {
-                login();
-            }
-        } else {
+        else {
             login();
         }
     };
-    
-
     
     const handleStudentIDChange = (event) => {
         setStudentID(event.target.value);
@@ -115,8 +108,12 @@ const LoginSignup = () => {
             if (res.token) {
                 localStorage.setItem("tokenKey", res.token);
                 if (res.authorities.includes("STUDENT")) {
-                    alert(`Logging in as a ${role} with student ID: ${stID}`);
-                    navigate("/home"); 
+                    setToken(res.token);
+                    setShowCheckboxPopup(!res.registered);
+                    if (res.registered) {
+                        alert(`Logging in as a ${role} with student ID: ${stID}`);
+                        navigate("/home");
+                    }
                 } 
                 else if (res.authorities.includes("SECRETARY")){
                     alert(`Logging in as a ${role} with email: ${email}`);
@@ -146,22 +143,39 @@ const LoginSignup = () => {
             }
         })
     }
+
+    const handlePopupSubmit = () => {
+        if ((role === "STUDENT") && checkbox1 && checkbox2) {
+            //setShowCheckboxPopup(false);
+            alert(`Logging in as a ${role} with student ID: ${stID}`);
+            localStorage.setItem("tokenKey", token);
+            navigate("/home");
+        } 
+        else if (role === "COMPANY" && checkbox1 && checkbox2) {
+            setShowKVKKPopupForCompany(false);
+            setTimeout(() => {
+                registerAsCompany();
+            }, 100);
+            setEmail("");
+            setPassword("");
+            setCompName("");
+            setCompAddress("");
+            setFoundationYear("");
+            setEmployeeSize("");
+            setCompRepName("");
+            setInternshipType("");
+        }
+        else {
+            alert('Please check both checkboxes before proceeding.');
+        }
+    };
+    
     const handleCheckbox1Change = (event) => {
         setCheckbox1(event.target.checked);
     };
 
     const handleCheckbox2Change = (event) =>{
         setCheckbox2(event.target.checked);
-    };
-
-    const handlePopupSubmit = () => {
-        if (checkbox1 && checkbox2) {
-            localStorage.setItem('showPopupForStudent', 'false');
-            setShowCheckboxPopup(false);
-            login();
-        } else {
-            alert('Please check both checkboxes before proceeding.');
-        }
     };
 
     const registerAsCompany = () => {
@@ -173,12 +187,13 @@ const LoginSignup = () => {
             name : compRepName,
             email : email, 
             password : password,
-            role : role
+            role : role,
+            internshipType : internshipType
           })
           .then((res) => res.json())
           .then((res) => {
             if (res.token) {
-                localStorage.setItem("tokenKey", res.token);
+                console.log(internshipType);
                 alert(`Registration as ${compName} is successful. Waiting for the approval of the internship committee coordinator.`);
             }
         })
@@ -196,15 +211,6 @@ const LoginSignup = () => {
         } else if (action === "Sign Up as Company" && event.target.innerText === "Login") {
             setAction("Login");
         }
-        setTimeout(() => {
-            setEmail("");
-            setPassword("");
-            setCompName("");
-            setCompAddress("");
-            setFoundationYear("");
-            setEmployeeSize("");
-            setCompRepName("");
-        }, 1000);
     }
 
 
@@ -382,11 +388,17 @@ const LoginSignup = () => {
                                     </div>
                                     <div className="input-container">
                                         <img src={internTypeIcon} style={{height:'28px'}} alt="Internship Type" />
-                                        <select className="selectInternshipType" required defaultValue="">
-                                            <option value="" onChange={handleInternshipTypeChange}>Internship Type</option>
-                                            <option value={internshipType} onChange={handleInternshipTypeChange}>Hybrid</option>
-                                            <option value={internshipType} onChange={handleInternshipTypeChange}>Remote</option>
-                                            <option value={internshipType} onChange={handleInternshipTypeChange}>On-Site</option>
+                                        <select 
+                                            className="selectInternshipType" 
+                                            required 
+                                            value={internshipType} 
+                                            onChange={handleInternshipTypeChange}
+                                            defaultValue=""
+                                        >
+                                            <option value="" disabled>Internship Type</option>
+                                            <option value="Hybrid">Hybrid</option>
+                                            <option value="Remote">Remote</option>
+                                            <option value="On-Site">On-Site</option>
                                         </select>
                                     </div>
                                     
