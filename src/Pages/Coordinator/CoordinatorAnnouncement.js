@@ -56,7 +56,6 @@ function CoordinatorAnnouncement() {
             try {
                 const response = await GetWithAuth("/announcement");
                 const result = await response.json();
-                console.log(result);
                 setAnnouncements(result);
             } catch (error) {
                 console.log(error);

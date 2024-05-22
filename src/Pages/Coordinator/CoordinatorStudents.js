@@ -5,15 +5,6 @@ import { GetWithAuth } from "../../Services/HttpService";
 import { PutWithAuth } from "../../Services/HttpService";
 
 
-
-/*
-const initialStudents = [
-    { id: 1, name: 'Student 1', applicationLetterStatus: 'Pending', applicationFormStatus: 'Pending' },
-    { id: 2, name: 'Student 2', applicationLetterStatus: 'Pending', applicationFormStatus: 'Pending' },
-    { id: 3, name: 'Student 3', applicationLetterStatus: 'Pending', applicationFormStatus: 'Pending' }
-];
-*/
-
 function CoordinatorStudents() {
     const [students, setStudents] = useState([]);
     const [selectedStudent, setSelectedStudent] = useState(null);
@@ -115,7 +106,7 @@ function CoordinatorStudents() {
                         <button className='download-button' onClick={() => downloadDocument('Letter')}>Download Application Letter</button>
                     </div>
                     <div className="status-container">
-                        <p>Application Form Status: {selectedStudent.applicationStatus}</p>
+                        <p>Application Status: {selectedStudent.applicationStatus}</p>
                     </div>
                     <div className="action-buttons">
                         {selectedStudent.applicationStatus === 'Application Letter Approved'}

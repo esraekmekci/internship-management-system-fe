@@ -5,10 +5,6 @@ import { GetWithAuth } from "../../Services/HttpService.js";
 import { PutWithAuth } from "../../Services/HttpService";
 
 
-/*
-Coordinator grades yerine konuldu
-Corrdinator gradesi hala silmedim belki ilerde ihtiyaç olabilir diye
-*/
 function CoordinatorCompanies() {
   const [companies, setCompanies] = useState([]);
   const [visibleCompany, setVisibleCompany] = useState(null);
@@ -60,11 +56,8 @@ function CoordinatorCompanies() {
         try {
             const response = await GetWithAuth("/company/pending");
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
             setCompanies(result);
-            companies.map((company) => {
-                console.log(company.companyName);
-            });
         } catch (error) {
             console.log(error);
             console.log("comp not found");
@@ -82,6 +75,7 @@ function CoordinatorCompanies() {
   return (
     <CoordinatorHome>
       <div className="company-list">
+        <h1> Pending Company Accounts</h1>
         {companies.map((company, index) => (
           <div key={index} className="company-item">
             <h3>{company.companyName}</h3>
