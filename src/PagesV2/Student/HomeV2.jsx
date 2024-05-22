@@ -23,7 +23,6 @@ const subtabs = {
   "Student Actions": [
     { name: "View Announcements", link: "/student/announcement" },
     { name: "View Applications", link: "/student/applications" },
-    { name: "Apply for Internship", link: "/student/apply" },
   ],
   "General Documents": [
     { name: "Templates", link: "/student/templates" },

@@ -1,64 +1,93 @@
 import React, { useState, useEffect } from "react";
 import "../../Pages/Coordinator/Guidelines.css";
 import CoordinatorHome from "./CoordinatorHomeV2.jsx";
+import { GetWithAuth } from "../../Services/HttpService.js";
 
-export default function GuidelinesV2() {
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState("");
-  const [announcementMade, setAnnouncementMade] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+const file = [{ name: "Summer Practice Guidelines" }];
 
-  /*
-    app.get('/coordinator/getUploadedGuidelines', (req, res) => {
-    });
+export default function Guidelines() {
+  const [files, setFiles] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setSelectedFile(selectedFile);
+    }
+  };
 
-    app.delete('/coordinator/deleteGuideline/:filename', (req, res) => {
-        const filename = req.params.filename;
-    });
-
-    */
-
-  useEffect(() => {
-    // Fetch the list of uploaded files on component mount
-    fetchUploadedFiles();
-  }, []);
-
-  const fetchUploadedFiles = () => {
-    fetch("/coordinator/getUploadedGuidelines")
-      .then((response) => response.json())
-      .then((data) => {
-        setUploadedFiles(data);
+  const handleDownload = () => {
+    fetch("/coordinator/downloadGuideline", {
+      method: "GET",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            "Network response was not ok: " + response.statusText
+          );
+        }
+        return response.blob(); // Yanıtı blob olarak al
       })
-      .catch((error) => {
-        console.error("Error fetching uploaded files:", error);
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob); // Blob'dan bir URL oluştur
+        const a = document.createElement("a"); // Yeni bir anchor elementi oluştur
+        a.href = url;
+        a.download = "SummerPracticeGuidelines.pdf"; // İndirilecek dosyanın adını belirle
+        document.body.appendChild(a); // Anchor elementini document'e ekle
+        a.click(); // Programatik olarak tıklayarak indirme işlemini başlat
+        a.remove(); // Anchor elementini temizle
+        window.URL.revokeObjectURL(url); // Oluşturulan URL'i iptal et
+        alert(`Guideline downloaded successfully`);
+      })
+      .catch((err) => {
+        console.error("Error occurred:", err);
+        alert(`Guideline download is unsuccessful`);
       });
   };
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file && file.type === "application/pdf") {
-      setFile(file);
-      setPreview(URL.createObjectURL(file));
-    } else {
-      alert("Please select a PDF file.");
-      event.target.value = null;
-    }
+  const deleteGuidelines = () => {
+    fetch("/coordinator/deleteGuidelines", {
+      method: "DELETE",
+      headers: {},
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            "Network response was not ok: " + response.statusText
+          );
+        }
+        return response;
+      })
+      .then((result) => {
+        alert("Guideline deleted successfully");
+        window.location.reload();
+        console.log(result);
+      })
+      .catch((err) => {
+        console.error("Error occurred:", err);
+        alert("Error occurred:", err);
+      });
   };
 
-  const handleAnnounce = () => {
-    if (!file) {
-      alert("No file selected. Please choose a PDF file to announce.");
+  const handleUpload = (event) => {
+    event.preventDefault();
+    if (!selectedFile) {
+      alert("Please select a file first!");
+      return;
+    }
+    const fileExtension = selectedFile.name.split(".").pop();
+    if (fileExtension.toLowerCase() !== "pdf") {
+      alert("Please select a PDF file!");
       return;
     }
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", selectedFile);
 
     uploadGuideline(formData);
 
-    console.log("File uploaded:", file);
-    setAnnouncementMade(true);
-    alert("Announcement successfully made.");
+    console.log("Sending request to upload file");
   };
 
   const uploadGuideline = (formData) => {
@@ -76,113 +105,112 @@ export default function GuidelinesV2() {
             "Network response was not ok: " + response.statusText
           );
         }
-        return response.json();
+        return response;
       })
       .then((result) => {
         console.log(result);
         alert("Guideline uploaded successfully");
-        setFile(null);
-        fetchUploadedFiles(); // Refresh the list of uploaded files
+        setShowModal(false);
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Error occurred:", err);
+        alert("Guideline upload is unsuccessful.");
       });
   };
 
-  const handleCancel = () => {
-    setFile(null);
-    setPreview("");
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await GetWithAuth("/coordinator/checkGuideline");
+        const exists = await response.json(); // Assuming the response is JSON and 'exists' is a boolean
+        console.log(exists); // This should log true or false
+        if (exists === true) {
+          setFiles(file);
+          console.log("Success");
+        } else {
+          console.log("File does not exist.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
 
-  const handleDelete = (filename) => {
-    if (window.confirm("Are you sure you want to delete this guideline?")) {
-      fetch(`/coordinator/deleteGuideline/${filename}`, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              "Network response was not ok: " + response.statusText
-            );
-          }
-          return response.json();
-        })
-        .then((result) => {
-          console.log(result);
-          alert("Guideline deleted successfully");
-          fetchUploadedFiles(); // Refresh the list of uploaded files
-        })
-        .catch((err) => {
-          console.error("Error occurred:", err);
-        });
-    }
-  };
+    const timeout = setTimeout(() => {
+      fetchData();
+    }, 1);
 
-  const handleDeleteAnnouncement = () => {
-    setAnnouncementMade(false);
-    alert("Announcement deleted.");
-  };
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
-    <div className="" style={{ width: "100%", padding: "20px 40px", display: "flex", overflowY: "auto", justifyContent: "center"}}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px",
-          alignItems: "center",
-          padding: "40px",
-          flexGrow: "0",
-          overflowY: "auto",
-          border: ".5px solid gray",
-          borderRadius: "10px",
-          boxShadow: "1px 3px 0 rgba(0 0 0 0.6)"
-        }}
-      >
-        <h2 className="upload-title">Please Upload a File (.pdf)</h2>
-        <input type="file" accept=".pdf" onChange={handleFileChange} />
-        {file && (
-          <div>
-            <button onClick={handleCancel} className="cancel-button">
-              Cancel
-            </button>
-            <h3>Preview:</h3>
-            <iframe
-              src={preview}
-              title="Document Preview"
-              className="preview"
-            ></iframe>
-          </div>
-        )}
-        <button style={{ width: "200px" }} onClick={handleAnnounce}>
-          Announce
+    <div className="w-full-padding">
+      <div className="guidelines-v2">
+        <h2 className="upload-title">Upload Guidelines</h2>
+        <button
+          className="upload-button iyte-bg"
+          onClick={() => setShowModal(true)}
+        >
+          Upload Document
         </button>
-        {announcementMade && (
-          <div>
-            <p>Announcement made.</p>
-            <button
-              onClick={handleDeleteAnnouncement}
-              className="delete-button"
-            >
-              Delete Announcement
-            </button>
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={() => setShowModal(false)}>
+                &times;
+              </span>
+              <h3>Select a PDF file to upload</h3>
+              <div style={{ display: "flex", overflowX: "auto" }}>
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handleFileChange}
+                  style={{}}
+                />
+                {previewUrl && (
+                  <embed
+                    src={previewUrl}
+                    width="400"
+                    height="500"
+                    type="application/pdf"
+                  />
+                )}
+              </div>
+              <button
+                className="upload-button iyte-bg"
+                onClick={handleUpload}
+                disabled={!selectedFile}
+              >
+                Upload
+              </button>
+            </div>
           </div>
         )}
-        <h3>Uploaded Files:</h3>
-        <ul>
-          {uploadedFiles.map((file) => (
-            <li key={file}>
-              <a
-                href={`/uploads/${file}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {file}
-              </a>
-              <button onClick={() => handleDelete(file)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+        {files.length !== 0 && (
+          <ul className="file-list">
+            {files.map((file, index) => (
+              <li key={index} className="file-item">
+                <div className="file-info">
+                  <span className="file-name">{file.name}</span>
+                </div>
+                <div className="file-buttons">
+                  <button
+                    className="download-button"
+                    onClick={() => handleDownload()}
+                  >
+                    Download
+                  </button>
+                  <button
+                    className="delete-button"
+                    onClick={() => deleteGuidelines()}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

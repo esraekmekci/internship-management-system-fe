@@ -156,8 +156,8 @@ export default function CompanyAnnouncementV2() {
   };
 
   return (
-    <div style={{ padding: "20px 40px" }}>
-      <div className="" style={{ marginTop: "" }}>
+    <div className="w-full-padding">
+      <div>
         <h1>Announcements</h1>
       </div>
 
@@ -169,7 +169,7 @@ export default function CompanyAnnouncementV2() {
               style={{ cursor: "pointer" }}
             >
               {announcement.title}
-              <span style={{ float: "", fontSize: "15px" }}>
+              <span style={{ float: "right", fontSize: "15px" }}>
                 Status: {announcement.status}
               </span>
             </h2>
@@ -188,45 +188,45 @@ export default function CompanyAnnouncementV2() {
       <div className="">
         <button
           onClick={() => toggleDropdown("newAnn")}
-          className="v2-button-bg"
-          style={{
-            display: "block",
-            marginBottom: "25px",
-          }}
+          style={{ display: "block" }}
+          className="iyte-bg"
         >
           New Announcement
         </button>
         {showDropdown.newAnn && (
           <div
             style={{
+              maxWidth: "500px",
+              backgroundColor: "#f8f8f8",
+              borderRadius: "10px",
+              padding: "20px 30px",
               display: "flex",
               flexDirection: "column",
-              gap: "10px",
-              border: "1px solid #ccc",
-              padding: "25px",
-              borderRadius: "8px",
+              alignItems: "center",
+              gap: "4px"
             }}
           >
             <input
+              className="v2 border-rounded"
               type="text"
-              placeholder="Title"
+              placeholder="Enter Announcement Title"
               value={newTitle}
-              style={{ marginLeft: "", border: "1px solid #ccc" }}
+              style={{ marginLeft: "0px", width: "500px", padding: "8px", border: "1px #ccc solid" }}
               onChange={handleNewTitleChange}
             />
+            <br></br>
             <textarea
-              className="v2"
-              placeholder="Description"
+              className="v2 border-rounded"
+              placeholder="Enter Announcement Description"
               value={newDescription}
-              style={{ marginLeft: "" }}
+              style={{ marginLeft: "0px", width: "500px", padding:"8px" }}
               onChange={handleNewDescriptionChange}
             ></textarea>
-            <input
-              type="file"
-              onChange={handleFileChange}
-              style={{ margin: "" }}
-            />
-            <button onClick={handleNewAnnouncement} className="v2-button-bg">
+            <button
+              className="iyte-bg"
+              onClick={handleNewAnnouncement}
+              style={{ alignSelf: "end", marginRight: "-8px" }}
+            >
               Enter
             </button>
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
@@ -237,19 +237,16 @@ export default function CompanyAnnouncementV2() {
       {showPopup && (
         <div className="popup">
           <h2>Confirm New Announcement</h2>
-          <p>Title: {newTitle}</p>
-          <p>Description: {newDescription}</p>
-          {newFile && <p>File: {newFile.name}</p>}
+
+          <div
+            style={{ textAlign: "left", overflowY: "auto", maxHeight: "350px" }}
+          >
+            <p>Title: {newTitle}</p>
+            <p>Description: {newDescription}</p>
+          </div>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <button onClick={confirmNewAnnouncement} className="v2-button-bg">
-              Yes
-            </button>
-            <button
-              onClick={() => setShowPopup(false)}
-              className="v2-button-bg"
-            >
-              No
-            </button>
+            <button onClick={confirmNewAnnouncement}>Yes</button>
+            <button onClick={() => setShowPopup(false)}>No</button>
           </div>
         </div>
       )}
@@ -257,11 +254,8 @@ export default function CompanyAnnouncementV2() {
       {showDeletePopup.show && (
         <div className="popup">
           <h2>Are you sure you want to delete this announcement?</h2>
-          <button className="v2-button-bg" onClick={confirmDeleteAnnouncement}>
-            Yes
-          </button>
+          <button onClick={confirmDeleteAnnouncement}>Yes</button>
           <button
-            className="v2-button-bg"
             onClick={() => setShowDeletePopup({ show: false, index: null })}
           >
             No

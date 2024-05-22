@@ -1,3 +1,8 @@
+:root {
+  --iyte-bg-color: rgb(157 53 53);
+  --iyte-bg-color-hover: rgb(187 53 53);
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +40,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.iyte-bg {
+  background-color: var(--iyte-bg-color)!important;
+}
+
+.iyte-bg:hover {
+  background-color: var(--iyte-bg-color-hover)!important;
+}
+
+.border-rounded {
+  border-radius: 8px;
 }
