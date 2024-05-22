@@ -17,7 +17,7 @@ const tabs = [
     { name: "See Students", link: "/coordinator/students", icon: "people" },
     { name: "Announcements", link: "/coordinator/announcements", icon: "campaign" },
     { name: "Companies", link: "/coordinator/companies", icon: "apartment" },
-    { name: "Guidelines", link: "/coordinator/guidelines", icon: "developer_guide" },
+    { name: "Guidelines", link: "/coordinator/guidelines", icon: "import_contacts" },
   ];
 
 /*

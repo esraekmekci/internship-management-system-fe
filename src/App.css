@@ -82,8 +82,7 @@
 }
 
 .sidebar-item {
-  transition: .2s background-color;
-  transition: .05s border;
+  transition: .1s;
 }
 
 .sidebar-item:hover {
