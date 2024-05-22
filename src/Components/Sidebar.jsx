@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-export default function Sidebar({ tabs, subtabs }) {
-  const [expandedTabs, setExpandedTabs] = useState({});
+export default function Sidebar({ tabs }) {
+  const pathName = useLocation().pathname;
 
   const handleTabClick = (tab) => {
     setExpandedTabs({
@@ -18,66 +18,31 @@ export default function Sidebar({ tabs, subtabs }) {
         overflow: "auto",
         height: "100%",
         borderRight: "1px solid rgb(226 232 240)",
-        padding: "10px",
+        fontFamily: "Segoe UI, sans-serif"
       }}
     >
       {tabs.map((tab) => (
         <div key={tab.name}>
-          <div
-            className="sidebar-item"
-            onClick={() => handleTabClick(tab.name)}
-            style={{
-              cursor: "pointer",
-              padding: "10px",
-              transition: "background-color 0.2s",
-              borderRadius: "8px",
-              fontWeight: "600",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              border: "1px solid transparent",
-            }}
-          >
-            {tab.name}
-            <span>
-              {expandedTabs[tab.name] ? (
-                <i className="material-icons">expand_less</i>
-              ) : (
-                <i className="material-icons">expand_more</i>
-              )}
-            </span>
-          </div>
-          {expandedTabs[tab.name] && (
-            <div style={{}}>
-              {subtabs[tab.name].map((subtab) => (
-                <Link
-                  to={subtab.link}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <div
-                    key={subtab.name}
-                    className="sidebar-item"
-                    style={{
-                      padding: "5px 20px",
-                      fontWeight: "500",
-                      borderRadius: "8px",
-                      opacity: expandedTabs[tab.name] ? 1 : 0,
-                      transform: expandedTabs[tab.name]
-                        ? "translateY(0)"
-                        : "translateY(-10px)",
-                      transition: "0.2s",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <i className="material-icons">chevron_right</i>
-                      {subtab.name}
-                    </div>
-                  </div>
-                </Link>
-              ))}
+          <Link to={tab.link}>
+            <div
+              className={`sidebar-item ` + (tab.link === pathName ? ` sidebar-active` : ``)}
+              onClick={() => {}}
+              style={{
+                cursor: "pointer",
+                padding: "15px 0px 15px 20px",
+                fontWeight: "600",
+                display: "flex",
+                color: "#1e293b",
+                fontSize: "16px",
+                alignItems: "center",
+                gap: "8px",
+                border: "1px solid transparent",
+              }}
+            >
+              <i className="material-icons" style={{color: "gray"}}>{tab.icon}</i>
+              {tab.name}
             </div>
-          )}
+          </Link>
         </div>
       ))}
     </div>

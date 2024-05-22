@@ -13,28 +13,11 @@ import Sidebar from "../../Components/Sidebar";
 
 
 const tabs = [
-  { name: "Company Actions", link: "" },
-  { name: "General Documents", link: "" },
-  { name: "General Settings", link: "" },
+  { name: "See Students", link: "/company/students", icon: "people" },
+  { name: "Announcements", link: "/company/announcements", icon: "campaign" },
+  { name: "My Interns", link: "/company/interns", icon: "supervisor_account" },
 ];
 
-const subtabs = {
-  "Company Actions": [
-    { name: "See Students", link: "/company/students" },
-    { name: "Announcements", link: "/company/announcements" },
-    { name: "My Interns", link: "/company/interns" },
-  ],
-  "General Documents": [
-    { name: "User Guide", link: "" },
-    { name: "IZTECH Website", link: "" },
-  ],
-  "General Settings": [
-    { name: "User Settings", link: "/company/settings" },
-    { name: "Profile", link: "/company/profile" },
-    { name: "Help", link: "" },
-    { name: "Log out", link: "/log_out" },
-  ],
-};
 
 const CompanyHomeV2 = ({ children }) => {
   var [currentUser, setCurrentUser] = useState({});
@@ -102,7 +85,7 @@ const CompanyHomeV2 = ({ children }) => {
             overflowY: "hidden",
           }}
         >
-          <Sidebar tabs={tabs} subtabs={subtabs} />
+          <Sidebar tabs={tabs}/>
           <Outlet /> {/*/secretary'nin child objeleri buraya geliyor. */}
         </div>
       </div>

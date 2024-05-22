@@ -31,14 +31,13 @@ export default function UserIcon({ onClick, role, dropdownExpanded, iconRef }) {
             className="material-icons user-icon-v2"
             style={{
               color: "#450a0a",
-              backgroundColor: "#f8fafc",
               fontSize: "32px",
               cursor: "pointer",
               border: "1px solid #cbd5e1",
-              padding: "3px",
+              padding: "5px",
               borderRadius: "50%",
               boxShadow:
-                "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);",
+                "inset 0 1px 3px 0 rgb(0 0 0 / 0.1), inset 0 1px 2px -1px rgb(0 0 0 / 0.1)",
             }}
           >
             person
@@ -55,7 +54,7 @@ export default function UserIcon({ onClick, role, dropdownExpanded, iconRef }) {
               right: "-10px",
               border: "1px solid #cbd5e1",
               borderRadius: "4px",
-              backgroundColor: "#f8fafc",
+              backgroundColor: "white",
               fontWeight: "600",
             }}
           >
@@ -83,7 +82,7 @@ export default function UserIcon({ onClick, role, dropdownExpanded, iconRef }) {
                 noopener
                 noreferrer
                 target="_blank"
-                style={{ padding: "12px" }}
+                style={{ }}
                 className="icon-list-item"
               >
                 <i className="material-icons" style={{ color: "#64748b" }}>
@@ -96,7 +95,7 @@ export default function UserIcon({ onClick, role, dropdownExpanded, iconRef }) {
                 noopener="true"
                 noreferrer="true"
                 target="_blank"
-                style={{ padding: "12px" }}
+                style={{ }}
                 className="icon-list-item"
               >
                 <i className="material-icons" style={{ color: "#64748b" }}>

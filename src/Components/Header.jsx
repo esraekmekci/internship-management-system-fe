@@ -32,6 +32,7 @@ export default function Header({ role }) {
         flex: "0 0 auto",
         border: "1px solid grey",
         borderColor: "rgb(226 232 240)",
+        fontFamily: "Segoe UI, sans-serif"
       }}
     >
       <div

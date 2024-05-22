@@ -58,7 +58,7 @@
 
 .icon-list-item {
   display: flex;
-  padding: 12px;
+  padding: 16px 18px;
   align-items: center;
   gap: 8px;
   transition: .2s;
@@ -79,4 +79,28 @@
 
 .user-icon-v2:hover {
   background-color: var(--icon-hover)!important;
+}
+
+.sidebar-item {
+  transition: .2s background-color;
+  transition: .05s border;
+}
+
+.sidebar-item:hover {
+  background-color: rgb(241 245 249);
+  border-right: 4px solid var(--iyte-bg-color)!important;
+}
+
+.sidebar-item:active {
+  background-color: rgb(241 245 249);
+  border-right: 5px solid var(--iyte-bg-color)!important;
+}
+
+.sidebar-active {
+  border-right: 4px solid var(--iyte-bg-color)!important;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

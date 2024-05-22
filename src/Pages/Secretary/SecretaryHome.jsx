@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import "./SecretaryHome.css";
 import iyte_icon from "../../Components/Assets/iyte-logo.png";
 import user_icon from "../../Components/Assets/user.png";
@@ -12,24 +12,8 @@ import Header from "../../Components/Header";
 import Sidebar from "../../Components/Sidebar";
 
 const tabs = [
-  { name: "Secretary Actions", link: "" },
-  { name: "General Documents", link: "" },
-  { name: "General Settings", link: "" },
-];
-
-const subtabs = {
-  "Secretary Actions": [{ name: "Students", link: "/secretary/students" }],
-  "General Documents": [
-    { name: "User Guide", link: "" },
-    { name: "IZTECH Website", link: "" },
-  ],
-  "General Settings": [
-    { name: "Profile", link: "" },
-    { name: "User Settings", link: "/secretary/settings" },
-    { name: "Help", link: "" },
-    { name: "Log out", link: "/log_out" },
-  ],
-};
+  { name: "View Students", link: "/secretary/students", icon: "group" }
+]
 
 
 export default function SecretaryHome() {
@@ -40,7 +24,7 @@ export default function SecretaryHome() {
         <div
           style={{ display: "flex", flexGrow: '1', backgroundColor: "white", overflowY: "hidden"}}
         >
-          <Sidebar tabs={tabs} subtabs={subtabs} />
+          <Sidebar tabs={tabs} />
           <Outlet />  {/*/secretary'nin child objeleri buraya geliyor. */}
         </div>
       </div>
