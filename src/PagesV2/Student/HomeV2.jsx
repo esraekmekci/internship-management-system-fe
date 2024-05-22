@@ -13,31 +13,13 @@ import Announcement from "./AnnouncementV2.jsx";
 import Header from "../../Components/Header.jsx";
 import Sidebar from "../../Components/Sidebar.jsx";
 
-const tabs = [
-  { name: "Student Actions", link: "" },
-  { name: "General Documents", link: "" },
-  { name: "General Settings", link: "" },
-];
 
-const subtabs = {
-  "Student Actions": [
-    { name: "View Announcements", link: "/student/announcement" },
-    { name: "View Applications", link: "/student/applications" },
-    { name: "Apply for Internship", link: "/student/apply" },
-  ],
-  "General Documents": [
-    { name: "Templates", link: "/student/templates" },
-    { name: "Documents", link: "/student/documents" },
-    { name: "User Guide", link: "" },
-    { name: "IZTECH Website", link: "" },
-  ],
-  "General Settings": [
-    { name: "User Settings", link: "/student/settings" },
-    { name: "Profile", link: "/student/profile" },
-    { name: "Help", link: "" },
-    { name: "Log out", link: "/log_out" },
-  ],
-};
+const tabs = [
+    { name: "View Announcements", link: "/student/announcement", icon: "campaign" },
+    { name: "View Applications", link: "/student/applications", icon: "draw" },
+    { name: "Templates", link: "/student/templates", icon: "article" },
+    { name: "Documents", link: "/student/documents", icon: "description" },
+];
 
 const Home = ({ children }) => {
   var [currentUser, setCurrentUser] = useState({});
@@ -108,7 +90,7 @@ const Home = ({ children }) => {
             overflowY: "hidden",
           }}
         >
-          <Sidebar tabs={tabs} subtabs={subtabs} />
+          <Sidebar tabs={tabs} />
           <Outlet /> {/*/secretary'nin child objeleri buraya geliyor. */}
         </div>
       </div>

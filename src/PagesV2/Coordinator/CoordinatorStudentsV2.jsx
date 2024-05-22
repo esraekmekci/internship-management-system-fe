@@ -4,29 +4,8 @@ import CoordinatorHome from "./CoordinatorHomeV2.jsx";
 import { GetWithAuth } from "../../Services/HttpService";
 import { PutWithAuth } from "../../Services/HttpService";
 
-const initialStudents = [
-  {
-    applicationId: 1,
-    name: "Student 1",
-    applicationLetterStatus: "Pending",
-    applicationFormStatus: "Pending",
-  },
-  {
-    applicationId: 2,
-    name: "Student 2",
-    applicationLetterStatus: "Pending",
-    applicationFormStatus: "Pending",
-  },
-  {
-    applicationId: 3,
-    name: "Student 3",
-    applicationLetterStatus: "Pending",
-    applicationFormStatus: "Pending",
-  },
-];
-
 function CoordinatorStudents() {
-  const [students, setStudents] = useState(initialStudents);
+  const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
 
   useEffect(() => {
@@ -135,7 +114,6 @@ function CoordinatorStudents() {
             style={{ display: "flex", justifyContent: "space-between", paddingInline: "12px" }}
           >
             <div style={{width: "100%", display: "flex", alignItems: "center"}}>{student.studentName}</div>
-            {console.log(student.studentName)}
             <button onClick={() => handleSelectStudent(student)}>Review</button>
           </div>
         ))}
@@ -154,7 +132,7 @@ function CoordinatorStudents() {
             </button>
           </div>
           <div className="status-container">
-            <p>Application Form Status: {selectedStudent.applicationStatus}</p>
+            <p>Application Status: {selectedStudent.applicationStatus}</p>
           </div>
           <div className="action-buttons">
             {selectedStudent.applicationStatus ===

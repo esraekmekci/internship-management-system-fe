@@ -1,3 +1,10 @@
+:root {
+  --iyte-bg-color: rgb(157 53 53);
+  --iyte-bg-color-hover: rgb(187 53 53);
+  --gray-primary: rgb(100, 116, 139);
+  --icon-hover: #e7e5e4;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +42,65 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.iyte-bg {
+  background-color: var(--iyte-bg-color)!important;
+}
+
+.iyte-bg:hover {
+  background-color: var(--iyte-bg-color-hover)!important;
+}
+
+.border-rounded {
+  border-radius: 8px;
+}
+
+.icon-list-item {
+  display: flex;
+  padding: 16px 18px;
+  align-items: center;
+  gap: 8px;
+  transition: .2s;
+}
+
+.icon-list-item > .material-icons {
+  color: var(--gray-primary)!important;
+  opacity: 70%;
+}
+
+.icon-list-item:hover {
+  background-color: #e5e7eb;
+}
+
+.user-icon-v2 {
+  transition: .2s ease-in-out;
+}
+
+.user-icon-v2:hover {
+  background-color: var(--icon-hover)!important;
+}
+
+.sidebar-item {
+  transition: .2s background-color;
+  transition: .05s border;
+}
+
+.sidebar-item:hover {
+  background-color: rgb(241 245 249);
+  border-right: 4px solid var(--iyte-bg-color)!important;
+}
+
+.sidebar-item:active {
+  background-color: rgb(241 245 249);
+  border-right: 5px solid var(--iyte-bg-color)!important;
+}
+
+.sidebar-active {
+  border-right: 4px solid var(--iyte-bg-color)!important;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

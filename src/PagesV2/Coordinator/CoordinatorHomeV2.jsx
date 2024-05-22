@@ -14,29 +14,11 @@ import Header from "../../Components/Header";
 import Sidebar from "../../Components/Sidebar";
 
 const tabs = [
-  { name: "Coordinator Actions", link: "" },
-  { name: "General Documents", link: "" },
-  { name: "General Settings", link: "" },
-];
-
-const subtabs = {
-  "Coordinator Actions": [
-    { name: "See Students", link: "/coordinator/students" },
-    { name: "Announcements", link: "/coordinator/announcements" },
-    { name: "Companies", link: "/coordinator/companies" },
-    { name: "Guidelines", link: "/coordinator/guidelines" },
-  ],
-  "General Documents": [
-    { name: "User Guide", link: "" },
-    { name: "IZTECH Website", link: "" },
-  ],
-  "General Settings": [
-    { name: "User Settings", link: "/coordinator/settings" },
-    { name: "Profile", link: "/coordinator/profile" },
-    { name: "Help", link: "" },
-    { name: "Log out", link: "/log_out" },
-  ],
-};
+    { name: "See Students", link: "/coordinator/students", icon: "people" },
+    { name: "Announcements", link: "/coordinator/announcements", icon: "campaign" },
+    { name: "Companies", link: "/coordinator/companies", icon: "apartment" },
+    { name: "Guidelines", link: "/coordinator/guidelines", icon: "developer_guide" },
+  ];
 
 /*
 Coordinator home'u template olarak kullanıyoruz
@@ -109,7 +91,7 @@ const CoordinatorHomeV2 = ({ children }) => {
       <div
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
-        <Header role={"Secretary"} />
+        <Header role={"Coordinator"} />
         <div
           style={{
             display: "flex",
@@ -118,7 +100,7 @@ const CoordinatorHomeV2 = ({ children }) => {
             overflowY: "hidden",
           }}
         >
-          <Sidebar tabs={tabs} subtabs={subtabs} />
+          <Sidebar tabs={tabs} />
           <Outlet /> {/*/secretary'nin child objeleri buraya geliyor. */}
         </div>
       </div>

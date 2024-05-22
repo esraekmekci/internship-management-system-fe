@@ -62,7 +62,7 @@ export default function CoordinatorSettingsV2() {
                     
                     </div>
                     <br />
-                    <button type="submit" style={{marginTop:'15px'}}>Change Password</button>
+                    <button type="submit" style={{marginTop:'15px'}} className='iyte-bg'>Change Password</button>
                 </form>
             </div>
             </div>

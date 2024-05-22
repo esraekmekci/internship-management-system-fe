@@ -1,38 +1,59 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CompanyHome from'./CompanyHomeV2.jsx';
 import profile_icon from '../../Components/Assets/profile-picture.png'
+import { GetWithAuth } from '../../Services/HttpService.js';
+
 
 function CompanyProfileV2() {
-  const [userName, setUserName] = useState('-'); // Example user name, replace with dynamic data
-  const [userEmail, setUserEmail] = useState('-'); // Example user email, replace with dynamic data
+    const [currentUser, setCurrentUser] = useState({});
 
-  return (
-      <div className="" style={{ width: "100%", padding: "20px 40px" }}>
-        <div className="profile-section">
-            <img src={profile_icon} alt="" className="profile-icon" />
+    useEffect(() => {
+      const fetchProfileData = async () => {
+        try {
+          const response = await GetWithAuth("/company/token/" + localStorage.getItem("tokenKey"));
+          const result = await response.json();
+          setCurrentUser(result);
+        } catch (error) {
+          console.log(error);
+          console.log("User not found");
+        }
+      };
+  
+      fetchProfileData();
+    }, []);
+  
+    return (
+        <div className='w-full-padding'>
+          <div className="profile-section">
+            <img src={profile_icon} alt="Profile Icon" className="profile-icon" />
             <h2>Company Profile</h2>
-            
             <div className="profile-item">
-                <label>Company Name: <div>{userName}</div></label>
+              <label><b>Company Name:</b> {currentUser.companyName}</label>
             </div>
+            <br />
             <div className="profile-item">
-                <label>Company Email:<div>-</div></label>
+              <label><b>Company Email:</b> {currentUser.email}</label>
             </div>
-            
+            <br />
             <div className="profile-item">
-                <label>Company Address:<div>{userEmail}</div></label>
+              <label><b>Company Representative Name:</b> {currentUser.name}</label>
             </div>
+            <br />
             <div className="profile-item">
-                <label>Foundation Year:<div>-</div></label>
+              <label><b>Company Address:</b> {currentUser.companyAddress}</label>
             </div>
+            <br />
             <div className="profile-item">
-                <label>Employee Size:<div>{userEmail}</div></label>
+              <label><b>Foundation Year:</b> {currentUser.foundationYear}</label>
             </div>
-        
+            <br />
+            <div className="profile-item">
+              <label><b>Employee Size:</b> {currentUser.employeeSize}</label>
+            </div>
+          </div>
         </div>
-      </div>
-  );
-}
-
+    );
+  }
+  
 export default CompanyProfileV2;

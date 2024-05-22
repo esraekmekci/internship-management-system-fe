@@ -135,3 +135,4 @@ export default function CoordinatorAnnouncementV2() {
     </div>
   );
 }
+//<div className="" style={{ width: "100%", padding: "20px 40px" }}>

@@ -81,6 +81,7 @@ export default function CoordinatorCompaniesV2() {
 
   return (
       <div className="" style={{width: "100%", padding: "20px 40px"}}>
+        <h2> Pending Company Accounts</h2>
         {companies.map((company, index) => (
           <div key={index} className="company-item">
             <h3>{company.companyName}</h3>

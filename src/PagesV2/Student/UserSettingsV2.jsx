@@ -77,7 +77,7 @@ export default function UserSettingsV2() {
             </label>
           </div>
           <br />
-          <button type="submit" style={{ marginTop: "15px" }}>
+          <button type="submit" style={{ marginTop: "15px" }} className="iyte-bg">
             Change Password
           </button>
         </form>
