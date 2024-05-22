@@ -23,6 +23,7 @@ const subtabs = {
   "Coordinator Actions": [
     { name: "See Students", link: "/coordinator/students" },
     { name: "Announcements", link: "/coordinator/announcements" },
+    { name: "Companies", link: "/coordinator/companies" },
     { name: "Guidelines", link: "/coordinator/guidelines" },
   ],
   "General Documents": [

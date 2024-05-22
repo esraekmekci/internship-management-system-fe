@@ -1,6 +1,8 @@
 :root {
   --iyte-bg-color: rgb(157 53 53);
   --iyte-bg-color-hover: rgb(187 53 53);
+  --gray-primary: rgb(100, 116, 139);
+  --icon-hover: #e7e5e4;
 }
 
 .App {
@@ -52,4 +54,29 @@
 
 .border-rounded {
   border-radius: 8px;
+}
+
+.icon-list-item {
+  display: flex;
+  padding: 12px;
+  align-items: center;
+  gap: 8px;
+  transition: .2s;
+}
+
+.icon-list-item > .material-icons {
+  color: var(--gray-primary)!important;
+  opacity: 70%;
+}
+
+.icon-list-item:hover {
+  background-color: #e5e7eb;
+}
+
+.user-icon-v2 {
+  transition: .2s ease-in-out;
+}
+
+.user-icon-v2:hover {
+  background-color: var(--icon-hover)!important;
 }

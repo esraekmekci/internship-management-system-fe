@@ -24,6 +24,7 @@ const subtabs = {
     { name: "IZTECH Website", link: "" },
   ],
   "General Settings": [
+    { name: "Profile", link: "" },
     { name: "User Settings", link: "/secretary/settings" },
     { name: "Help", link: "" },
     { name: "Log out", link: "/log_out" },

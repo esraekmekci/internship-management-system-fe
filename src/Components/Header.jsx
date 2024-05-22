@@ -1,17 +1,37 @@
 import { useLocation } from "react-router-dom";
 import iyte_icon from "../Components/Assets/iyte-logo.png";
+import UserIcon from "./UserIcon";
+import { useEffect, useState, useRef } from "react";
 
 export default function Header({ role }) {
-  const breadcrumb = useLocation().pathname.slice(1).split('/');
+  const [dropdownExpanded, setDropdownExpanded] = useState(false);
+  const iconRef = useRef(null);
+
+  const handleClick = () => {
+    setDropdownExpanded(!dropdownExpanded);
+  };
+  const handleClickOutside = (event) => {
+    if (iconRef.current && !iconRef.current.contains(event.target)) {
+      setDropdownExpanded(false);
+    }
+  };
+  const breadcrumb = useLocation().pathname.slice(1).split("/");
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
       style={{
         width: "100vw",
         backgroundColor: "white",
-        flex: '0 0 auto',
-        border: '1px solid grey',
-        borderColor: 'rgb(226 232 240)',
-
+        flex: "0 0 auto",
+        border: "1px solid grey",
+        borderColor: "rgb(226 232 240)",
       }}
     >
       <div
@@ -37,11 +57,19 @@ export default function Header({ role }) {
             {breadcrumb.map((path) => (
               <p>
                 <span style={{ color: "gray" }}> /</span>
-                <span style={{ color: "rgb(153 27 27)" }}> {path.charAt(0).toUpperCase() + path.slice(1)}</span>
+                <span style={{ color: "rgb(153 27 27)" }}>
+                  {" "}
+                  {path.charAt(0).toUpperCase() + path.slice(1)}
+                </span>
               </p>
             ))}
           </div>
-          <div></div>
+          <UserIcon
+            onClick={handleClick}
+            dropdownExpanded={dropdownExpanded}
+            role={role}
+            iconRef={iconRef}
+          />
         </div>
       </div>
     </div>

@@ -93,7 +93,7 @@ const CompanyHomeV2 = ({ children }) => {
       <div
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
-        <Header role={"Secretary"} />
+        <Header role={"company"} />
         <div
           style={{
             display: "flex",
