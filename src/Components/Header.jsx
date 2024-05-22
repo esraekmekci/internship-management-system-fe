@@ -15,7 +15,7 @@ export default function Header({ role }) {
       setDropdownExpanded(false);
     }
   };
-  const breadcrumb = useLocation().pathname.slice(1).split("/");
+  const pathName = useLocation().pathname.slice(1).split("/")[0];
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -54,15 +54,13 @@ export default function Header({ role }) {
               <img src={iyte_icon} alt="iyte icon" width={"60px"} />
             </a>
             <p style={{ color: "gray" }}>IZTECH IMS</p>
-            {breadcrumb.map((path) => (
               <p>
                 <span style={{ color: "gray" }}> /</span>
                 <span style={{ color: "rgb(153 27 27)" }}>
                   {" "}
-                  {path.charAt(0).toUpperCase() + path.slice(1)}
-                </span>
+                  {pathName.charAt(0).toUpperCase() + pathName.slice(1)} 
+                </span> 
               </p>
-            ))}
           </div>
           <UserIcon
             onClick={handleClick}
