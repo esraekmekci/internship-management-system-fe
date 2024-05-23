@@ -20,7 +20,7 @@ export default function UserIcon({ onClick, role, dropdownExpanded, iconRef }) {
             display: "flex",
             alignItems: "center",
             position: "absolute",
-            top: "20px",
+            top: "0px",
             right: "0",
             bottom: "0",
             left: "0",

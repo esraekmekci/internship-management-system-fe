@@ -35,7 +35,7 @@ export default function Header({ role }) {
         flex: "0 0 auto",
         border: "1px solid grey",
         borderColor: "rgb(226 232 240)",
-        fontFamily: "Segoe UI, sans-serif"
+        fontFamily: "Segoe UI, sans-serif",
       }}
     >
       <div
@@ -58,16 +58,36 @@ export default function Header({ role }) {
               <img src={iyte_icon} alt="iyte icon" width={"60px"} />
             </a>
             <p style={{ color: "gray" }}>IZTECH IMS</p>
-              <p>
-                <span style={{ color: "gray" }}> /</span>
-                <span style={{ color: "rgb(153 27 27)" }}>
-                  {" "}
-                  {pathName.charAt(0).toUpperCase() + pathName.slice(1)} 
-                </span> 
-              </p>
+            <p>
+              <span style={{ color: "gray" }}> /</span>
+              <span style={{ color: "rgb(153 27 27)" }}>
+                {" "}
+                {pathName.charAt(0).toUpperCase() + pathName.slice(1)}
+              </span>
+            </p>
           </div>
-          <div style={{ textDecoration: "none", color: "black", display: "flex", alignItems: "center" }}>
-            <h4 style={{ marginRight: "15px", fontSize: "20px" }} >{user.name}</h4>
+          <div
+            style={{
+              textDecoration: "none",
+              color: "black",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px",
+            }}
+          >
+            <h4
+              style={{
+                fontSize: "18px",
+                margin: "0",
+                position: "relative",
+                top: "-3px",
+                fontWeight: "600",
+                color: "rgb(30 41 59)",
+              }}
+            >
+              {user && user.name}
+            </h4>
             <UserIcon
               onClick={handleClick}
               dropdownExpanded={dropdownExpanded}

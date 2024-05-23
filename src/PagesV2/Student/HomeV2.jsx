@@ -43,6 +43,7 @@ const Home = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log(localStorage.getItem("tokenKey"));
     const fetchData = async () => {
       try {
         const response = await GetWithAuth(
@@ -61,7 +62,7 @@ const Home = ({ children }) => {
     }, 1);
 
     return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
-  }, []);
+  }, [setUser]);
 
   return (
     <div style={{ backgroundColor: "white", width: "100vw", height: "100vh" }}>
