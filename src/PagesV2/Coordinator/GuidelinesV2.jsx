@@ -195,7 +195,7 @@ export default function Guidelines() {
             {files.map((file, index) => (
               <li key={index} className="file-item">
                 <div className="file-info">
-                  <span className="file-name">{file.name}</span>
+                  <span className="">{file.name}</span>
                 </div>
                 <div className="file-buttons">
                   <button
@@ -205,7 +205,7 @@ export default function Guidelines() {
                     Download
                   </button>
                   <button
-                    className="delete-button"
+                    className="delete-button iyte-bg"
                     onClick={() => deleteGuidelines()}
                   >
                     Delete

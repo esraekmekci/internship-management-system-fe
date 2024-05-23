@@ -145,7 +145,7 @@ function CompanyInternsV2() {
                         <h2>{intern.studentName}<span style={{ float: 'right', fontSize: '15px' }}>Status: {intern.applicationStatus}</span></h2>
                         {selectedIntern === intern && (
                             <div>
-                                <button onClick={downloadForm}>Download Form</button><br />
+                                <button className='iyte-bg' onClick={downloadForm}>Download Form</button><br />
                                 <div>
                                     <button onClick={handleUploadClick}>Upload Form</button>
                                     {uploading && (

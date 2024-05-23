@@ -73,8 +73,7 @@ export default function UserIcon({ onClick, role, dropdownExpanded, iconRef }) {
 
               <a
                 href="https://ubys.iyte.edu.tr/"
-                noopener
-                noreferrer
+                rel="noopener noreferrer"
                 target="_blank"
                 style={{ }}
                 className="icon-list-item"
@@ -86,8 +85,7 @@ export default function UserIcon({ onClick, role, dropdownExpanded, iconRef }) {
               </a>
               <a
                 href="https://ubysdestek.iyte.edu.tr/"
-                noopener="true"
-                noreferrer="true"
+                rel="noopener noreferrer"
                 target="_blank"
                 style={{ }}
                 className="icon-list-item"

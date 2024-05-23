@@ -64,7 +64,7 @@ html, body {
     padding: 10px 15px;
     font-size: 14px;
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: #4CAF50!important;
     color: white;
     border: none;
     border-radius: 5px;
@@ -72,19 +72,17 @@ html, body {
 }
 
 .approve-button:hover {
-    background-color: #367B3A;
+    background-color: #5dc462 !important;
 }
 
 .reject-button {
     padding: 10px 15px;
     font-size: 14px;
     cursor: pointer;
-    background-color: #f44336 !important;
     color: white;
     border: none;
     border-radius: 5px;
 }
 
 .reject-button:hover {
-    background-color: #d32f2f !important;
 }

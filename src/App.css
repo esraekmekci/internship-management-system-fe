@@ -103,3 +103,12 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+button, .button {
+  background-color: var(--iyte-bg-color);
+  transition: .2s background-color;
+}
+
+button:hover, .button:hover {
+  background-color: var(--iyte-bg-color-hover);
+}

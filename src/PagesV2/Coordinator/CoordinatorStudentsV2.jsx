@@ -96,83 +96,101 @@ function CoordinatorStudents() {
           <div
             key={student.applicationId}
             className=" padding-sm shadow-sm"
-            style={{ display: "flex", justifyContent: "space-between", paddingInline: "12px" }}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingInline: "12px",
+            }}
           >
-            <div style={{width: "100%", display: "flex", alignItems: "center"}}>{student.studentName}</div>
-            <button onClick={() => handleSelectStudent(student)}>Review</button>
+            <div
+              style={{ width: "100%", display: "flex", alignItems: "center" }}
+            >
+              {student.studentName}
+            </div>
+            <button className="iyte-bg" onClick={() => handleSelectStudent(student)}>Review</button>
           </div>
         ))}
       </div>
       {selectedStudent && (
-        <div className="student-details">
+        <div>
           <h2>Details for {selectedStudent.studentName}</h2>
           <div className="student-underline"></div>
-          <div className="status-container">
-            <p>Application Letter</p>
-            <button
-              className="download-button"
-              onClick={() => downloadDocument("Letter")}
-            >
+          <div
+            className="status-container"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <p style={{ marginBottom: "0px", fontSize: "20px" }}>
+              Application Letter
+            </p>
+            <button className="iyte-bg" onClick={() => downloadDocument("Letter")} style={{width: "240px"}}>
               Download Application Letter
             </button>
           </div>
-          <div className="status-container">
-            <p>Application Status: {selectedStudent.applicationStatus}</p>
-          </div>
-          <div className="action-buttons">
-            {selectedStudent.applicationStatus ===
-              "Application Letter Approved"}
-            {selectedStudent.applicationStatus ===
-              "Application Form Sent to Company"}
-            {selectedStudent.applicationStatus ===
-              "Application Form Sent to Coordinator" && (
-              <>
-                <button
-                  className="button"
-                  onClick={() => downloadDocument("Form")}
-                >
-                  Download Application Form
-                </button>
-                <button
-                  className="approve-button"
-                  onClick={() =>
-                    updateStudentFormStatus("approve", selectedStudent)
-                  }
-                >
-                  Approve Application Form
-                </button>
-                <button
-                  className="reject-button"
-                  onClick={() =>
-                    updateStudentFormStatus("reject", selectedStudent)
-                  }
-                >
-                  Reject Application Form
-                </button>
-              </>
-            )}
-            {selectedStudent.applicationStatus ===
-              "Application Form Approved" && (
-              <>
-                <button
-                  className="button"
-                  onClick={() => downloadDocument("Form")}
-                >
-                  Download Application Form
-                </button>
-              </>
-            )}
-            {selectedStudent.applicationStatus ===
-              "Application Form Rejected" && (
-              <>
-                <button
-                  className="button"
-                  onClick={() => downloadDocument("Form")}
-                >
-                  Download Application Form
-                </button>
-              </>
-            )}
+          <div
+            className="status-container"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <p style={{ marginBottom: "0px", fontSize: "20px" }}>
+              Application Status:
+            </p>
+            <div>
+              <p>{selectedStudent.applicationStatus}</p>
+              <div className="" style={{ marginTop: "0", width: "240px", minWidth: "240px", fontSize: "20px" }}>
+                {selectedStudent.applicationStatus ===
+                  "Application Letter Approved"}
+                {selectedStudent.applicationStatus ===
+                  "Application Form Sent to Company"}
+                {selectedStudent.applicationStatus ===
+                  "Application Form Sent to Coordinator" && (
+                  <>
+                    <button
+                      className="button"
+                      onClick={() => downloadDocument("Form")}
+                    >
+                      Download Application Form
+                    </button>
+                    <button
+                      className="approve-button"
+                      onClick={() =>
+                        updateStudentFormStatus("approve", selectedStudent)
+                      }
+                    >
+                      Approve Application Form
+                    </button>
+                    <button
+                      className="reject-button"
+                      onClick={() =>
+                        updateStudentFormStatus("reject", selectedStudent)
+                      }
+                    >
+                      Reject Application Form
+                    </button>
+                  </>
+                )}
+                {selectedStudent.applicationStatus ===
+                  "Application Form Approved" && (
+                  <>
+                    <button
+                      className="button"
+                      onClick={() => downloadDocument("Form")}
+                    >
+                      Download Application Form
+                    </button>
+                  </>
+                )}
+                {selectedStudent.applicationStatus ===
+                  "Application Form Rejected" && (
+                  <>
+                    <button
+                      className="button"
+                      onClick={() => downloadDocument("Form")}
+                    >
+                      Download Application Form
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}

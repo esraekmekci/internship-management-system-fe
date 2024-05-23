@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import profile_icon from "../../Components/Assets/profile-picture.png";
-import { useUser } from '../../Components//UserContext';
+import { useUser } from "../../Components//UserContext";
 
 export default function ProfileV2() {
   const { user } = useUser();
@@ -27,69 +27,84 @@ export default function ProfileV2() {
           <h2>Student Profile</h2>
 
           <div className="profile-item">
-                        <label><b>Student Name:</b> {user.name}</label>
-                    </div>
-                    <br />
-                    <div className="profile-item">
-                        <label><b>Student ID:</b> {user.studentID}</label>
-                    </div>
-                    <br />
-                    <div className="profile-item">
-                        <label><b>Student Nationality:</b> {user.nationality}</label>
-                    </div>
-                    <br />
-                    <div className="profile-item">
-                        <label><b>Student Email:</b> {user.email}</label>
-                    </div>
-                    <br />
-                    <div className="profile-item">
-                        <label><b>Student Grade:</b> {user.grade}</label>
-                    </div>
-          <br/><br/>
+            <label>
+              <b>Student Name:</b> {user && user.name}
+            </label>
+          </div>
+          <br />
+          <div className="profile-item">
+            <label>
+              <b>Student ID:</b> {user && user.studentID}
+            </label>
+          </div>
+          <br />
+          <div className="profile-item">
+            <label>
+              <b>Student Nationality:</b> {user && user.nationality}
+            </label>
+          </div>
+          <br />
+          <div className="profile-item">
+            <label>
+              <b>Student Email:</b> {user && user.email}
+            </label>
+          </div>
+          <br />
+          <div className="profile-item">
+            <label>
+              <b>Student Grade:</b> {user && user.grade}
+            </label>
+          </div>
+          <br />
+          <br />
           <form onSubmit={handleChangePassword}>
-          <div className="setting-item">
-            <label>
-              Current Password:{" "}
-              <div>
-                <input
-                  type="password"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                />
-              </div>{" "}
-            </label>
-          </div>
-          <br />
-          <div className="setting-item">
-            <label>
-              New Password:{" "}
-              <div>
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-              </div>{" "}
-            </label>
-          </div>
-          <br />
-          <div className="setting-item">
-            <label>
-              Confirm New Password:{" "}
-              <div>
-                <input
-                  type="password"
-                  value={confirmNewPassword}
-                  onChange={(e) => setConfirmNewPassword(e.target.value)}
-                />
-              </div>{" "}
-            </label>
-          </div>
-          <br />
-          <button type="submit" style={{ marginTop: "15px" }} className="iyte-bg">
-            Change Password
-          </button>
-        </form>
+            <div className="setting-item">
+              <label>
+                Current Password:{" "}
+                <div>
+                  <input
+                    type="password"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                  />
+                </div>{" "}
+              </label>
+            </div>
+            <br />
+            <div className="setting-item">
+              <label>
+                New Password:{" "}
+                <div>
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                </div>{" "}
+              </label>
+            </div>
+            <br />
+            <div className="setting-item">
+              <label>
+                Confirm New Password:{" "}
+                <div>
+                  <input
+                    type="password"
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                  />
+                </div>{" "}
+              </label>
+            </div>
+            <br />
+            <button
+              type="submit"
+              style={{ marginTop: "15px" }}
+              className="iyte-bg"
+            >
+              Change Password
+            </button>
+          </form>
         </div>
       </div>
     </div>
