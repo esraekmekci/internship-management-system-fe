@@ -1,9 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import '../../Pages/Coordinator/CoordinatorCompanies.css';
-import CoordinatorHome from './CoordinatorHomeV2.jsx';
 import { GetWithAuth } from "../../Services/HttpService.js";
 import { PutWithAuth } from "../../Services/HttpService.js";
-
 
 /*
 Coordinator grades yerine konuldu
@@ -12,30 +10,6 @@ Corrdinator gradesi hala silmedim belki ilerde ihtiyaç olabilir diye
 export default function CoordinatorCompaniesV2() {
   const [companies, setCompanies] = useState([]);
   const [visibleCompany, setVisibleCompany] = useState(null);
-  const [currentUser, setCurrentUser] = useState({});
-
-    useEffect(() => {
-      console.log(currentUser.id); // currentUser her güncellendiğinde bu çalışır
-    }, [currentUser]);
-    
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await GetWithAuth("/coordinator/token/" + localStorage.getItem("tokenKey"));
-          const result = await response.json();
-          console.log(result);
-          setCurrentUser(result);
-        } catch (error) {
-          console.log(error);
-          console.log("User not found");
-        }
-      };
-      const timeout = setTimeout(() => {
-        fetchData();
-      }, 10); 
-      return () => clearTimeout(timeout); 
-      
-    }, []);
 
   const toggleCompanyDetails = (index) => {
     setVisibleCompany(visibleCompany === index ? null : index);

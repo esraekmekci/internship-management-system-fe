@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import CompanyHome from './CompanyHomeV2.jsx';
 import { GetWithAuth } from "../../Services/HttpService";
 import '../../Pages/Company/CompanyInterns.css';
+import { useUser } from "../../Components/UserContext.jsx";
 
 function CompanyInternsV2() {
-    const [currentUser, setCurrentUser] = useState({});
+    const { user } = useUser();
     const [interns, setInterns] = useState([]);
     const [selectedIntern, setSelectedIntern] = useState(null);
     const [uploading, setUploading] = useState(false);
@@ -13,24 +13,11 @@ function CompanyInternsV2() {
 
     
     useEffect(() => {
-        const fetchCompany = async () => {
-            try {
-                const response = await GetWithAuth("/company/token/" + localStorage.getItem("tokenKey"));
-                const result = await response.json();
-                console.log(result);
-                setCurrentUser(result);
-                await fetchInterns(result);
-            } catch (error) {
-                console.log(error);
-                console.log("User not found");
-            }
-        };
 
-        const fetchInterns = async (user) => {
+        const fetchInterns = async () => {
             try {
                 const response = await GetWithAuth("/company/" + user.companyid + "/interns");
                 const result = await response.json();
-                console.log(result);
                 setInterns(result);
             } catch (error) {
                 console.log(error);
@@ -38,7 +25,8 @@ function CompanyInternsV2() {
             }
         };
 
-        fetchCompany();
+        fetchInterns();
+
     }, []);
 
     const handleSelectIntern = (intern) => {
@@ -73,8 +61,8 @@ function CompanyInternsV2() {
             return;
         }
 
-        if (!(fileName.endsWith('.docx') || fileName.endsWith('.doc') || fileName.endsWith('.pdf'))) {
-            alert('Please select a word/pdf file!');
+        if (!(fileName.endsWith('.docx') || fileName.endsWith('.doc'))) {
+            alert('Please select a word file!');
             return;
         }
         
@@ -93,9 +81,7 @@ function CompanyInternsV2() {
     };
 
     const downloadApplicationForm = () => {
-        fetch("/company/" + currentUser.companyid + "/downloadApplicationForm?studentId=" + selectedIntern.studentId, {
-          method: 'GET',
-        })
+        GetWithAuth("/company/" + user.companyid + "/downloadApplicationForm?studentId=" + selectedIntern.studentId)
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok: ' + response.statusText);
@@ -120,7 +106,7 @@ function CompanyInternsV2() {
       };
 
       const uploadApplicationForm = (formData) => {
-        fetch("/company/" + currentUser.companyid + "/uploadApplicationForm?studentId=" + selectedIntern.studentId, {
+        fetch("/company/" + user.companyid + "/uploadApplicationForm?studentId=" + selectedIntern.studentId, {
           method: 'POST',
           body: formData,
           headers: {
@@ -177,7 +163,7 @@ function CompanyInternsV2() {
                                                 borderRadius:'4px'
                                             }}>
                                                 Choose Application Form
-                                                <input type="file" id="fileInput" style={{ display: 'none' }} accept=".docx, .doc, .pdf" onChange={handleFileChange} />
+                                                <input type="file" id="fileInput" style={{ display: 'none' }} accept=".docx, .doc" onChange={handleFileChange} />
                                             </label>
                                             {fileName && <span style={{ marginLeft: '10px' }} className="file-name">{fileName}</span>} {/* Dosya adını göster */}
                                             </div>

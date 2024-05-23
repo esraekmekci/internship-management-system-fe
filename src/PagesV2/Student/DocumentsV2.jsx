@@ -1,34 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Home from "./HomeV2.jsx";
+import { useUser } from "../../Components/UserContext";
 
 export default function DocumentsV2() {
-  var [currentUser, setCurrentUser] = useState({});
-
-  useEffect(() => {
-    console.log(currentUser.studentID); // currentUser her güncellendiğinde bu çalışır
-  }, [currentUser]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await GetWithAuth(
-          "/student/token/" + localStorage.getItem("tokenKey")
-        );
-        const result = await response.json();
-        console.log(result);
-        setCurrentUser(result);
-      } catch (error) {
-        console.log(error);
-        console.log("User not found");
-      }
-    };
-
-    const timeout = setTimeout(() => {
-      fetchData();
-    }, 1);
-
-    return () => clearTimeout(timeout); // useEffect'in temizleme fonksiyonu, bileşen kaldırıldığında zamanlayıcıyı temizler
-  }, []);
+  const { user } = useUser();
 
   const downloadFile = (fileName) => {
     // Burada dosyayı indirmek için uygun bir işlem yapılabilir.
@@ -42,7 +16,7 @@ export default function DocumentsV2() {
   };
 
   const downloadSGKDocument = () => {
-    fetch("/student/" + currentUser.studentID + "/downloadSGKDocument", {
+    fetch("/student/" + user.studentID + "/downloadSGKDocument", {
       method: "GET",
     })
       .then((response) => {
@@ -57,7 +31,7 @@ export default function DocumentsV2() {
         const url = window.URL.createObjectURL(blob); // Blob'dan bir URL oluştur
         const a = document.createElement("a"); // Yeni bir anchor elementi oluştur
         a.href = url;
-        a.download = "SGK_Report_" + currentUser.studentID + ".pdf"; // İndirilecek dosyanın adını belirle
+        a.download = "SGK_Report_" + user.studentID + ".pdf"; // İndirilecek dosyanın adını belirle
         document.body.appendChild(a); // Anchor elementini document'e ekle
         a.click(); // Programatik olarak tıklayarak indirme işlemini başlat
         a.remove(); // Anchor elementini temizle
@@ -70,9 +44,8 @@ export default function DocumentsV2() {
       });
   };
 
-  //backend duzenlenince degisecek
   const downloadGuideline = () => {
-    fetch("/student/" + currentUser.studentID + "/downloadSGKDocument", {
+    fetch("/coordinator/downloadGuideline", {
       method: "GET",
     })
       .then((response) => {

@@ -70,12 +70,6 @@ export default function UserIcon({ onClick, role, dropdownExpanded, iconRef }) {
                 </i>
                 <div>Profile</div>
               </Link>
-              <Link to={`settings`} className="icon-list-item">
-                <i className="material-icons" style={{ color: "#64748b" }}>
-                  manage_accounts
-                </i>
-                <div>User Settings</div>
-              </Link>
 
               <a
                 href="https://ubys.iyte.edu.tr/"

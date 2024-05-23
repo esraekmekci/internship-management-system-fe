@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { GetWithAuth } from "../../Services/HttpService";
 import "../../Pages/Coordinator/CoordinatorHome.css";
-import iyte_icon from "../../Components/Assets/iyte-logo.png";
-import user_icon from "../../Components/Assets/user.png";
-import documents_icon from "../../Components/Assets/documents.png";
-import admin_icon from "../../Components/Assets/shield.png";
-import student_icon from "../../Components/Assets/studentbook.png";
-import announcement_icon from "../../Components/Assets/announcements.png";
 import loading_icon from "../../Components/Assets/loading.png";
-import company_icon from "../../Components/Assets/company.png";
 import Header from "../../Components/Header";
 import Sidebar from "../../Components/Sidebar";
+import { useUser } from "../../Components/UserContext.jsx";
 
 const tabs = [
     { name: "See Students", link: "/coordinator/students", icon: "people" },
@@ -29,6 +23,8 @@ Benimle çalışan kişi yaptıkça commentleri silmeyi unutma pls.
 const CoordinatorHomeV2 = ({ children }) => {
   var [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const { setUser } = useUser();
+  
   const [showDropdown, setShowDropdown] = useState({
     btn1: false,
     btn1_1: false,
@@ -60,9 +56,7 @@ const CoordinatorHomeV2 = ({ children }) => {
           "/coordinator/token/" + localStorage.getItem("tokenKey")
         );
         const result = await response.json();
-        console.log(result);
-        setCurrentUser(result);
-        console.log(currentUser.name);
+        setUser(result);
       } catch (error) {
         console.log(error);
         console.log("User not found");
@@ -91,7 +85,7 @@ const CoordinatorHomeV2 = ({ children }) => {
       <div
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
-        <Header role={"Coordinator"} />
+        <Header role={"coordinator"} />
         <div
           style={{
             display: "flex",

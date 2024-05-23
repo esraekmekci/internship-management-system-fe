@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../Pages/Coordinator/CoordinatorStudents.css";
-import CoordinatorHome from "./CoordinatorHomeV2.jsx";
 import { GetWithAuth } from "../../Services/HttpService";
 import { PutWithAuth } from "../../Services/HttpService";
 
@@ -9,25 +8,10 @@ function CoordinatorStudents() {
   const [selectedStudent, setSelectedStudent] = useState(null);
 
   useEffect(() => {
-    const fetchCompany = async () => {
-      try {
-        const response = await GetWithAuth(
-          "/coordinator/token/" + localStorage.getItem("tokenKey")
-        );
-        const result = await response.json();
-        console.log(result);
-        await fetchStudents(result);
-      } catch (error) {
-        console.log(error);
-        console.log("User not found");
-      }
-    };
-
     const fetchStudents = async () => {
       try {
         const response = await GetWithAuth("/coordinator/studentApplications");
         const result = await response.json();
-        console.log(result);
         setStudents(result);
       } catch (error) {
         console.log(error);
@@ -35,7 +19,7 @@ function CoordinatorStudents() {
       }
     };
 
-    fetchCompany();
+    fetchStudents();
   }, []);
 
   const handleSelectStudent = (student) => {

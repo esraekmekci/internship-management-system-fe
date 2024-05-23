@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { GetWithAuth } from "../../Services/HttpService.js";
 import "../../Pages/Home.css";
-import iyte_icon from "../../Components/Assets/iyte-logo.png";
-import user_icon from "../../Components/Assets/user.png";
-import internship_icon from "../../Components/Assets/internship.png";
-import documents_icon from "../../Components/Assets/documents.png";
-import admin_icon from "../../Components/Assets/shield.png";
-import company_icon from "../../Components/Assets/company.png";
-import announcements_icon from "../../Components/Assets/announcements.png";
 import Announcement from "./AnnouncementV2.jsx";
 import Header from "../../Components/Header.jsx";
 import Sidebar from "../../Components/Sidebar.jsx";
-
+import { useUser } from "../../Components/UserContext.jsx";
 
 const tabs = [
     { name: "View Announcements", link: "/student/announcement", icon: "campaign" },
@@ -22,8 +15,7 @@ const tabs = [
 ];
 
 const Home = ({ children }) => {
-  var [currentUser, setCurrentUser] = useState({});
-
+  const { setUser } = useUser();
   const content = children || <Announcement />;
 
   const [showDropdown, setShowDropdown] = useState({
@@ -51,18 +43,13 @@ const Home = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log(currentUser.studentID); // currentUser her güncellendiğinde bu çalışır
-  }, [currentUser]);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await GetWithAuth(
           "/student/token/" + localStorage.getItem("tokenKey")
         );
         const result = await response.json();
-        console.log(result);
-        setCurrentUser(result);
+        setUser(result);
       } catch (error) {
         console.log(error);
         console.log("User not found");
@@ -81,7 +68,7 @@ const Home = ({ children }) => {
       <div
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
-        <Header role={"Secretary"} />
+        <Header role={"student"} />
         <div
           style={{
             display: "flex",

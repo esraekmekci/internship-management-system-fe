@@ -2,15 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { GetWithAuth } from "../../Services/HttpService";
 import "../../Pages/Home.css";
-import iyte_icon from "../../Components/Assets/iyte-logo.png";
-import user_icon from "../../Components/Assets/user.png";
-import admin_icon from "../../Components/Assets/shield.png";
-import student_icon from "../../Components/Assets/studentbook.png";
-import grade_icon from "../../Components/Assets/grades.png";
-import announcement_icon from "../../Components/Assets/announcements.png";
 import Header from "../../Components/Header";
 import Sidebar from "../../Components/Sidebar";
-
+import { useUser } from "../../Components/UserContext.jsx";
 
 const tabs = [
   { name: "See Students", link: "/company/students", icon: "people" },
@@ -20,7 +14,8 @@ const tabs = [
 
 
 const CompanyHomeV2 = ({ children }) => {
-  var [currentUser, setCurrentUser] = useState({});
+  const { setUser } = useUser();
+
   const [showDropdown, setShowDropdown] = useState({
     btn1: false,
     btn1_1: false,
@@ -46,18 +41,13 @@ const CompanyHomeV2 = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log(currentUser.name); // currentUser her güncellendiğinde bu çalışır
-  }, [currentUser]);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await GetWithAuth(
           "/company/token/" + localStorage.getItem("tokenKey")
         );
         const result = await response.json();
-        setCurrentUser(result);
-        console.log(currentUser.name);
+        setUser(result);
       } catch (error) {
         console.log(error);
         console.log("User not found");

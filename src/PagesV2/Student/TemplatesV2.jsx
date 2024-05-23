@@ -1,9 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Home from "./HomeV2.jsx";
-import { GetWithAuth } from "../../Services/HttpService.js";
-import { wait } from "@testing-library/user-event/dist/utils/index.js";
-import { waitFor } from "@testing-library/react";
 
 export default function TemplatesV2() {
   const downloadFile = (fileName) => {

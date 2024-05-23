@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import CompanyHome from'./CompanyHomeV2.jsx';
 import profile_icon from '../../Components/Assets/profile-picture.png'
-import { GetWithAuth } from '../../Services/HttpService.js';
-
+import { useUser } from '../../Components//UserContext';
 
 function CompanyProfileV2() {
-    const [currentUser, setCurrentUser] = useState({});
+  const { user } = useUser();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-    useEffect(() => {
-      const fetchProfileData = async () => {
-        try {
-          const response = await GetWithAuth("/company/token/" + localStorage.getItem("tokenKey"));
-          const result = await response.json();
-          setCurrentUser(result);
-        } catch (error) {
-          console.log(error);
-          console.log("User not found");
-        }
-      };
-  
-      fetchProfileData();
-    }, []);
+  const handleChangePassword = (e) => {
+    e.preventDefault();
+    // Add password change logic here
+    // Verify current password, check newPassword and confirmNewPassword match, then update
+    console.log("Password change requested.");
+  };
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   
     return (
         <div className='w-full-padding'>
@@ -29,28 +25,75 @@ function CompanyProfileV2() {
             <img src={profile_icon} alt="Profile Icon" className="profile-icon" />
             <h2>Company Profile</h2>
             <div className="profile-item">
-              <label><b>Company Name:</b> {currentUser.companyName}</label>
+              <label><b>Company Name:</b> {user.companyName}</label>
             </div>
             <br />
             <div className="profile-item">
-              <label><b>Company Email:</b> {currentUser.email}</label>
+              <label><b>Company Email:</b> {user.email}</label>
             </div>
             <br />
             <div className="profile-item">
-              <label><b>Company Representative Name:</b> {currentUser.name}</label>
+              <label><b>Company Representative Name:</b> {user.name}</label>
             </div>
             <br />
             <div className="profile-item">
-              <label><b>Company Address:</b> {currentUser.companyAddress}</label>
+              <label><b>Company Address:</b> {user.companyAddress}</label>
             </div>
             <br />
             <div className="profile-item">
-              <label><b>Foundation Year:</b> {currentUser.foundationYear}</label>
+              <label><b>Foundation Year:</b> {user.foundationYear}</label>
             </div>
             <br />
             <div className="profile-item">
-              <label><b>Employee Size:</b> {currentUser.employeeSize}</label>
+              <label><b>Employee Size:</b> {user.employeeSize}</label>
             </div>
+
+            <br /><br />
+
+            <form onSubmit={handleChangePassword}>
+          <div className="setting-item">
+            <label>
+              Current Password:{" "}
+              <div>
+                <input
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+              </div>{" "}
+            </label>
+          </div>
+          <br />
+          <div className="setting-item">
+            <label>
+              New Password:{" "}
+              <div>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>{" "}
+            </label>
+          </div>
+          <br />
+          <div className="setting-item">
+            <label>
+              Confirm New Password:{" "}
+              <div>
+                <input
+                  type="password"
+                  value={confirmNewPassword}
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
+                />
+              </div>{" "}
+            </label>
+          </div>
+          <br />
+          <button type="submit" style={{ marginTop: "15px" }} className="iyte-bg">
+            Change Password
+          </button>
+        </form>
           </div>
         </div>
     );

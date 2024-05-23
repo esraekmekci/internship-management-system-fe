@@ -2,9 +2,12 @@ import { useLocation } from "react-router-dom";
 import iyte_icon from "../Components/Assets/iyte-logo.png";
 import UserIcon from "./UserIcon";
 import { useEffect, useState, useRef } from "react";
+import { useUser } from "./UserContext";
 
 export default function Header({ role }) {
+  const { user } = useUser();
   const [dropdownExpanded, setDropdownExpanded] = useState(false);
+
   const iconRef = useRef(null);
 
   const handleClick = () => {
@@ -51,7 +54,7 @@ export default function Header({ role }) {
               gap: "4px",
             }}
           >
-            <a href="/home">
+            <a href={`/${role}`}>
               <img src={iyte_icon} alt="iyte icon" width={"60px"} />
             </a>
             <p style={{ color: "gray" }}>IZTECH IMS</p>
@@ -63,12 +66,15 @@ export default function Header({ role }) {
                 </span> 
               </p>
           </div>
-          <UserIcon
-            onClick={handleClick}
-            dropdownExpanded={dropdownExpanded}
-            role={role}
-            iconRef={iconRef}
-          />
+          <div style={{ textDecoration: "none", color: "black", display: "flex", alignItems: "center" }}>
+            <h4 style={{ marginRight: "15px", fontSize: "20px" }} >{user.name}</h4>
+            <UserIcon
+              onClick={handleClick}
+              dropdownExpanded={dropdownExpanded}
+              role={role}
+              iconRef={iconRef}
+            />
+          </div>
         </div>
       </div>
     </div>

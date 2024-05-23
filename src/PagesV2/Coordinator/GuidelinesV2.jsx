@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../Pages/Coordinator/Guidelines.css";
-import CoordinatorHome from "./CoordinatorHomeV2.jsx";
 import { GetWithAuth } from "../../Services/HttpService.js";
 
 const file = [{ name: "Summer Practice Guidelines" }];

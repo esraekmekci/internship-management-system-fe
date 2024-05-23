@@ -11,7 +11,6 @@ import Profile from "./Pages/Profile";
 import Companies from "./Pages/Companies";
 import ApplyInternship from "./Pages/ApplyInternship";
 import UploadSummerPractice from "./Pages/UploadSummerPractice";
-import SecretaryUserSettings from "./Pages/Secretary/SecretaryUserSettings";
 import Announcement from "./Pages/Announcement";
 import Documents from "./Pages/Documents";
 import Applications from "./Pages/Applications";
@@ -29,45 +28,39 @@ import CompanyStudents from "./Pages/Company/CompanyStudents";
 import CompanyAnnouncements from "./Pages/Company/CompanyAnnouncements";
 import CompanyInterns from "./Pages/Company/CompanyInterns";
 import CoordinatorCompanies from "./Pages/Coordinator/CoordinatorCompanies";
+import { UserProvider } from './Components/UserContext';
 
 /**
  * V2
 */
 
 //Secretary
-import SecretaryHome from "./Pages/Secretary/SecretaryHome";
-import Students from "./Pages/Secretary/Students";
-import Settings from "./Pages/Secretary/Settings";
+import SecretaryHome from "./PagesV2/Secretary/SecretaryHome";
+import Students from "./PagesV2/Secretary/Students";
+import SecretaryProfile from "./PagesV2/Secretary/SecretaryProfile";
 
 //Company
 import CompanyAnnouncementsV2 from "./PagesV2/Company/CompanyAnnouncementsV2";
 import CompanyHomeV2 from "./PagesV2/Company/CompanyHomeV2";
 import CompanyInternsV2 from "./PagesV2/Company/CompanyInternsV2";
 import CompanyProfileV2 from "./PagesV2/Company/CompanyProfileV2";
-import CompanySettingsV2 from "./PagesV2/Company/CompanySettingsV2";
 import CompanyStudentsV2 from "./PagesV2/Company/CompanyStudentsV2";
 
 //Coordinator
 import CoordinatorAnnouncementV2 from "./PagesV2/Coordinator/CoordinatorAnnouncementV2";
 import CoordinatorCompaniesV2 from "./PagesV2/Coordinator/CoordinatorCompaniesV2";
-import CoordinatorGradesV2 from "./PagesV2/Coordinator/CoordinatorGradesV2";
 import CoordinatorHomeV2 from "./PagesV2/Coordinator/CoordinatorHomeV2";
 import CoordinatorProfileV2 from "./PagesV2/Coordinator/CoordinatorProfileV2";
 import GuidelinesV2 from "./PagesV2/Coordinator/GuidelinesV2";
 import CoordinatorStudentsV2 from "./PagesV2/Coordinator/CoordinatorStudentsV2"
-import CoordinatorSettingsV2 from "./PagesV2/Coordinator/CoordinatorSettingsV2";
 
 //Student
 import AnnouncementV2 from "./PagesV2/Student/AnnouncementV2";
 import ApplicationsV2 from "./PagesV2/Student/ApplicationsV2";
-import ApplyInternshipV2 from "./PagesV2/Student/ApplyInternshipV2";
-import CompaniesV2 from "./PagesV2/Student/CompaniesV2";
 import DocumentsV2 from "./PagesV2/Student/DocumentsV2";
 import HomeV2 from "./PagesV2/Student/HomeV2";
 import ProfileV2 from "./PagesV2/Student/ProfileV2";
 import TemplatesV2 from "./PagesV2/Student/TemplatesV2";
-import UploadSummerPracticeV2 from "./PagesV2/Student/UploadSummerPracticeV2";
-import UserSettingsV2 from "./PagesV2/Student/UserSettingsV2";
 
 
 
@@ -186,8 +179,8 @@ const router = createBrowserRouter([
         element: <Students />,
       },
       {
-        path: "settings",
-        element: <Settings />,
+        path: "profile",
+        element: <SecretaryProfile />,
       },
     ],
   },
@@ -198,10 +191,6 @@ const router = createBrowserRouter([
       {
         path: "",
         element: "",
-      },
-      {
-        path: "apply",
-        element: <ApplyInternshipV2 />,
       },
       {
         path: "announcement",
@@ -223,10 +212,6 @@ const router = createBrowserRouter([
         path: "profile",
         element: <ProfileV2 />,
       },
-      {
-        path: "settings",
-        element: <UserSettingsV2 />,
-      },
     ],
   },
   {
@@ -244,10 +229,6 @@ const router = createBrowserRouter([
       {
         path: "students",
         element: <CompanyStudentsV2 />,
-      },
-      {
-        path: "settings",
-        element: <CompanySettingsV2 />,
       },
       {
         path: "interns",
@@ -287,17 +268,17 @@ const router = createBrowserRouter([
       {
         path: "guidelines",
         element: <GuidelinesV2 />,
-      },
-      {
-        path: "settings",
-        element: <CoordinatorSettingsV2 />
       }
     ],
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />);
+root.render(
+  <UserProvider>
+    <RouterProvider router={router} />
+  </UserProvider>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

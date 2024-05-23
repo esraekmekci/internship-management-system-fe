@@ -3,7 +3,6 @@ import { GetWithAuth } from "../../Services/HttpService";
 import { PutWithAuth } from "../../Services/HttpService";
 
 import "../../Pages/Coordinator/CoordinatorAnnouncement.css";
-import CoordinatorHome from "./CoordinatorHomeV2";
 
 function Modal({ onClose, onConfirm, message }) {
   return (
@@ -135,4 +134,3 @@ export default function CoordinatorAnnouncementV2() {
     </div>
   );
 }
-//<div className="" style={{ width: "100%", padding: "20px 40px" }}>

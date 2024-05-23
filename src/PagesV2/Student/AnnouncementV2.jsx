@@ -1,39 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService.js";
-import Home from "./HomeV2.jsx";
 import company_icon from "../../Components/Assets/building.png";
 import calendar_icon from "../../Components/Assets/calendar-day.png";
 import employees_icon from "../../Components/Assets/employees.png";
 import "../../Pages/Companies.css";
+import { useUser } from "../../Components/UserContext";
 
 export default function AnnouncementV2() {
   const [announcements, setAnnouncements] = useState([]);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
-  const [currentUser, setCurrentUser] = useState({});
+  const { user } = useUser();
 
   useEffect(() => {
-    const fetchStudent = async () => {
-      try {
-        const response = await GetWithAuth(
-          "/student/token/" + localStorage.getItem("tokenKey")
-        );
-        const result = await response.json();
-        console.log(result);
-        setCurrentUser(result);
-        await fetchAnnouncements();
-      } catch (error) {
-        console.log(error);
-        console.log("User not found");
-      }
-    };
-
     const fetchAnnouncements = async () => {
       try {
         const response = await GetWithAuth("/announcement/approved");
         const result = await response.json();
-        console.log(result);
         setAnnouncements(result);
       } catch (error) {
         console.log(error);
@@ -41,7 +25,7 @@ export default function AnnouncementV2() {
       }
     };
 
-    fetchStudent();
+    fetchAnnouncements();
   }, []);
 
   const handleClick = (announcement) => {
@@ -70,11 +54,10 @@ export default function AnnouncementV2() {
     if (
       !(
         fileName.endsWith(".docx") ||
-        fileName.endsWith(".doc") ||
-        fileName.endsWith(".pdf")
+        fileName.endsWith(".doc")
       )
     ) {
-      alert("Please select a word/pdf file!");
+      alert("Please select a word file!");
       return;
     }
 
@@ -88,7 +71,7 @@ export default function AnnouncementV2() {
   };
 
   const uploadApplicationLetter = (formData) => {
-    fetch("/student/" + currentUser.studentID + "/uploadApplicationLetter", {
+    fetch("/student/" + user.studentID + "/uploadApplicationLetter", {
       method: "POST",
       body: formData,
       headers: {
@@ -105,7 +88,6 @@ export default function AnnouncementV2() {
         return response;
       })
       .then((result) => {
-        console.log(result);
         alert("Application letter uploaded successfully");
         setFile(null);
         setFileName("Select file");
@@ -190,7 +172,7 @@ export default function AnnouncementV2() {
                         type="file"
                         id="fileInput"
                         style={{ display: "none" }}
-                        accept=".docx, .doc, .pdf"
+                        accept=".docx, .doc"
                         onChange={handleFileChange}
                       />
                     </label>

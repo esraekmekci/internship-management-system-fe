@@ -1,39 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService.js";
-import Home from "./HomeV2.jsx";
 import "../../Pages/Applications.css";
+import { useUser } from "../../Components/UserContext";
 
 export default function ApplicationsV2() {
   const [applications, setApplications] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
-  const [currentUser, setCurrentUser] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
+  const { user } = useUser();
 
   useEffect(() => {
-    const fetchStudent = async () => {
-      try {
-        const response = await GetWithAuth(
-          "/student/token/" + localStorage.getItem("tokenKey")
-        );
-        const result = await response.json();
-        console.log(result);
-        setCurrentUser(result);
-        await fetchCompanies(result);
-      } catch (error) {
-        console.log(error);
-        console.log("User not found");
-      }
-    };
-
-    const fetchCompanies = async (user) => {
+    const fetchCompanies = async () => {
       try {
         const response = await GetWithAuth(
           "/student/" + user.studentID + "/appliedcompanies"
         );
         const result = await response.json();
-        console.log(result);
         setApplications(result);
       } catch (error) {
         console.log(error);
@@ -41,7 +25,7 @@ export default function ApplicationsV2() {
       }
     };
 
-    fetchStudent();
+    fetchCompanies();
   }, []);
 
   const handleClick = (company) => {
@@ -56,7 +40,7 @@ export default function ApplicationsV2() {
   const downloadDocument = (type) => {
     fetch(
       "/student/" +
-        currentUser.studentID +
+        user.studentID +
         "/downloadApplication" +
         type +
         "?companyName=" +
@@ -109,11 +93,10 @@ export default function ApplicationsV2() {
     if (
       !(
         fileName.endsWith(".docx") ||
-        fileName.endsWith(".doc") ||
-        fileName.endsWith(".pdf")
+        fileName.endsWith(".doc") 
       )
     ) {
-      alert("Please select a word/pdf file!");
+      alert("Please select a word file!");
       return;
     }
 
@@ -127,7 +110,7 @@ export default function ApplicationsV2() {
   };
 
   const uploadApplicationForm = (formData) => {
-    fetch("/student/" + currentUser.studentID + "/uploadApplicationForm", {
+    fetch("/student/" + user.studentID + "/uploadApplicationForm", {
       method: "POST",
       body: formData,
       headers: {
@@ -144,7 +127,6 @@ export default function ApplicationsV2() {
         return response;
       })
       .then((result) => {
-        console.log(result);
         alert("Application form uploaded successfully");
         setFile(null);
         setFileName("Select file");
@@ -251,7 +233,7 @@ export default function ApplicationsV2() {
                             type="file"
                             id="fileInput"
                             style={{ display: "none" }}
-                            accept=".docx, .doc, .pdf"
+                            accept=".docx, .doc"
                             onChange={handleFileChange}
                           />
                         </label>

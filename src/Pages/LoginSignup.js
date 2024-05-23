@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './LoginSignup.css';
-import { PostWithoutAuth } from "../Services/HttpService";
+import { GetWithAuth, PostWithoutAuth } from "../Services/HttpService";
 import email_icon from '../Components/Assets/email-icon.png';
 import password_icon from '../Components/Assets/padlock.png';
 import employees_icon from '../Components/Assets/employees.png';
@@ -28,7 +28,6 @@ const LoginSignup = () => {
     const [internshipType, setInternshipType] = useState("");
 
     const [token, setToken] = useState("");
-    
 
     const [showCheckboxPopup , setShowCheckboxPopup ] = useState(false);
     const [showKVKKPopup , setShowKVKKPopup  ] = useState(false);
@@ -112,20 +111,20 @@ const LoginSignup = () => {
                     setShowCheckboxPopup(!res.registered);
                     if (res.registered) {
                         alert(`Logging in as a ${role} with student ID: ${stID}`);
-                        navigate("/home");
+                        navigate("/student");
                     }
                 } 
                 else if (res.authorities.includes("SECRETARY")){
                     alert(`Logging in as a ${role} with email: ${email}`);
-                    navigate("/sec_home"); 
+                    navigate("/secretary"); 
                 }
                 else if (res.authorities.includes("COORDINATOR")){
                     alert(`Logging in as a ${role} with email: ${email}`);
-                    navigate("/coor_home"); 
+                    navigate("/coordinator"); 
                 }
                 else if (res.authorities.includes("COMPANY")){
                     alert(`Logging in as a ${role} with email: ${email}`);
-                    navigate("/comp-home"); 
+                    navigate("/company"); 
                 }
             }
         })

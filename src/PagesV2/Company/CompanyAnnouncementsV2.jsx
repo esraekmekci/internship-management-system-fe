@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService";
-import CompanyHome from "./CompanyHomeV2.jsx";
 import "../../Pages/Company/CompanyAnnouncement.css";
 
 export default function CompanyAnnouncementV2() {
