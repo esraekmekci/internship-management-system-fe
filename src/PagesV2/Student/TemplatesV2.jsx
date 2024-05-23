@@ -31,7 +31,7 @@ export default function TemplatesV2() {
           >
             Summer Practice Application Letter (TR)
             <button
-              className=""
+              className="iyte-bg"
               onClick={() =>
                 downloadFile("1_TR_SummerPracticeApplicationLetter2023.docx")
               }
@@ -51,7 +51,7 @@ export default function TemplatesV2() {
           >
             Summer Practice Application Letter (EN)
             <button
-              className=""
+              className="iyte-bg"
               onClick={() =>
                 downloadFile("1_EN_SummerPracticeApplicationLetter2023.docx")
               }
@@ -71,7 +71,7 @@ export default function TemplatesV2() {
           >
             Summer Practice Application Form (TR)
             <button
-              className=""
+              className="iyte-bg"
               onClick={() =>
                 downloadFile("2_TR_SummerPracticeApplicationForm2023.doc")
               }
@@ -91,7 +91,7 @@ export default function TemplatesV2() {
           >
             Company Form (TR)
             <button
-              className=""
+              className="iyte-bg"
               onClick={() => downloadFile("3_TR_FirmaFormu2023.docx")}
             >
               Download
@@ -109,7 +109,7 @@ export default function TemplatesV2() {
           >
             Summer Practice Report Template (TR)
             <button
-              className=""
+              className="iyte-bg"
               onClick={() =>
                 downloadFile("4_SummerPracticeReportTemplate_Word2023.docx")
               }
@@ -129,7 +129,7 @@ export default function TemplatesV2() {
           >
             Summer Practice Student Questionnaire (EN)
             <button
-              className=""
+              className="iyte-bg"
               onClick={() =>
                 downloadFile(
                   "5_EN_SummerPracticeStudentQuestionnaire_Word.docx"
@@ -151,7 +151,7 @@ export default function TemplatesV2() {
           >
             Summer Practice Student Questionnaire (TR)
             <button
-              className=""
+              className="iyte-bg"
               onClick={() =>
                 downloadFile("5_TR_StajÖğrenciAnketi_Word2023.docx")
               }

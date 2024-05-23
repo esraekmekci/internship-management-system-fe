@@ -89,7 +89,7 @@ export default function DocumentsV2() {
             }}
           >
             Summer Practice Guideline
-            <button className="" onClick={() => downloadFile("Guideline")}>
+            <button className="iyte-bg" onClick={() => downloadFile("Guideline")}>
               Download
             </button>
           </div>
@@ -105,7 +105,7 @@ export default function DocumentsV2() {
             }}
           >
             SGK Report
-            <button className="" onClick={() => downloadFile("SGK")}>
+            <button className="iyte-bg" onClick={() => downloadFile("SGK")}>
               Download
             </button>
           </div>

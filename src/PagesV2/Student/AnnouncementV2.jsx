@@ -51,12 +51,7 @@ export default function AnnouncementV2() {
       return;
     }
 
-    if (
-      !(
-        fileName.endsWith(".docx") ||
-        fileName.endsWith(".doc")
-      )
-    ) {
+    if (!(fileName.endsWith(".docx") || fileName.endsWith(".doc"))) {
       alert("Please select a word file!");
       return;
     }
@@ -99,109 +94,123 @@ export default function AnnouncementV2() {
   };
 
   return (
-    <div style={{padding: "20px 40px", width: "100%"}}>
+    <div style={{ padding: "20px 40px", width: "100%" }}>
       <div className="" style={{ marginTop: "" }}>
         <h1>Announcements</h1>
       </div>
 
-      <div>
-        {announcements.map((announcement, index) => (
-          <div key={index} className="announcement-section">
-            <h2
-              onClick={() => handleClick(announcement)}
-              style={{ cursor: "pointer" }}
+      <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        {announcements &&
+          announcements.map((announcement, index) => (
+            <div
+              key={index}
+              className=""
+              style={{
+                border: ".5px solid #ccc",
+                padding: "25px",
+                borderRadius: "8px",
+                display: "flex",
+                flexDirection: "column",
+              }}
             >
-              {announcement.companyRep.companyName}
-              <span style={{ float: "right", fontSize: "15px" }}>
-                Date: {announcement.uploadDate}
-              </span>
-            </h2>
-            {selectedAnnouncement === announcement && (
-              <div>
-                <h3>{announcement.title}</h3>
-                <div className="info-bar">
-                  <div className="info-bar-left">
-                    <img
-                      src={company_icon}
-                      alt="Company"
-                      className="user-icon"
-                    />
-                    {announcement.companyRep.companyAddress} (
-                    {announcement.companyRep.internshipType})
-                  </div>
-                  <div className="info-bar-right">
-                    <p>
-                      +{announcement.companyRep.employeeSize} Employees{" "}
-                      <img
-                        src={employees_icon}
-                        alt="Company"
-                        className="user-icon"
-                      />{" "}
-                    </p>
-                    <p>
-                      {" "}
-                      {announcement.companyRep.foundationYear}{" "}
-                      <img
-                        src={calendar_icon}
-                        alt="Company"
-                        className="user-icon"
-                      />{" "}
-                    </p>
-                  </div>
-                </div>
-                <p>{announcement.description}</p>
-                <br />
-                <br />
-                <br />
+              <h2
+                onClick={() => handleClick(announcement)}
+                style={{ cursor: "pointer" }}
+              >
+                {announcement.companyRep.companyName}
+                <span style={{ float: "right", fontSize: "15px" }}>
+                  Date: {announcement.uploadDate}
+                </span>
+              </h2>
+              {selectedAnnouncement === announcement && (
                 <div>
-                  <form onSubmit={handleSubmit}>
-                    <label
-                      htmlFor="fileInput"
-                      className="button"
-                      style={{
-                        background: "#4CAF50",
-                        color: "white",
-                        padding: "10px 20px",
-                        width: "20%",
-                        cursor: "pointer",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      Choose Application Letter
-                      <input
-                        type="file"
-                        id="fileInput"
-                        style={{ display: "none" }}
-                        accept=".docx, .doc"
-                        onChange={handleFileChange}
+                  <h3>{announcement.title}</h3>
+                  <div className="info-bar">
+                    <div className="info-bar-left">
+                      <img
+                        src={company_icon}
+                        alt="Company"
+                        className="user-icon"
                       />
-                    </label>
-                    {fileName && (
-                      <span style={{ marginLeft: "10px" }}>{fileName}</span>
-                    )}{" "}
-                    {/* Dosya adını göster */}
-                    <label
-                      className="button"
-                      style={{
-                        background: "#4CAF50",
-                        color: "white",
-                        padding: "10px 20px",
-                        width: "4%",
-                        cursor: "pointer",
-                        borderRadius: "4px",
-                        float: "right",
-                      }}
-                    >
-                      Send
-                      <input type="submit" style={{ display: "none" }} />
-                    </label>
-                  </form>
+                      {announcement.companyRep.companyAddress} (
+                      {announcement.companyRep.internshipType})
+                    </div>
+                    <div className="info-bar-right">
+                      <p>
+                        +{announcement.companyRep.employeeSize} Employees{" "}
+                        <img
+                          src={employees_icon}
+                          alt="Company"
+                          className="user-icon"
+                        />{" "}
+                      </p>
+                      <p>
+                        {" "}
+                        {announcement.companyRep.foundationYear}{" "}
+                        <img
+                          src={calendar_icon}
+                          alt="Company"
+                          className="user-icon"
+                        />{" "}
+                      </p>
+                    </div>
+                  </div>
+                  <p>{announcement.description}</p>
                   <br />
+                  <br />
+                  <br />
+                  <div>
+                    <form onSubmit={handleSubmit}>
+                      <label
+                        htmlFor="fileInput"
+                        className="button iyte-bg"
+                        style={{
+                          background: "#4CAF50",
+                          color: "white",
+                          padding: "10px 20px",
+                          width: "20%",
+                          cursor: "pointer",
+                          borderRadius: "4px",
+                        }}
+                      >
+                        Choose Application Letter
+                        <input
+                          type="file"
+                          id="fileInput"
+                          style={{ display: "none" }}
+                          accept=".docx, .doc"
+                          onChange={handleFileChange}
+                        />
+                      </label>
+                      {fileName && (
+                        <span style={{ marginLeft: "10px" }}>{fileName}</span>
+                      )}{" "}
+                      {/* Dosya adını göster */}
+                      <label
+                        className="button iyte-bg"
+                        style={{
+                          display:"flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: "#4CAF50",
+                          color: "white",
+                          padding: "10px 20px",
+                          width: "4%",
+                          cursor: "pointer",
+                          borderRadius: "4px",
+                          float: "right",
+                        }}
+                      >
+                        Send
+                        <input type="submit" style={{ display: "none" }} />
+                      </label>
+                    </form>
+                    <br />
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ))}
+              )}
+            </div>
+          ))}
       </div>
     </div>
   );

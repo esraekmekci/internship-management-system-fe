@@ -21,11 +21,11 @@ function SecretaryProfile() {
         <img src={profile_icon} alt="Profile Icon" className="profile-icon" />
         <h2>Secretary Profile</h2>
         <div className="profile-item">
-          <label><b>Secretary Name:</b> {user.name}</label>
+          <label><b>Secretary Name:</b> {user && user.name}</label>
         </div>
         <br />
         <div className="profile-item">
-          <label><b>Secretary Email:</b> {user.email}</label>
+          <label><b>Secretary Email:</b> {user && user.email}</label>
         </div>
 
         <br /><br />

@@ -59,7 +59,7 @@ export default function CoordinatorCompaniesV2() {
         {companies.map((company, index) => (
           <div key={index} className="company-item">
             <h3>{company.companyName}</h3>
-            <button onClick={() => toggleCompanyDetails(index)}>
+            <button className='iyte-bg' onClick={() => toggleCompanyDetails(index)}>
               {visibleCompany === index ? 'Hide' : 'View'}
             </button>
             {visibleCompany === index && (
@@ -70,8 +70,8 @@ export default function CoordinatorCompaniesV2() {
                 <p><strong>Representative Name:</strong> {company.name}</p>
                 <p><strong>Email:</strong> {company.email}</p>
                 <div className="action-buttons">
-                  <button className="approve-button" onClick={() => handleApprove(company, index)}>Approve Company</button>
-                  <button className="reject-button" onClick={() => handleReject(company, index)}>Reject</button>
+                  <button className="approve-button" style={{backgroundColor: ""}} onClick={() => handleApprove(company, index)}>Approve Company</button>
+                  <button className="reject-button iyte-bg" onClick={() => handleReject(company, index)}>Reject</button>
                 </div>
               </div>
             )}

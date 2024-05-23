@@ -1,10 +1,11 @@
 import { useLocation } from "react-router-dom";
 import iyte_icon from "../Components/Assets/iyte-logo.png";
 import UserIcon from "./UserIcon";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, lazy } from "react";
 import { useUser } from "./UserContext";
 
 export default function Header({ role }) {
+  
   const { user } = useUser();
   const [dropdownExpanded, setDropdownExpanded] = useState(false);
 
@@ -59,7 +60,7 @@ export default function Header({ role }) {
             </a>
             <p style={{ color: "gray" }}>IZTECH IMS</p>
             <p>
-              <span style={{ color: "gray" }}> /</span>
+              <span style={{ color: "gray" }}> |</span>
               <span style={{ color: "rgb(153 27 27)" }}>
                 {" "}
                 {pathName.charAt(0).toUpperCase() + pathName.slice(1)}

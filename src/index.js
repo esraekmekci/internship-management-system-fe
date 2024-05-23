@@ -28,11 +28,11 @@ import CompanyStudents from "./Pages/Company/CompanyStudents";
 import CompanyAnnouncements from "./Pages/Company/CompanyAnnouncements";
 import CompanyInterns from "./Pages/Company/CompanyInterns";
 import CoordinatorCompanies from "./Pages/Coordinator/CoordinatorCompanies";
-import { UserProvider } from './Components/UserContext';
+import { UserProvider } from "./Components/UserContext";
 
 /**
  * V2
-*/
+ */
 
 //Secretary
 import SecretaryHome from "./PagesV2/Secretary/SecretaryHome";
@@ -52,7 +52,7 @@ import CoordinatorCompaniesV2 from "./PagesV2/Coordinator/CoordinatorCompaniesV2
 import CoordinatorHomeV2 from "./PagesV2/Coordinator/CoordinatorHomeV2";
 import CoordinatorProfileV2 from "./PagesV2/Coordinator/CoordinatorProfileV2";
 import GuidelinesV2 from "./PagesV2/Coordinator/GuidelinesV2";
-import CoordinatorStudentsV2 from "./PagesV2/Coordinator/CoordinatorStudentsV2"
+import CoordinatorStudentsV2 from "./PagesV2/Coordinator/CoordinatorStudentsV2";
 
 //Student
 import AnnouncementV2 from "./PagesV2/Student/AnnouncementV2";
@@ -61,8 +61,6 @@ import DocumentsV2 from "./PagesV2/Student/DocumentsV2";
 import HomeV2 from "./PagesV2/Student/HomeV2";
 import ProfileV2 from "./PagesV2/Student/ProfileV2";
 import TemplatesV2 from "./PagesV2/Student/TemplatesV2";
-
-
 
 const router = createBrowserRouter([
   {
@@ -165,7 +163,7 @@ const router = createBrowserRouter([
     path: "coor_companies",
     element: <CoordinatorCompanies />,
   },
-//////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
   {
     path: "secretary",
     element: <SecretaryHome />,
@@ -236,8 +234,8 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <CompanyProfileV2 />
-      }
+        element: <CompanyProfileV2 />,
+      },
     ],
   },
 
@@ -251,7 +249,7 @@ const router = createBrowserRouter([
       },
       {
         path: "students",
-        element: <CoordinatorStudentsV2 />
+        element: <CoordinatorStudentsV2 />,
       },
       {
         path: "companies",
@@ -268,16 +266,18 @@ const router = createBrowserRouter([
       {
         path: "guidelines",
         element: <GuidelinesV2 />,
-      }
+      },
     ],
   },
 ]);
 
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <UserProvider>
-    <RouterProvider router={router} />
-  </UserProvider>
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
