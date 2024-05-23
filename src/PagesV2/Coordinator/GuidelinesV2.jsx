@@ -47,27 +47,32 @@ export default function Guidelines() {
   };
 
   const deleteGuidelines = () => {
-    fetch("/coordinator/deleteGuidelines", {
-      method: "DELETE",
-      headers: {},
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            "Network response was not ok: " + response.statusText
-          );
-        }
-        return response;
+    if (window.confirm('Are you sure? The guideline will be deleted.')) {
+
+      fetch("/coordinator/deleteGuidelines", {
+        method: "DELETE",
+        headers: {},
       })
-      .then((result) => {
-        alert("Guideline deleted successfully");
-        window.location.reload();
-        console.log(result);
-      })
-      .catch((err) => {
-        console.error("Error occurred:", err);
-        alert("Error occurred:", err);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              "Network response was not ok: " + response.statusText
+            );
+          }
+          return response;
+        })
+        .then((result) => {
+          alert("Guideline deleted successfully");
+          window.location.reload();
+          console.log(result);
+        })
+        .catch((err) => {
+          console.error("Error occurred:", err);
+          alert("Error occurred:", err);
+        });
+    } 
+
+    
   };
 
   const handleUpload = (event) => {

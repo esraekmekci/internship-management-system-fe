@@ -46,18 +46,21 @@ export default function CoordinatorAnnouncementV2() {
             `/coordinator/approveAnnouncement?announcementId=${announcement.announcement_id}`
           );
           alert("Announcement is made.");
-        } else {
+        }
+      },
+
+      reject: async () => {
+
+        if (
+          window.confirm(
+            "Are you sure? The announcement will be rejected. You can still change it later."
+          )
+        ) {
           await PutWithAuth(
             `/coordinator/rejectAnnouncement?announcementId=${announcement.announcement_id}`
           );
           alert("Announcement is rejected.");
-        }
-      },
-      reject: async () => {
-        await PutWithAuth(
-          `/coordinator/rejectAnnouncement?announcementId=${announcement.announcement_id}`
-        );
-        alert("Announcement is rejected.");
+        } 
       },
     };
     actions[type]();

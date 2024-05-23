@@ -33,14 +33,14 @@ function CoordinatorStudents() {
         await PutWithAuth(
           `/coordinator/approveApplicationForm?applicationId=${student.applicationId}`
         );
-        alert("Announcement is made.");
+        alert("Application form is approved successfully.");
         window.location.reload();
       },
       reject: async () => {
         await PutWithAuth(
           `/coordinator/rejectApplicationForm?applicationId=${student.applicationId}`
         );
-        alert("Announcement is rejected.");
+        alert("Application form rejected.");
         window.location.reload();
       },
     };
@@ -87,6 +87,7 @@ function CoordinatorStudents() {
 
   return (
     <div className="w-full-padding">
+      <h1>Students</h1>
       <div
         className=""
         style={{ display: "flex", flexDirection: "column", gap: "20px" }}
