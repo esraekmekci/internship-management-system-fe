@@ -159,6 +159,7 @@ export default function Students() {
               <input
                 type="file"
                 id={`upload-${index}`}
+                accept=".pdf"
                 style={{ display: "none", height: "40px" }}
                 onChange={(e) => handleUpload(student, e.target.files[0])}
               />

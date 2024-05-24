@@ -17,14 +17,14 @@ export default function CoordinatorCompaniesV2() {
 
   const handleApprove = async (company , index) => {
     await PutWithAuth(`/coordinator/approveCompanyAccount?companyId=${company.companyid}`);
-    alert(`Approved ${company.name}`);
+    alert(`Approved ${company.companyName}`);
     setCompanies(companies.filter((_, i) => i !== index));
     window.location.reload();
   };
 
   const handleReject = async (company, index) => {
     await PutWithAuth(`/coordinator/rejectCompanyAccount?companyId=${company.companyid}`);
-    alert(`Rejected ${companies[index].name}`);
+    alert(`Rejected ${companies[index].companyName}`);
     setCompanies(companies.filter((_, i) => i !== index));
     window.location.reload();
   };

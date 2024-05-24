@@ -40,7 +40,6 @@ function CompanyStudentsV2() {
     };
 
     const confirmApproval = () => {
-        alert("Approved successfully");
         evaluateApplicationLetter("approve");
 
         // Reset state
@@ -75,7 +74,7 @@ function CompanyStudentsV2() {
     };
 
     const evaluateApplicationLetter = async (type) => {
-        fetch("company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
+        fetch("/company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
             method: 'PUT',
             headers: {
             }
