@@ -557,7 +557,7 @@ const LoginSignup = () => {
                       onChange={handleCheckbox1Change}
                     />
                     <label htmlFor="checkbox1">
-                      "I agree to the Terms of Service and the Terms of Use.
+                      "I agree to the Terms of Service and the Terms of Use."
                     </label>
                   </div>
                   <br />
@@ -569,7 +569,7 @@ const LoginSignup = () => {
                       onChange={handleCheckbox2Change}
                     />
                     <label htmlFor="checkbox2">
-                      I have read and approve the
+                      "I have read and approve the
                       <span
                         onClick={() => setShowKVKKPopupForCompany(true)}
                         style={{ color: "blue", cursor: "pointer" }}
@@ -577,7 +577,7 @@ const LoginSignup = () => {
                         {" "}
                         KVKK
                       </span>
-                      .
+                      ."
                     </label>
                   </div>
                   <div className="popup-buttons">
