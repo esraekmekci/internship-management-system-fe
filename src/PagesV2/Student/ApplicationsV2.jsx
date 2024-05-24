@@ -141,13 +141,13 @@ export default function ApplicationsV2() {
 
   return (
     <div className="w-full-padding">
-      <div className="" style={{  }}>
+      <div className="" style={{ borderBottom: "1px solid #ccc" }}>
         <h1>Applications</h1>
       </div>
 
       <div>
         {applications.map((application, index) => (
-          <div key={index} className="announcement-section">
+          <div key={index} className="" style={{borderBottom: "1px solid #ccc", paddingBottom: "8px"}}>
             <h2
               onClick={() => handleClick(application)}
               style={{ cursor: "pointer" }}

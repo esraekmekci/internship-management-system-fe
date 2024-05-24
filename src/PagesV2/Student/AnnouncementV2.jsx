@@ -92,10 +92,11 @@ export default function AnnouncementV2() {
         alert("You already uploaded an application letter for this company.");
       });
   };
+  
 
   return (
     <div style={{ padding: "20px 40px", width: "100%" }}>
-      <div className="" style={{ marginTop: "" }}>
+      <div className="">
         <h1>Announcements</h1>
       </div>
 
