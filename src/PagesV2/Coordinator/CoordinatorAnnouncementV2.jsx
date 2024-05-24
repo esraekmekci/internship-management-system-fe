@@ -87,7 +87,7 @@ export default function CoordinatorAnnouncementV2() {
   }, []);
 
   return (
-    <div className="" style={{ width: "100%", padding: "20px 40px" }}>
+    <div className="" style={{ width: "100%", padding: "20px 40px", overflowY: "auto" }}>
       <h1>Announcements</h1>
       <div className="announcement-underline"></div>
       {announcements.map((announcement) => (
@@ -95,6 +95,7 @@ export default function CoordinatorAnnouncementV2() {
           <h2>{announcement.comp_name + " - " + announcement.status}</h2>
           <button
             onClick={() => handleViewClick(announcement)}
+            className="iyte-bg"
             style={{
               backgroundColor:
                 selectedAnnouncement &&
@@ -115,12 +116,12 @@ export default function CoordinatorAnnouncementV2() {
                 <h2>{announcement.title}</h2>
                 <p>{announcement.description}</p>
                 <button
-                  className="btn"
+                  className="btn "
                   onClick={() => handleAction("approve", announcement)}
                 >
                   Approve
                 </button>
-                <button onClick={() => handleAction("reject", announcement)}>
+                <button className="iyte-bg" onClick={() => handleAction("reject", announcement)}>
                   Reject
                 </button>
               </div>
