@@ -3,32 +3,10 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
-import Home from "./Pages/Home";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Logout from "./Pages/Logout";
-import UserSettings from "./Pages/UserSettings";
-import Profile from "./Pages/Profile";
-import Companies from "./Pages/Companies";
-import ApplyInternship from "./Pages/ApplyInternship";
-import UploadSummerPractice from "./Pages/UploadSummerPractice";
-import Announcement from "./Pages/Announcement";
-import Documents from "./Pages/Documents";
-import Applications from "./Pages/Applications";
-import Templates from "./Pages/Templates";
-import CoordinatorHome from "./Pages/Coordinator/CoordinatorHome";
-import CoordinatorAnnouncement from "./Pages/Coordinator/CoordinatorAnnouncement";
-import CoordinatorStudents from "./Pages/Coordinator/CoordinatorStudents";
-import Guidelines from "./Pages/Coordinator/Guidelines";
-import CoordinatorSettings from "./Pages/Coordinator/CoordinatorSettings";
-import CoordinatorProfile from "./Pages/Coordinator/CoordinatorProfile";
-import CompanyHome from "./Pages/Company/CompanyHome";
-import CompanyProfile from "./Pages/Company/CompanyProfile";
-import CompanySettings from "./Pages/Company/CompanySettings";
-import CompanyStudents from "./Pages/Company/CompanyStudents";
-import CompanyAnnouncements from "./Pages/Company/CompanyAnnouncements";
-import CompanyInterns from "./Pages/Company/CompanyInterns";
-import CoordinatorCompanies from "./Pages/Coordinator/CoordinatorCompanies";
 import { UserProvider } from "./Components/UserContext";
+import RoleBasedRoute from "./RoleBasedRoute";
 
 /**
  * V2
@@ -68,207 +46,222 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "home",
-    element: <Home />,
-  },
-  {
     path: "log_out",
     element: <Logout />,
   },
   {
-    path: "user_settings",
-    element: <UserSettings />,
-  },
-  {
-    path: "profile",
-    element: <Profile />,
-  },
-  {
-    path: "companies",
-    element: <Companies />,
-  },
-  {
-    path: "apply",
-    element: <ApplyInternship />,
-  },
-  {
-    path: "upload_summer_practice",
-    element: <UploadSummerPractice />,
-  },
-  {
-    path: "announcement",
-    element: <Announcement />,
-  },
-  {
-    path: "documents",
-    element: <Documents />,
-  },
-  {
-    path: "applications",
-    element: <Applications />,
-  },
-  {
-    path: "templates",
-    element: <Templates />,
-  },
-  {
-    path: "coor_home",
-    element: <CoordinatorHome />,
-  },
-  {
-    path: "coor_announcements",
-    element: <CoordinatorAnnouncement />,
-  },
-  {
-    path: "coor_students",
-    element: <CoordinatorStudents />,
-  },
-  {
-    path: "guidelines",
-    element: <Guidelines />,
-  },
-  {
-    path: "coor_settings",
-    element: <CoordinatorSettings />,
-  },
-  {
-    path: "coor_profile",
-    element: <CoordinatorProfile />,
-  },
-  {
-    path: "comp-home",
-    element: <CompanyHome />,
-  },
-  {
-    path: "comp-profile",
-    element: <CompanyProfile />,
-  },
-  {
-    path: "comp-settings",
-    element: <CompanySettings />,
-  },
-  {
-    path: "comp-announcements",
-    element: <CompanyAnnouncements />,
-  },
-  {
-    path: "comp-students",
-    element: <CompanyStudents />,
-  },
-  {
-    path: "comp-interns",
-    element: <CompanyInterns />,
-  },
-  {
-    path: "coor_companies",
-    element: <CoordinatorCompanies />,
-  },
-  //////////////////////////////////////////////////////////////////////////
-  {
-    path: "secretary",
-    element: <SecretaryHome />,
+    element: <RoleBasedRoute allowedRoles={["secretary"]} />,
     children: [
       {
-        path: "",
-        element: "",
-      },
-      {
-        path: "students",
-        element: <Students />,
-      },
-      {
-        path: "profile",
-        element: <SecretaryProfile />,
+        path: "secretary",
+        element: <SecretaryHome />,
+        children: [
+          {
+            path: "students",
+            element: <Students />,
+          },
+          {
+            path: "profile",
+            element: <SecretaryProfile />,
+          },
+        ],
       },
     ],
   },
   {
-    path: "student",
-    element: <HomeV2 />,
+    element: <RoleBasedRoute allowedRoles={["student"]} />,
     children: [
       {
-        path: "",
-        element: "",
-      },
-      {
-        path: "announcement",
-        element: <AnnouncementV2 />,
-      },
-      {
-        path: "applications",
-        element: <ApplicationsV2 />,
-      },
-      {
-        path: "templates",
-        element: <TemplatesV2 />,
-      },
-      {
-        path: "documents",
-        element: <DocumentsV2 />,
-      },
-      {
-        path: "profile",
-        element: <ProfileV2 />,
+        path: "student",
+        element: <HomeV2 />,
+        children: [
+          {
+            path: "announcement",
+            element: <AnnouncementV2 />,
+          },
+          {
+            path: "applications",
+            element: <ApplicationsV2 />,
+          },
+          {
+            path: "templates",
+            element: <TemplatesV2 />,
+          },
+          {
+            path: "documents",
+            element: <DocumentsV2 />,
+          },
+          {
+            path: "profile",
+            element: <ProfileV2 />,
+          },
+        ],
       },
     ],
   },
   {
-    path: "company",
-    element: <CompanyHomeV2 />,
+    element: <RoleBasedRoute allowedRoles={["company"]} />,
     children: [
       {
-        path: "",
-        element: "",
-      },
-      {
-        path: "announcements",
-        element: <CompanyAnnouncementsV2 />,
-      },
-      {
-        path: "students",
-        element: <CompanyStudentsV2 />,
-      },
-      {
-        path: "interns",
-        element: <CompanyInternsV2 />,
-      },
-      {
-        path: "profile",
-        element: <CompanyProfileV2 />,
+        path: "company",
+        element: <CompanyHomeV2 />,
+        children: [
+          {
+            path: "announcements",
+            element: <CompanyAnnouncementsV2 />,
+          },
+          {
+            path: "students",
+            element: <CompanyStudentsV2 />,
+          },
+          {
+            path: "interns",
+            element: <CompanyInternsV2 />,
+          },
+          {
+            path: "profile",
+            element: <CompanyProfileV2 />,
+          },
+        ],
       },
     ],
   },
+  {
+    element: <RoleBasedRoute allowedRoles={["COORDINATOR"]} />,
+    children: [
+      {
+        path: "coordinator",
+        element: <CoordinatorHomeV2 />,
+        children: [
+          {
+            path: "students",
+            element: <CoordinatorStudentsV2 />,
+          },
+          {
+            path: "companies",
+            element: <CoordinatorCompaniesV2 />,
+          },
+          {
+            path: "profile",
+            element: <CoordinatorProfileV2 />,
+          },
+          {
+            path: "announcements",
+            element: <CoordinatorAnnouncementV2 />,
+          },
+          {
+            path: "guidelines",
+            element: <GuidelinesV2 />,
+          },
+        ],
+      },
+    ],
+  },
+  // {
+  //   path: "secretary",
+  //   element: <SecretaryHome />,
+  //   children: [
+  //     {
+  //       path: "",
+  //       element: "",
+  //     },
+  //     {
+  //       path: "students",
+  //       element: <Students />,
+  //     },
+  //     {
+  //       path: "profile",
+  //       element: <SecretaryProfile />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: "student",
+  //   element: <HomeV2 />,
+  //   children: [
+  //     {
+  //       path: "",
+  //       element: "",
+  //     },
+  //     {
+  //       path: "announcement",
+  //       element: <AnnouncementV2 />,
+  //     },
+  //     {
+  //       path: "applications",
+  //       element: <ApplicationsV2 />,
+  //     },
+  //     {
+  //       path: "templates",
+  //       element: <TemplatesV2 />,
+  //     },
+  //     {
+  //       path: "documents",
+  //       element: <DocumentsV2 />,
+  //     },
+  //     {
+  //       path: "profile",
+  //       element: <ProfileV2 />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: "company",
+  //   element: <CompanyHomeV2 />,
+  //   children: [
+  //     {
+  //       path: "",
+  //       element: "",
+  //     },
+  //     {
+  //       path: "announcements",
+  //       element: <CompanyAnnouncementsV2 />,
+  //     },
+  //     {
+  //       path: "students",
+  //       element: <CompanyStudentsV2 />,
+  //     },
+  //     {
+  //       path: "interns",
+  //       element: <CompanyInternsV2 />,
+  //     },
+  //     {
+  //       path: "profile",
+  //       element: <CompanyProfileV2 />,
+  //     },
+  //   ],
+  // },
 
-  {
-    path: "coordinator",
-    element: <CoordinatorHomeV2 />,
-    children: [
-      {
-        path: "",
-        element: "",
-      },
-      {
-        path: "students",
-        element: <CoordinatorStudentsV2 />,
-      },
-      {
-        path: "companies",
-        element: <CoordinatorCompaniesV2 />,
-      },
-      {
-        path: "profile",
-        element: <CoordinatorProfileV2 />,
-      },
-      {
-        path: "announcements",
-        element: <CoordinatorAnnouncementV2 />,
-      },
-      {
-        path: "guidelines",
-        element: <GuidelinesV2 />,
-      },
-    ],
-  },
+  // {
+  //   path: "coordinator",
+  //   element: <CoordinatorHomeV2 />,
+  //   children: [
+  //     {
+  //       path: "",
+  //       element: "",
+  //     },
+  //     {
+  //       path: "students",
+  //       element: <CoordinatorStudentsV2 />,
+  //     },
+  //     {
+  //       path: "companies",
+  //       element: <CoordinatorCompaniesV2 />,
+  //     },
+  //     {
+  //       path: "profile",
+  //       element: <CoordinatorProfileV2 />,
+  //     },
+  //     {
+  //       path: "announcements",
+  //       element: <CoordinatorAnnouncementV2 />,
+  //     },
+  //     {
+  //       path: "guidelines",
+  //       element: <GuidelinesV2 />,
+  //     },
+  //   ],
+  // },
 ]);
 
 
