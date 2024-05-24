@@ -35,9 +35,8 @@ function CompanyStudentsV2() {
     setSelectedStudent(selectedStudent === student ? null : student);
   };
 
-  const handleApprove = () => {
-    setShowPopup({ show: true, type: "approve", student: selectedStudent });
-  };
+    const confirmApproval = () => {
+        evaluateApplicationLetter("approve");
 
   const handleReject = () => {
     setShowPopup({ show: true, type: "reject", student: selectedStudent });
@@ -52,10 +51,44 @@ function CompanyStudentsV2() {
     setSelectedStudent(null);
   };
 
-  const confirmRejection = () => {
-    if (feedback === "") {
-      alert("Please provide feedback for rejection.");
-      return;
+    const renderFilePreview = (student) => {
+        if (!student.fileUrl) return null;
+        if (student.fileUrl.endsWith('.pdf')) {
+            return <embed src={student.fileUrl} type="application/pdf" width="100%" height="500px" />;
+        } else if (student.fileUrl.endsWith('.docx')) {
+            return (
+                <iframe src={`https://docs.google.com/gview?url=${encodeURIComponent(student.fileUrl)}&embedded=true`} 
+                        style={{ width: '100%', height: '500px' }} >
+                </iframe>
+            );
+        }
+    };
+
+    const evaluateApplicationLetter = async (type) => {
+        fetch("/company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
+            method: 'PUT',
+            headers: {
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response;
+        })
+        .then(result => {
+            if (type === "approve") {
+                alert("Approved successfully");
+            } else {    
+                alert("Rejected successfully");
+            }
+            window.location.reload();
+            console.log(result);
+        })
+        .catch(err => {
+            console.error("Error occurred:", err);
+            alert("Error occurred:", err);
+        });
     }
 
     evaluateApplicationLetter("reject");

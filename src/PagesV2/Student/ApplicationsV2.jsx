@@ -160,8 +160,8 @@ export default function ApplicationsV2() {
             {selectedCompany === application && (
               <div>
                 <div>
-                  {application.applicationStatus ===
-                    "Application Letter Pending" && (
+                  {(application.applicationStatus === "Application Letter Pending" ||
+                   application.applicationStatus === "Application Letter Rejected")  && (
                     <button
                       className="button"
                       onClick={() => downloadDocument("Letter")}
@@ -189,8 +189,8 @@ export default function ApplicationsV2() {
                       </button>
                     </div>
                   )}
-                  {application.applicationStatus ===
-                    "Application Form Sent to Company" && (
+                  {application.applicationStatus !=
+                    "Application Letter Rejected" && (
                     <div>
                       <button
                         className="button"

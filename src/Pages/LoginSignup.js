@@ -108,6 +108,8 @@ const LoginSignup = () => {
           console.log(token);
           console.log(res);
           localStorage.setItem("tokenKey", res.token);
+          localStorage.setItem("role", res.authorities);
+          console.log(res.authorities)
           if (res.authorities.includes("STUDENT")) {
             setToken(res.token);
             setShowCheckboxPopup(!res.registered);

@@ -95,7 +95,7 @@ export default function AnnouncementV2() {
   
 
   return (
-    <div style={{ padding: "20px 40px", width: "100%" }}>
+    <div style={{ padding: "20px 40px", width: "100%", overflowY: 'auto'}}>
       <div className="">
         <h1>Announcements</h1>
       </div>
