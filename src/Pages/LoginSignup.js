@@ -149,7 +149,8 @@ const LoginSignup = () => {
       //setShowCheckboxPopup(false);
       alert(`Logging in as a ${role} with student ID: ${stID}`);
       localStorage.setItem("tokenKey", token);
-      navigate("/home");
+      localStorage.setItem("role", "STUDENT")
+      navigate("/student");
     } else if (role === "COMPANY" && checkbox1 && checkbox2) {
       setShowKVKKPopupForCompany(false);
       setTimeout(() => {
@@ -418,6 +419,7 @@ const LoginSignup = () => {
                       <input
                         type="text"
                         placeholder="Company Address"
+                        title="Example: İzmir, TR"
                         value={compAddress}
                         onChange={handleCompAddressChange}
                         required
@@ -520,7 +522,13 @@ const LoginSignup = () => {
                   />
                 </div>
               </div>
-
+                {action === "Login" ? (
+                  <div></div>
+                ) : (
+                    <p style={{ color: "#797979", fontSize: "14px" }}>
+                      *Enter company address as "City, Country Code". e.g. "Izmir, TR"
+                    </p>
+                )}
               <div className="submit-container">
                 <button
                   className={action === "Login" ? "submit gray" : "submit"}

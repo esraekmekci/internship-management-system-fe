@@ -126,6 +126,7 @@ h2 {
 .submit-container{
     display: flex;
     gap: 30px;
+    justify-content: center;
     margin: 30px auto;
 }
 

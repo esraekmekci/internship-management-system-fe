@@ -43,11 +43,11 @@
 /* Update announcement-section for better visibility and alignment */
 /* Announcement section occupies the remaining space */
 .announcement-section {
-  width: 60%; /* Full width minus sidebar width plus gap */
-  margin-left: 320px; /* Offset by the width of the sidebar */
+  width: 98%; /* Full width minus sidebar width plus gap */
+  margin-left: 0px; /* Offset by the width of the sidebar */
   padding: 20px;
-  background-color: #f8f8f8;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #fdfdfd;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.1);
   border-radius: 10px;
   border: 1px solid #ccc;
   margin-top: 15px; /* Offset from the top bar */

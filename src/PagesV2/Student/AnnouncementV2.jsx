@@ -118,14 +118,14 @@ export default function AnnouncementV2() {
                 onClick={() => handleClick(announcement)}
                 style={{ cursor: "pointer" }}
               >
-                {announcement.companyRep.companyName}
+                {announcement.title}
                 <span style={{ float: "right", fontSize: "15px" }}>
                   Date: {announcement.uploadDate}
                 </span>
               </h2>
               {selectedAnnouncement === announcement && (
                 <div>
-                  <h3>{announcement.title}</h3>
+                  <h3>{announcement.companyRep.companyName}</h3>
                   <div className="info-bar">
                     <div className="info-bar-left">
                       <img

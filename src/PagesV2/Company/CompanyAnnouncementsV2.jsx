@@ -165,7 +165,7 @@ export default function CompanyAnnouncementV2() {
           announcements.map((announcement, index) => (
             <div
               key={index}
-              className=""
+              className="announcement-section"
               style={{
                 padding: "8px 10px",
                 borderBottom: "1px solid #fafafa",

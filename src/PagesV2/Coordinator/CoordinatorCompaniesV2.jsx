@@ -57,11 +57,13 @@ export default function CoordinatorCompaniesV2() {
       <div className="" style={{width: "100%", padding: "20px 40px"}}>
         <h2> Pending Company Accounts</h2>
         {companies.map((company, index) => (
-          <div key={index} className="company-item">
+          <div key={index} className="company-item" >
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
             <h3>{company.companyName}</h3>
-            <button className='iyte-bg' onClick={() => toggleCompanyDetails(index)}>
+            <button className='iyte-bg' onClick={() => toggleCompanyDetails(index)} >
               {visibleCompany === index ? 'Hide' : 'View'}
             </button>
+            </div>
             {visibleCompany === index && (
               <div className="company-details">
                 <p><strong>Address:</strong> {company.companyAddress}</p>

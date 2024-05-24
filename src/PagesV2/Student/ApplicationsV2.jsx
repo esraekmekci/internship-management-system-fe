@@ -147,7 +147,7 @@ export default function ApplicationsV2() {
 
       <div>
         {applications.map((application, index) => (
-          <div key={index} className="" style={{borderBottom: "1px solid #ccc", paddingBottom: "8px"}}>
+          <div key={index} className="announcement-section" style={{borderBottom: "1px solid #ccc", paddingBottom: "8px"}}>
             <h2
               onClick={() => handleClick(application)}
               style={{ cursor: "pointer" }}
@@ -189,8 +189,13 @@ export default function ApplicationsV2() {
                       </button>
                     </div>
                   )}
-                  {application.applicationStatus !=
-                    "Application Letter Rejected" && (
+                  {(application.applicationStatus === "Application Form Sent to Company" ||
+                    application.applicationStatus === "Application Form Sent to Coordinator" ||
+                    application.applicationStatus === "Application Form Approved" ||
+                    application.applicationStatus === "Application Form Rejected" ||
+                    application.applicationStatus === "SGK Document Pending" ||
+                    application.applicationStatus === "SGK Document Uploaded"
+                    ) && (
                     <div>
                       <button
                         className="button"
