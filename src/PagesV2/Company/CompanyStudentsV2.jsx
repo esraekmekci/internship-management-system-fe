@@ -119,7 +119,7 @@ const downloadApplicationLetter = (type) => {
   };
 
   return (
-    <div className="w-full-padding">
+    <div>
       <div className="announcement-section" style={{ marginTop: '60px' }}>
         <h1>Students</h1>
       </div>
