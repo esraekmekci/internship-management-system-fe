@@ -224,8 +224,12 @@ const LoginSignup = () => {
   };
 
   return (
-    loading ? <Loading isLoading={loading} /> :
     <div className="login-signup-container">
+      {loading && (
+      <div className="loading-overlay">
+        <Loading isLoading={loading} />
+      </div>
+    )}
       <div className="top-bar" style={{paddingBlock: "20px"}}>
         <img src={iyte_icon} alt="" className="iyte-logo" />
         <b>IZTECH IMS</b>
