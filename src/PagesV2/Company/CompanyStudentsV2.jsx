@@ -64,7 +64,7 @@ const confirmRejection = () => {
 };
 
 const evaluateApplicationLetter = async (type) => {
-    fetch("/company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
+    fetch("company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
         method: 'PUT',
         headers: {
         }
@@ -129,12 +129,13 @@ const downloadApplicationLetter = () => {
                             {application.studentName}
                             <span style={{float:'right', fontSize:'15px'}}>Status: {application.applicationStatus}</span>
                         </h2>
-                        {selectedStudent === application (
+                        {selectedStudent === application && (
                             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                                 <button className='button' onClick={() => downloadApplicationLetter()} style={{ float: 'left' }}>
                                     Show Application Letter
                                 </button>
-                                {application.applicationStatus !== 'Application Letter Approved'(
+
+                                {application.applicationStatus !== 'Application Letter Approved' && (
                                   <div style={{ display: 'flex', gap: '15px' }}>
                                     <button onClick={handleApprove} style={{ backgroundColor: 'green' }}>
                                         Approve
@@ -143,7 +144,6 @@ const downloadApplicationLetter = () => {
                                         Reject
                                     </button>
                                 </div>
-
                                 )}
                             </div>
                         )}
