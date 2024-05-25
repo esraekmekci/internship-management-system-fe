@@ -43,7 +43,6 @@ const handleReject = () => {
 };
 
 const confirmApproval = () => {
-    alert("Approved successfully");
     evaluateApplicationLetter("approve");
 
     // Reset state
