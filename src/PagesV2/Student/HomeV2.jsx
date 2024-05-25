@@ -6,6 +6,7 @@ import Announcement from "./AnnouncementV2.jsx";
 import Header from "../../Components/Header.jsx";
 import Sidebar from "../../Components/Sidebar.jsx";
 import { useUser } from "../../Components/UserContext.jsx";
+import Loading from "../../Pages/LoadingPage.jsx";
 
 const tabs = [
   {
@@ -20,6 +21,7 @@ const tabs = [
 
 const Home = ({ children }) => {
   const { setUser } = useUser();
+  const [loading, setLoading] = useState(true); 
   const content = children || <Announcement />;
 
   useEffect(() => {
@@ -33,6 +35,8 @@ const Home = ({ children }) => {
       } catch (error) {
         console.log(error);
         console.log("User not found");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -59,6 +63,7 @@ const Home = ({ children }) => {
         >
           <Sidebar tabs={tabs} />
           <Outlet /> {/*/secretary'nin child objeleri buraya geliyor. */}
+          <Loading isLoading={loading} />
         </div>
       </div>
     </div>

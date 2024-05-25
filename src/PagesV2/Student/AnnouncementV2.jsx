@@ -5,6 +5,7 @@ import calendar_icon from "../../Components/Assets/calendar-day.png";
 import employees_icon from "../../Components/Assets/employees.png";
 import "../../Pages/Companies.css";
 import { useUser } from "../../Components/UserContext";
+import Loading from "../../Pages/LoadingPage.jsx";
 
 export default function AnnouncementV2() {
   const [announcements, setAnnouncements] = useState([]);
@@ -12,6 +13,7 @@ export default function AnnouncementV2() {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
   const { user } = useUser();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -22,6 +24,8 @@ export default function AnnouncementV2() {
       } catch (error) {
         console.log(error);
         console.log("application not found");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -96,9 +100,9 @@ export default function AnnouncementV2() {
 
   return (
     <div style={{ padding: "20px 40px", width: "100%", overflowY: 'auto'}}>
-      <div className="">
-        <h1>Announcements</h1>
-      </div>
+      <h1>Announcements</h1>
+      
+      <Loading isLoading={loading} />
 
       <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         {announcements &&

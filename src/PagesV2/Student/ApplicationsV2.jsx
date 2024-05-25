@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService.js";
 import "../../Pages/Applications.css";
 import { useUser } from "../../Components/UserContext";
+import Loading from "../../Pages/LoadingPage.jsx";
 
 export default function ApplicationsV2() {
   const [applications, setApplications] = useState([]);
@@ -9,6 +10,7 @@ export default function ApplicationsV2() {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
   const { user } = useUser();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -21,6 +23,8 @@ export default function ApplicationsV2() {
       } catch (error) {
         console.log(error);
         console.log("application not found");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -141,6 +145,8 @@ export default function ApplicationsV2() {
       <div className="" style={{ borderBottom: "1px solid #ccc" }}>
         <h1>Applications</h1>
       </div>
+
+      <Loading isLoading={loading} />
 
       <div>
         {applications.map((application, index) => (
