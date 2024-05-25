@@ -137,8 +137,6 @@ function CoordinatorStudents() {
               <p>{selectedStudent.applicationStatus}</p>
               <div className="" style={{ marginTop: "0", width: "240px", minWidth: "240px", fontSize: "20px" }}>
                 {selectedStudent.applicationStatus ===
-                  "Application Letter Approved"}
-                {selectedStudent.applicationStatus ===
                   "Application Form Sent to Company"}
                 {selectedStudent.applicationStatus ===
                   "Application Form Sent to Coordinator" && (
