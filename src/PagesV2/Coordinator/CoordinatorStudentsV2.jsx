@@ -100,7 +100,7 @@ function CoordinatorStudents() {
       <Loading isLoading={loading} />
       <div className="">
         {students.map((student, index) => (
-          <div key={student.applicationId} style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+          <div key={student.applicationId} style={{justifyContent:'space-between', alignItems:'center'}}>
             <h3>
               {student.studentName}
             </h3>
