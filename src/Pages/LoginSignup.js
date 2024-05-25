@@ -181,6 +181,7 @@ const LoginSignup = () => {
   };
 
   const registerAsCompany = () => {
+    setLoading(true);
     PostWithoutAuth("/api/auth/register", {
       compName: compName,
       compAddress: compAddress,
@@ -223,8 +224,8 @@ const LoginSignup = () => {
   };
 
   return (
+    loading ? <Loading isLoading={loading} /> :
     <div className="login-signup-container">
-      <Loading isLoading={loading} />
       <div className="top-bar" style={{paddingBlock: "20px"}}>
         <img src={iyte_icon} alt="" className="iyte-logo" />
         <b>IZTECH IMS</b>
