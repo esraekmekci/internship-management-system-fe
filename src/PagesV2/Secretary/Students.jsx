@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  GetWithAuth,
-  PostWithAuth,
-  DeleteWithAuth,
-} from "../../Services/HttpService";
+import { GetWithAuth, DeleteWithAuth } from "../../Services/HttpService";
+import "./SecretaryHome.css";
 
 export default function Students() {
   const [students, setStudents] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [uploadFile, setUploadFile] = useState(null);
+  const [isUploadPopupOpen, setIsUploadPopupOpen] = useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
 
   useEffect(() => {
     fetchStudents();
@@ -14,7 +15,7 @@ export default function Students() {
 
   const fetchStudents = async () => {
     try {
-      const response = await GetWithAuth("/api/secretary/studentListWithStatus");
+      const response = await GetWithAuth("/secretary/studentListWithStatus");
       const data = await response.json();
       setStudents(data);
     } catch (error) {
@@ -22,13 +23,39 @@ export default function Students() {
     }
   };
 
-  const handleUpload = async (student, file) => {
+  const handleUploadClick = (student) => {
+    setSelectedStudent(student);
+    setIsUploadPopupOpen(true);
+  };
+
+  const handleUploadFileChange = (e) => {
+    const file = e.target.files[0];
+    if (
+      file &&
+      (file.type === "application/pdf" ||
+        file.type === "application/msword" ||
+        file.type ===
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    ) {
+      setUploadFile(file);
+    } else {
+      alert("You should only upload PDF or DOCX files");
+      setUploadFile(null);
+    }
+  };
+
+  const handleUploadConfirm = async () => {
+    if (!uploadFile) {
+      alert("You should upload a file");
+      return;
+    }
+
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", uploadFile);
 
     try {
       const response = await fetch(
-        `/api/secretary/${student.studentId}/uploadSGK`,
+        `/secretary/${selectedStudent.studentId}/uploadSGK`,
         {
           method: "POST",
           headers: {
@@ -39,47 +66,76 @@ export default function Students() {
       );
 
       if (response.ok) {
-        alert(`File uploaded successfully for ${student.studentName}`);
+        alert(`File uploaded successfully for ${selectedStudent.studentName}`);
         fetchStudents(); // Refresh the list to update the SGK status
       } else {
         console.error(
-          `Error uploading file for ${student.studentName}:`,
+          `Error uploading file for ${selectedStudent.studentName}:`,
           response.statusText
         );
       }
     } catch (error) {
-      console.error(`Error uploading file for ${student.studentName}:`, error);
+      console.error(
+        `Error uploading file for ${selectedStudent.studentName}:`,
+        error
+      );
     }
+
+    setIsUploadPopupOpen(false);
+    setUploadFile(null);
+    setSelectedStudent(null);
   };
 
-  const handleDelete = async (student) => {
+  const handleUploadCancel = () => {
+    setIsUploadPopupOpen(false);
+    setUploadFile(null);
+    setSelectedStudent(null);
+  };
+
+  const handleDeleteClick = (student) => {
+    setSelectedStudent(student);
+    setIsDeletePopupOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
     try {
       const response = await DeleteWithAuth(
-        `/api/secretary/${student.studentId}/deleteSGK`
+        `/secretary/${selectedStudent.studentId}/deleteSGK`
       );
 
       if (response.ok) {
-        alert(`File deleted successfully for ${student.studentName}`);
+        alert(`File deleted successfully for ${selectedStudent.studentName}`);
         fetchStudents(); // Refresh the list to update the SGK status
       } else {
         console.error(
-          `Error deleting file for ${student.studentName}:`,
+          `Error deleting file for ${selectedStudent.studentName}:`,
           response.statusText
         );
       }
     } catch (error) {
-      console.error(`Error deleting file for ${student.studentName}:`, error);
+      console.error(
+        `Error deleting file for ${selectedStudent.studentName}:`,
+        error
+      );
     }
+
+    setIsDeletePopupOpen(false);
+    setSelectedStudent(null);
+  };
+
+  const handleDeleteCancel = () => {
+    setIsDeletePopupOpen(false);
+    setSelectedStudent(null);
   };
 
   const handleDownload = async () => {
     try {
-      const response = await GetWithAuth("/api/secretary/studentList/download");
+      const response = await GetWithAuth("/secretary/studentList/download");
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "students.csv";
+      a.download = "students.json";
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -156,15 +212,8 @@ export default function Students() {
           </div>
           {student.sgkDocumentStatus === "Unavailable" ? (
             <>
-              <input
-                type="file"
-                id={`upload-${index}`}
-                accept=".pdf"
-                style={{ display: "none", height: "40px" }}
-                onChange={(e) => handleUpload(student, e.target.files[0])}
-              />
-              <label
-                htmlFor={`upload-${index}`}
+              <button
+                onClick={() => handleUploadClick(student)}
                 style={{
                   padding: "10px",
                   backgroundColor: "rgb(153, 27, 27)",
@@ -185,11 +234,11 @@ export default function Students() {
                 }
               >
                 Upload
-              </label>
+              </button>
             </>
           ) : (
             <button
-              onClick={() => handleDelete(student)}
+              onClick={() => handleDeleteClick(student)}
               style={{
                 padding: "10px",
                 height: "40px",
@@ -209,6 +258,32 @@ export default function Students() {
           )}
         </div>
       ))}
+
+      {isUploadPopupOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <h3>Upload SGK File</h3>
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={handleUploadFileChange}
+            />
+            {uploadFile && <p>{uploadFile.name}</p>}
+            <button onClick={handleUploadConfirm}>Ok</button>
+            <button onClick={handleUploadCancel}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {isDeletePopupOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <h3>Are you sure?</h3>
+            <button onClick={handleDeleteConfirm}>Ok</button>
+            <button onClick={handleDeleteCancel}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
