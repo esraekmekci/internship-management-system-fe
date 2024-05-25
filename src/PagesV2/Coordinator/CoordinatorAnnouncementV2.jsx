@@ -124,7 +124,7 @@ export default function CoordinatorAnnouncementV2() {
                   <p>{announcement.description}</p>
                   <p>{announcement.date}</p>
                 
-                {(announcement.status === 'approved' || announcement.status === 'rejected') &&(
+                {(announcement.status !== 'approved' || announcement.status !== 'rejected') &&(
                   <div>
                   <button
                     className="btn "
