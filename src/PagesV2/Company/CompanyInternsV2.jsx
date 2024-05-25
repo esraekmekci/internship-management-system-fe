@@ -15,7 +15,7 @@ function CompanyInternsV2() {
     const fetchInterns = async () => {
       try {
         const response = await GetWithAuth(
-          "/company/" + user.companyid + "/interns"
+          "/api/company/" + user.companyid + "/interns"
         );
         const result = await response.json();
         setInterns(result);
@@ -81,7 +81,7 @@ function CompanyInternsV2() {
 
   const downloadApplicationForm = () => {
     GetWithAuth(
-      "/company/" +
+      "/api/company/" +
         user.companyid +
         "/downloadApplicationForm?studentId=" +
         selectedIntern.studentId
@@ -113,7 +113,7 @@ function CompanyInternsV2() {
 
   const uploadApplicationForm = (formData) => {
     fetch(
-      "/company/" +
+      "/api/company/" +
         user.companyid +
         "/uploadApplicationForm?studentId=" +
         selectedIntern.studentId,

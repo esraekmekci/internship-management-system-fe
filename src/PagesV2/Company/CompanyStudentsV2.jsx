@@ -18,7 +18,7 @@ function CompanyStudentsV2() {
     const fetchStudents = async () => {
       try {
         const response = await GetWithAuth(
-          "/company/" + user.companyid + "/applicants"
+          "/api/company/" + user.companyid + "/applicants"
         );
         const result = await response.json();
         setApplications(result);
@@ -64,7 +64,7 @@ const confirmRejection = () => {
 };
 
 const evaluateApplicationLetter = async (type) => {
-    fetch("company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
+    fetch("/api/company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
         method: 'PUT',
         headers: {
         }
@@ -91,7 +91,7 @@ const evaluateApplicationLetter = async (type) => {
 }
 
 const downloadApplicationLetter = () => {
-    fetch("/company/" + user.companyid + "/downloadApplicationLetter?studentId=" + selectedStudent.studentId, {
+    fetch("/api/company/" + user.companyid + "/downloadApplicationLetter?studentId=" + selectedStudent.studentId, {
       method: 'GET',
     })
     .then(response => {

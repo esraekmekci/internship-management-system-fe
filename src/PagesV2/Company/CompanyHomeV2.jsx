@@ -44,7 +44,7 @@ const CompanyHomeV2 = ({ children }) => {
     const fetchData = async () => {
       try {
         const response = await GetWithAuth(
-          "/company/token/" + localStorage.getItem("tokenKey")
+          "/api/company/token/" + localStorage.getItem("tokenKey")
         );
         const result = await response.json();
         setUser(result);
