@@ -140,10 +140,9 @@ html, body {
 
 textarea:not(.v2) {
     margin-top: 10px;
-    margin-left: 350px; /* Align with the student list */
-    margin-right: 100px;
+    
     width: calc(100% - 472px); 
-    height: 50px;
+    height: 150px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
