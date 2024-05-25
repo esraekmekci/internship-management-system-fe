@@ -6,7 +6,6 @@ import { useUser } from "../../Components/UserContext";
 export default function ApplicationsV2() {
   const [applications, setApplications] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
   const { user } = useUser();
@@ -34,7 +33,6 @@ export default function ApplicationsV2() {
     } else {
       setSelectedCompany(company);
     }
-    setShowModal(false);
   };
 
   const downloadDocument = (type) => {
@@ -130,7 +128,6 @@ export default function ApplicationsV2() {
         alert("Application form uploaded successfully");
         setFile(null);
         setFileName("Select file");
-        setShowModal(false);
         window.location.reload();
       })
       .catch((err) => {
@@ -179,6 +176,8 @@ export default function ApplicationsV2() {
                         Show Application Letter
                       </button>
                       <br />
+                      <br />
+                      <br />
                       <form onSubmit={handleSubmit}>
                       <label
                         htmlFor="fileInput"
@@ -192,7 +191,7 @@ export default function ApplicationsV2() {
                           borderRadius: "4px",
                         }}
                       >
-                        Send Application Form
+                        Choose Application Letter
                         <input
                           type="file"
                           id="fileInput"
@@ -224,6 +223,7 @@ export default function ApplicationsV2() {
                         <input type="submit" style={{ display: "none" }} />
                       </label>
                     </form>
+                    <br />
                     </div>
                   )}
                   {(application.applicationStatus === "Application Form Sent to Company" ||
@@ -250,63 +250,6 @@ export default function ApplicationsV2() {
                     </div>
                   )}
                 </div>
-              </div>
-            )}
-            {showModal && selectedCompany === application && (
-              <div className="modal">
-                <form onSubmit={handleSubmit}>
-                  <div className="modal-content">
-                    <div className="modal-buttons-container">
-                      <div>
-                        <label
-                          htmlFor="fileInput"
-                          className="button"
-                          style={{
-                            background: "#4CAF50",
-                            color: "white",
-                            padding: "10px 20px",
-                            width: "20%",
-                            cursor: "pointer",
-                            borderRadius: "4px",
-                          }}
-                        >
-                          Choose Application Form
-                          <input
-                            type="file"
-                            id="fileInput"
-                            style={{ display: "none" }}
-                            accept=".docx, .doc"
-                            onChange={handleFileChange}
-                          />
-                        </label>
-                        {fileName && (
-                          <span
-                            style={{ marginLeft: "10px" }}
-                            className="file-name"
-                          >
-                            {fileName}
-                          </span>
-                        )}{" "}
-                        {/* Dosya adını göster */}
-                      </div>
-                      <label
-                        className="button"
-                        style={{
-                          background: "#4CAF50",
-                          color: "white",
-                          padding: "10px 20px",
-                          width: "4%",
-                          cursor: "pointer",
-                          borderRadius: "4px",
-                          float: "right",
-                        }}
-                      >
-                        Send
-                        <input type="submit" style={{ display: "none" }} />
-                      </label>
-                    </div>
-                  </div>
-                </form>
               </div>
             )}
           </div>
