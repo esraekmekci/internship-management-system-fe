@@ -100,13 +100,15 @@ function CoordinatorStudents() {
       <Loading isLoading={loading} />
       <div className="">
         {students.map((student, index) => (
-          <div key={student.applicationId} style={{justifyContent:'space-between', alignItems:'center'}}>
+          <div key={student.applicationId} sclassName="company-item" >
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
             <h3>
               {student.studentName}
             </h3>
             <button className="iyte-bg" onClick={() => toggleStudentDetails(index)}>
               {selectedStudentIndex === index ? 'Hide' : 'Review'}
             </button>
+            </div>
             {selectedStudentIndex === index && (
               <div className="company-details">
                 <h2>Details for {student.studentName}</h2>
