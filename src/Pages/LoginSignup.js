@@ -112,17 +112,17 @@ const LoginSignup = () => {
             setShowCheckboxPopup(!res.registered);
             if (res.registered) {
               alert(`Logging in as a ${role} with student ID: ${stID}`);
-              navigate("/student");
+              navigate("/std");
             }
           } else if (res.authorities.includes("SECRETARY")) {
             alert(`Logging in as a ${role} with email: ${email}`);
-            navigate("/secretary");
+            navigate("/sec");
           } else if (res.authorities.includes("COORDINATOR")) {
             alert(`Logging in as a ${role} with email: ${email}`);
-            navigate("/coordinator");
+            navigate("/coor");
           } else if (res.authorities.includes("COMPANY")) {
             alert(`Logging in as a ${role} with email: ${email}`);
-            navigate("/company");
+            navigate("/comp");
           }
         }
       })
@@ -147,7 +147,7 @@ const LoginSignup = () => {
       alert(`Logging in as a ${role} with student ID: ${stID}`);
       localStorage.setItem("tokenKey", token);
       localStorage.setItem("role", "STUDENT")
-      navigate("/student");
+      navigate("/std");
     } else if (role === "COMPANY" && checkbox1 && checkbox2) {
       setShowKVKKPopupForCompany(false);
       setTimeout(() => {

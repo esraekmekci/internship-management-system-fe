@@ -11,6 +11,20 @@ export default function Header({ role }) {
 
   const iconRef = useRef(null);
 
+  
+
+  const getPath = (role) => {
+    switch (role) {
+      case 'student':
+        return '/std';
+      case 'coordinator':
+        return '/coor';
+      case 'company':
+        return '/comp';
+      case 'secretary':
+        return '/sec';
+    }
+  }
   const handleClick = () => {
     setDropdownExpanded(!dropdownExpanded);
   };
@@ -55,7 +69,7 @@ export default function Header({ role }) {
               gap: "4px",
             }}
           >
-            <a href={`/${role}`}>
+            <a href={getPath(role)}>
               <img src={iyte_icon} alt="iyte icon" width={"60px"} />
             </a>
             <p style={{ color: "gray" }}>IZTECH IMS</p>

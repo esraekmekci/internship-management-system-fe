@@ -53,7 +53,7 @@ const router = createBrowserRouter([
     element: <RoleBasedRoute allowedRoles={["SECRETARY"]} />,
     children: [
       {
-        path: "secretary",
+        path: "sec",
         element: <SecretaryHome />,
         children: [
           {
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
     element: <RoleBasedRoute allowedRoles={["STUDENT"]} />,
     children: [
       {
-        path: "student",
+        path: "std",
         element: <HomeV2 />,
         children: [
           {
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
     element: <RoleBasedRoute allowedRoles={["COMPANY"]} />,
     children: [
       {
-        path: "company",
+        path: "comp",
         element: <CompanyHomeV2 />,
         children: [
           {
@@ -130,7 +130,7 @@ const router = createBrowserRouter([
     element: <RoleBasedRoute allowedRoles={["COORDINATOR"]} />,
     children: [
       {
-        path: "coordinator",
+        path: "coor",
         element: <CoordinatorHomeV2 />,
         children: [
           {
