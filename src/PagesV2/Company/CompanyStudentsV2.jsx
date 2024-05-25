@@ -34,61 +34,27 @@ function CompanyStudentsV2() {
   const handleSelectStudent = (student) => {
     setSelectedStudent(selectedStudent === student ? null : student);
   };
+  const handleApprove = () => {
+    setShowPopup({ show: true, type: "approve", student: selectedStudent });
+};
 
-    const confirmApproval = () => {
-        evaluateApplicationLetter("approve");
-
-  const handleReject = () => {
+const handleReject = () => {
     setShowPopup({ show: true, type: "reject", student: selectedStudent });
-  };
+};
 
-  const confirmApproval = () => {
+const confirmApproval = () => {
     alert("Approved successfully");
     evaluateApplicationLetter("approve");
 
     // Reset state
     setShowPopup({ show: false, type: "", student: null });
     setSelectedStudent(null);
-  };
+};
 
-    const renderFilePreview = (student) => {
-        if (!student.fileUrl) return null;
-        if (student.fileUrl.endsWith('.pdf')) {
-            return <embed src={student.fileUrl} type="application/pdf" width="100%" height="500px" />;
-        } else if (student.fileUrl.endsWith('.docx')) {
-            return (
-                <iframe src={`https://docs.google.com/gview?url=${encodeURIComponent(student.fileUrl)}&embedded=true`} 
-                        style={{ width: '100%', height: '500px' }} >
-                </iframe>
-            );
-        }
-    };
-
-    const evaluateApplicationLetter = async (type) => {
-        fetch("/company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
-            method: 'PUT',
-            headers: {
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
-            }
-            return response;
-        })
-        .then(result => {
-            if (type === "approve") {
-                alert("Approved successfully");
-            } else {    
-                alert("Rejected successfully");
-            }
-            window.location.reload();
-            console.log(result);
-        })
-        .catch(err => {
-            console.error("Error occurred:", err);
-            alert("Error occurred:", err);
-        });
+const confirmRejection = () => {
+    if (feedback === "") {
+        alert("Please provide feedback for rejection.");
+        return;
     }
 
     evaluateApplicationLetter("reject");
@@ -96,63 +62,60 @@ function CompanyStudentsV2() {
     setShowPopup({ show: false, type: "", student: null });
     setSelectedStudent(null);
     setFeedback("");
-  };
+};
 
-  const renderFilePreview = (student) => {
-    if (!student.fileUrl) return null;
-    if (student.fileUrl.endsWith(".pdf")) {
-      return (
-        <embed
-          src={student.fileUrl}
-          type="application/pdf"
-          width="100%"
-          height="500px"
-        />
-      );
-    } else if (student.fileUrl.endsWith(".docx")) {
-      return (
-        <iframe
-          src={`https://docs.google.com/gview?url=${encodeURIComponent(student.fileUrl)}&embedded=true`}
-          style={{ width: "100%", height: "500px" }}
-        ></iframe>
-      );
-    }
-  };
-
-  const evaluateApplicationLetter = async (type) => {
-    fetch(
-      "company/" +
-        user.companyid +
-        "/" +
-        type +
-        "ApplicationLetter?applicationId=" +
-        selectedStudent.applicationId,
-      {
-        method: "PUT",
-        headers: {},
-      }
-    )
-      .then((response) => {
+const evaluateApplicationLetter = async (type) => {
+    fetch("company/" + currentUser.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
+        method: 'PUT',
+        headers: {
+        }
+    })
+    .then(response => {
         if (!response.ok) {
-          throw new Error(
-            "Network response was not ok: " + response.statusText
-          );
+            throw new Error('Network response was not ok: ' + response.statusText);
         }
         return response;
-      })
-      .then((result) => {
+    })
+    .then(result => {
         if (type === "approve") {
-          alert("Approved successfully");
-        } else {
-          alert("Rejected successfully");
+            alert("Approved successfully");
+        } else {    
+            alert("Rejected successfully");
         }
         window.location.reload();
         console.log(result);
-      })
-      .catch((err) => {
+    })
+    .catch(err => {
         console.error("Error occurred:", err);
         alert("Error occurred:", err);
-      });
+    });
+}
+
+const downloadApplicationLetter = (type) => {
+    fetch("/company/" + currentUser.companyid + "/downloadApplicationLetter?studentId=" + selectedStudent.studentId, {
+      method: 'GET',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok: ' + response.statusText);
+      }
+      return response.blob(); 
+    })
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob); 
+      const a = document.createElement('a'); 
+      a.href = url;
+      a.download = "ApplicationLetter_" + selectedStudent.studentName + ".docx";
+      document.body.appendChild(a);
+      a.click(); 
+      a.remove(); 
+      window.URL.revokeObjectURL(url); 
+      alert(`Application Letter downloaded successfully`);
+    })
+    .catch(err => {
+      console.error("Error occurred:", err);
+      alert(`Application Letter download is unsuccessful`);
+    });
   };
 
   return (
