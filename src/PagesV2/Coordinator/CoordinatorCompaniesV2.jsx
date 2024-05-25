@@ -16,14 +16,14 @@ export default function CoordinatorCompaniesV2() {
   };
 
   const handleApprove = async (company , index) => {
-    await PutWithAuth(`/coordinator/approveCompanyAccount?companyId=${company.companyid}`);
+    await PutWithAuth(`/api/coordinator/approveCompanyAccount?companyId=${company.companyid}`);
     alert(`Approved ${company.companyName}`);
     setCompanies(companies.filter((_, i) => i !== index));
     window.location.reload();
   };
 
   const handleReject = async (company, index) => {
-    await PutWithAuth(`/coordinator/rejectCompanyAccount?companyId=${company.companyid}`);
+    await PutWithAuth(`/api/coordinator/rejectCompanyAccount?companyId=${company.companyid}`);
     alert(`Rejected ${companies[index].companyName}`);
     setCompanies(companies.filter((_, i) => i !== index));
     window.location.reload();
@@ -32,7 +32,7 @@ export default function CoordinatorCompaniesV2() {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await GetWithAuth("/company/pending");
+            const response = await GetWithAuth("/api/company/pending");
             const result = await response.json();
             console.log(result);
             setCompanies(result);

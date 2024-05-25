@@ -18,7 +18,7 @@ export default function Guidelines() {
   };
 
   const handleDownload = () => {
-    fetch("/coordinator/downloadGuideline", {
+    fetch("/api/coordinator/downloadGuideline", {
       method: "GET",
     })
       .then((response) => {
@@ -49,7 +49,7 @@ export default function Guidelines() {
   const deleteGuidelines = () => {
     if (window.confirm('Are you sure? The guideline will be deleted.')) {
 
-      fetch("/coordinator/deleteGuidelines", {
+      fetch("/api/coordinator/deleteGuidelines", {
         method: "DELETE",
         headers: {},
       })
@@ -95,7 +95,7 @@ export default function Guidelines() {
   };
 
   const uploadGuideline = (formData) => {
-    fetch("/coordinator/uploadGuidelines", {
+    fetch("/api/coordinator/uploadGuidelines", {
       method: "POST",
       body: formData,
       headers: {
@@ -126,7 +126,7 @@ export default function Guidelines() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await GetWithAuth("/coordinator/checkGuideline");
+        const response = await GetWithAuth("/api/coordinator/checkGuideline");
         const exists = await response.json(); // Assuming the response is JSON and 'exists' is a boolean
         console.log(exists); // This should log true or false
         if (exists === true) {

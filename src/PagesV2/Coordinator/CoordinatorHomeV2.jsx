@@ -21,9 +21,33 @@ Benimle çalışan kişi yaptıkça commentleri silmeyi unutma pls.
 */
 
 const CoordinatorHomeV2 = ({ children }) => {
-  const { user } = useUser();
+  const [loading, setLoading] = useState(true);
+  const { setUser } = useUser();
 
-  if (user) {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await GetWithAuth(
+          "/api/coordinator/token/" + localStorage.getItem("tokenKey")
+        );
+        const result = await response.json();
+        setUser(result);
+      } catch (error) {
+        console.log(error);
+        console.log("User not found");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const timeout = setTimeout(() => {
+      fetchData();
+    }, 1);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (loading) {
     return (
       <div className="loading-container">
         <img src={loading_icon} alt="loading" className="loading-img" />

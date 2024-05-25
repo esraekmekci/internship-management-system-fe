@@ -45,7 +45,7 @@ export default function CoordinatorAnnouncementV2() {
           )
         ) {
           await PutWithAuth(
-            `/coordinator/approveAnnouncement?announcementId=${announcement.announcement_id}`
+            `/api/coordinator/approveAnnouncement?announcementId=${announcement.announcement_id}`
           );
           alert("Announcement is made.");
           window.location.reload();
@@ -60,7 +60,7 @@ export default function CoordinatorAnnouncementV2() {
           )
         ) {
           await PutWithAuth(
-            `/coordinator/rejectAnnouncement?announcementId=${announcement.announcement_id}`
+            `/api/coordinator/rejectAnnouncement?announcementId=${announcement.announcement_id}`
           );
           alert("Announcement is rejected.");
           window.location.reload();
@@ -73,7 +73,7 @@ export default function CoordinatorAnnouncementV2() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await GetWithAuth("/announcement");
+        const response = await GetWithAuth("/api/announcement");
         const result = await response.json();
         console.log(result);
         setAnnouncements(result);

@@ -16,7 +16,7 @@ export default function DocumentsV2() {
   };
 
   const downloadSGKDocument = () => {
-    fetch("/student/" + user.studentID + "/downloadSGKDocument", {
+    fetch("/api/student/" + user.studentID + "/downloadSGKDocument", {
       method: "GET",
     })
       .then((response) => {
@@ -45,7 +45,7 @@ export default function DocumentsV2() {
   };
 
   const downloadGuideline = () => {
-    fetch("/coordinator/downloadGuideline", {
+    fetch("/api/coordinator/downloadGuideline", {
       method: "GET",
     })
       .then((response) => {

@@ -14,7 +14,7 @@ export default function Students() {
 
   const fetchStudents = async () => {
     try {
-      const response = await GetWithAuth("/secretary/studentListWithStatus");
+      const response = await GetWithAuth("/api/secretary/studentListWithStatus");
       const data = await response.json();
       setStudents(data);
     } catch (error) {
@@ -28,7 +28,7 @@ export default function Students() {
 
     try {
       const response = await fetch(
-        `/secretary/${student.studentId}/uploadSGK`,
+        `/api/secretary/${student.studentId}/uploadSGK`,
         {
           method: "POST",
           headers: {
@@ -55,7 +55,7 @@ export default function Students() {
   const handleDelete = async (student) => {
     try {
       const response = await DeleteWithAuth(
-        `/secretary/${student.studentId}/deleteSGK`
+        `/api/secretary/${student.studentId}/deleteSGK`
       );
 
       if (response.ok) {
@@ -74,7 +74,7 @@ export default function Students() {
 
   const handleDownload = async () => {
     try {
-      const response = await GetWithAuth("/secretary/studentList/download");
+      const response = await GetWithAuth("/api/secretary/studentList/download");
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");

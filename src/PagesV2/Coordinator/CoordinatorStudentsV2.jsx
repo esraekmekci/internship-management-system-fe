@@ -10,7 +10,7 @@ function CoordinatorStudents() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await GetWithAuth("/coordinator/studentApplications");
+        const response = await GetWithAuth("/api/coordinator/studentApplications");
         const result = await response.json();
         const filteredStudents = result.filter(ApplicationForCoordinatorResponse => ApplicationForCoordinatorResponse.applicationStatus !== "Application Letter Approved");
         setStudents(filteredStudents);
@@ -32,14 +32,14 @@ function CoordinatorStudents() {
     const actions = {
       approve: async () => {
         await PutWithAuth(
-          `/coordinator/approveApplicationForm?applicationId=${student.applicationId}`
+          `/api/coordinator/approveApplicationForm?applicationId=${student.applicationId}`
         );
         alert("Application form is approved successfully.");
         window.location.reload();
       },
       reject: async () => {
         await PutWithAuth(
-          `/coordinator/rejectApplicationForm?applicationId=${student.applicationId}`
+          `/api/coordinator/rejectApplicationForm?applicationId=${student.applicationId}`
         );
         alert("Application form rejected.");
         window.location.reload();
@@ -50,7 +50,7 @@ function CoordinatorStudents() {
 
   const downloadDocument = (type) => {
     fetch(
-      "/student/" +
+      "/api/student/" +
         selectedStudent.studentId +
         "/downloadApplication" +
         type +

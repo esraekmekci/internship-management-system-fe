@@ -14,7 +14,7 @@ export default function ApplicationsV2() {
     const fetchCompanies = async () => {
       try {
         const response = await GetWithAuth(
-          "/student/" + user.studentID + "/appliedcompanies"
+          "/api/student/" + user.studentID + "/appliedcompanies"
         );
         const result = await response.json();
         setApplications(result);
@@ -37,7 +37,7 @@ export default function ApplicationsV2() {
 
   const downloadDocument = (type) => {
     fetch(
-      "/student/" +
+      "/api/student/" +
         user.studentID +
         "/downloadApplication" +
         type +
@@ -108,7 +108,7 @@ export default function ApplicationsV2() {
   };
 
   const uploadApplicationForm = (formData) => {
-    fetch("/student/" + user.studentID + "/uploadApplicationForm", {
+    fetch("/api/student/" + user.studentID + "/uploadApplicationForm", {
       method: "POST",
       body: formData,
       headers: {

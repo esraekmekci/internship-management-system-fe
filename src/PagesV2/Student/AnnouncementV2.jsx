@@ -16,7 +16,7 @@ export default function AnnouncementV2() {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await GetWithAuth("/announcement/approved");
+        const response = await GetWithAuth("/api/announcement/approved");
         const result = await response.json();
         setAnnouncements(result);
       } catch (error) {
@@ -66,7 +66,7 @@ export default function AnnouncementV2() {
   };
 
   const uploadApplicationLetter = (formData) => {
-    fetch("/student/" + user.studentID + "/uploadApplicationLetter", {
+    fetch("/api/student/" + user.studentID + "/uploadApplicationLetter", {
       method: "POST",
       body: formData,
       headers: {

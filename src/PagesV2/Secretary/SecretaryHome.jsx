@@ -18,7 +18,7 @@ export default function SecretaryHome() {
     const fetchData = async () => {
       try {
         const response = await GetWithAuth(
-          "/secretary/token/" + localStorage.getItem("tokenKey")
+          "/api/secretary/token/" + localStorage.getItem("tokenKey")
         );
         const result = await response.json();
         setUser(result);
