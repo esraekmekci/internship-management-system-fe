@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GetWithAuth, DeleteWithAuth } from "../../Services/HttpService";
 import "./SecretaryHome.css";
+import Loading from '../../Pages/LoadingPage';
 
 export default function Students() {
   const [students, setStudents] = useState([]);
@@ -8,6 +9,7 @@ export default function Students() {
   const [uploadFile, setUploadFile] = useState(null);
   const [isUploadPopupOpen, setIsUploadPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchStudents();
@@ -22,6 +24,8 @@ export default function Students() {
       setStudents(data);
     } catch (error) {
       console.error("Error fetching students:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -157,6 +161,7 @@ export default function Students() {
         overflowY: "auto",
       }}
     >
+      <Loading isLoading={loading} />
       <div
         style={{
           marginBottom: "5px",

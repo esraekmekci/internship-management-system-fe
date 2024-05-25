@@ -5,6 +5,8 @@ import Header from "../../Components/Header";
 import Sidebar from "../../Components/Sidebar";
 import { useUser } from "../../Components/UserContext.jsx";
 import { GetWithAuth } from "../../Services/HttpService.js";
+import Loading from '../../Pages/LoadingPage';
+
 
 const tabs = [
   { name: "View Students", link: "/sec/students", icon: "group" }
@@ -13,6 +15,7 @@ const tabs = [
 
 export default function SecretaryHome() {
   const { setUser } = useUser();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +28,8 @@ export default function SecretaryHome() {
       } catch (error) {
         console.log(error);
         console.log("User not found");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -44,6 +49,7 @@ export default function SecretaryHome() {
         >
           <Sidebar tabs={tabs} />
           <Outlet />  {/*/secretary'nin child objeleri buraya geliyor. */}
+          <Loading isLoading={loading} />
         </div>
       </div>
     </div>

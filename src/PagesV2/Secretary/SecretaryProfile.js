@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import profile_icon from '../../Components/Assets/profile-picture.png'
 import { useUser } from '../../Components//UserContext';
+import Loading from '../../Pages/LoadingPage';
 
 function SecretaryProfile() {
   const { user } = useUser();
@@ -14,6 +15,10 @@ function SecretaryProfile() {
       // Verify current password, check newPassword and confirmNewPassword match, then update
       console.log("Password change requested.");
   };
+
+  if (!user) {
+    return <Loading isLoading={true}/>;
+  }
 
   return (
     <div className='w-full-padding'>
