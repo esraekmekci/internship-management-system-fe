@@ -157,38 +157,51 @@ export default function CompanyAnnouncementV2() {
   return (
     <div className="w-full-padding">
       <div>
-        <h1>Announcements</h1>
+        <h1 style={{ marginBottom: "4px" }}>Announcements</h1>
       </div>
 
       <div>
-        {announcements.map((announcement, index) => (
-          <div key={index} className="">
-            <h2
-              onClick={() => handleAnnouncementClick(index)}
-              style={{ cursor: "pointer" }}
+        {announcements &&
+          announcements.map((announcement, index) => (
+            <div
+              key={index}
+              className="announcement-section"
+              style={{
+                padding: "8px 10px",
+                borderBottom: "1px solid #fafafa",
+              }}
             >
-              {announcement.title}
-              <span style={{ float: "right", fontSize: "15px" }}>
-                Status: {announcement.status}
-              </span>
-            </h2>
-            {selectedAnnouncement === index && (
-              <>
-                <p>{announcement.description}</p>
-                <p>Date: {announcement.uploadDate}</p>
-                {announcement.file && <p>File: {announcement.file}</p>}
-                <button onClick={() => handleDeleteClick(index)}>Delete</button>
-              </>
-            )}
-          </div>
-        ))}
+              <h2
+                onClick={() => handleAnnouncementClick(index)}
+                style={{ cursor: "pointer", color: "rgba(45, 51, 69)" }}
+              >
+                {announcement.title}
+                <span style={{ float: "right", fontSize: "15px" }}>
+                  Status: {announcement.status}
+                </span>
+              </h2>
+              {selectedAnnouncement === index && (
+                <>
+                  <p>{announcement.description}</p>
+                  <p>Date: {announcement.uploadDate}</p>
+                  {announcement.file && <p>File: {announcement.file}</p>}
+                  <button
+                    className="iyte-bg"
+                    onClick={() => handleDeleteClick(index)}
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
       </div>
 
-      <div className="">
+      <div className="" style={{ marginTop: "80px" }}>
         <button
           onClick={() => toggleDropdown("newAnn")}
           style={{ display: "block" }}
-          className="iyte-bg"
+          className="green-bg"
         >
           New Announcement
         </button>
@@ -202,7 +215,7 @@ export default function CompanyAnnouncementV2() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: "4px"
+              gap: "4px",
             }}
           >
             <input
@@ -210,7 +223,12 @@ export default function CompanyAnnouncementV2() {
               type="text"
               placeholder="Enter Announcement Title"
               value={newTitle}
-              style={{ marginLeft: "0px", width: "500px", padding: "8px", border: "1px #ccc solid" }}
+              style={{
+                marginLeft: "0px",
+                width: "500px",
+                padding: "8px",
+                border: "1px #ccc solid",
+              }}
               onChange={handleNewTitleChange}
             />
             <br></br>
@@ -218,7 +236,7 @@ export default function CompanyAnnouncementV2() {
               className="v2 border-rounded"
               placeholder="Enter Announcement Description"
               value={newDescription}
-              style={{ marginLeft: "0px", width: "500px", padding:"8px" }}
+              style={{ marginLeft: "0px", width: "500px", padding: "8px" }}
               onChange={handleNewDescriptionChange}
             ></textarea>
             <button
@@ -251,14 +269,19 @@ export default function CompanyAnnouncementV2() {
       )}
 
       {showDeletePopup.show && (
-        <div className="popup">
+        <div
+          className="popup-v2"
+          style={{ top: "20%", right: "50%", left: "40%" }}
+        >
           <h2>Are you sure you want to delete this announcement?</h2>
-          <button onClick={confirmDeleteAnnouncement}>Yes</button>
-          <button
-            onClick={() => setShowDeletePopup({ show: false, index: null })}
-          >
-            No
-          </button>
+          <div style={{display: "flex", justifyContent: "flex-end"}}>
+            <button className="green-bg" onClick={confirmDeleteAnnouncement}>Yes</button>
+            <button className="iyte-bg"
+              onClick={() => setShowDeletePopup({ show: false, index: null })}
+            >
+              No
+            </button>
+          </div>
         </div>
       )}
     </div>

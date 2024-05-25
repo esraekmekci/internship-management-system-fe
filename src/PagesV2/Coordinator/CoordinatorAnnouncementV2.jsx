@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService";
 import { PutWithAuth } from "../../Services/HttpService";
+import loading_icon from "../../Components/Assets/loading.gif";
 
 import "../../Pages/Coordinator/CoordinatorAnnouncement.css";
 
@@ -21,6 +22,7 @@ export default function CoordinatorAnnouncementV2() {
   const [showModal, setShowModal] = useState(false);
   const [modalConfig, setModalConfig] = useState({});
   const [announcements, setAnnouncements] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const handleViewClick = (announcement) => {
     if (
@@ -46,6 +48,7 @@ export default function CoordinatorAnnouncementV2() {
             `/coordinator/approveAnnouncement?announcementId=${announcement.announcement_id}`
           );
           alert("Announcement is made.");
+          window.location.reload();
         }
       },
 
@@ -60,6 +63,7 @@ export default function CoordinatorAnnouncementV2() {
             `/coordinator/rejectAnnouncement?announcementId=${announcement.announcement_id}`
           );
           alert("Announcement is rejected.");
+          window.location.reload();
         } 
       },
     };
@@ -73,6 +77,7 @@ export default function CoordinatorAnnouncementV2() {
         const result = await response.json();
         console.log(result);
         setAnnouncements(result);
+        setLoading(false);
       } catch (error) {
         console.log(error);
         console.log("ann not found");
@@ -87,53 +92,62 @@ export default function CoordinatorAnnouncementV2() {
   }, []);
 
   return (
-    <div className="" style={{ width: "100%", padding: "20px 40px" }}>
-      <h1>Announcements</h1>
-      <div className="announcement-underline"></div>
-      {announcements.map((announcement) => (
-        <div key={announcement.announcement_id} className="announcement-item">
-          <h2>{announcement.comp_name + " - " + announcement.status}</h2>
-          <button
-            onClick={() => handleViewClick(announcement)}
-            style={{
-              backgroundColor:
-                selectedAnnouncement &&
-                selectedAnnouncement.announcement_id ===
-                  announcement.announcement_id
-                  ? "#007BFF"
-                  : "#4CAF50",
-              color: "white",
-            }}
-          >
-            View
-          </button>
-          <div className="announcement-mini-underline"></div>
-          {selectedAnnouncement &&
+    <div className="" style={{ width: "100%", padding: "20px 40px", overflowY: "auto" }}>
+    {loading ? (
+      <div className="loading-container">
+        <img src={loading_icon} alt="loading" className="loading-img" />
+      </div>
+    ) : (
+      <div>
+      <div>
+        <h1 style={{ marginBottom: "4px" }}>Announcements</h1>
+      </div>
+
+      <div>
+        {announcements &&
+          announcements.map((announcement) => (
+            <div
+              key={announcement.announcement_id}
+              className="announcement-section"
+              style={{
+                padding: "15px 30px",
+                borderBottom: "1px solid #fafafa",
+              }}
+            >
+              <h2
+                onClick={() => handleViewClick(announcement)}
+                style={{ cursor: "pointer", color: "rgba(45, 51, 69)" }}
+              >
+                {announcement.title}
+                <span style={{ float: "right", fontSize: "15px" }}>
+                  Status: {announcement.status}
+                </span>
+              </h2>
+              {selectedAnnouncement &&
             selectedAnnouncement.announcement_id ===
               announcement.announcement_id && (
-              <div className="announcement-details">
-                <h2>{announcement.title}</h2>
-                <p>{announcement.description}</p>
-                <button
-                  className="btn"
-                  onClick={() => handleAction("approve", announcement)}
-                >
-                  Approve
-                </button>
-                <button onClick={() => handleAction("reject", announcement)}>
-                  Reject
-                </button>
-              </div>
-            )}
-        </div>
-      ))}
-      {showModal && (
-        <Modal
-          message={modalConfig.message}
-          onClose={modalConfig.onClose}
-          onConfirm={modalConfig.onConfirm}
-        />
-      )}
-    </div>
+                <div className="announcement-details">
+                  <h4>{announcement.comp_name}</h4>
+                  <p>{announcement.description}</p>
+                  <p>{announcement.date}</p>
+
+                  <button
+                    className="btn "
+                    onClick={() => handleAction("approve", announcement)}
+                  >
+                    Approve
+                  </button>
+                  <button className="iyte-bg" onClick={() => handleAction("reject", announcement)}>
+                    Reject
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+      </div>
+      </div>
+    )
+    }
+  </div>
   );
 }

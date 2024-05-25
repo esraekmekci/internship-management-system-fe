@@ -7,9 +7,9 @@ import Sidebar from "../../Components/Sidebar";
 import { useUser } from "../../Components/UserContext.jsx";
 
 const tabs = [
-  { name: "See Students", link: "/company/students", icon: "people" },
-  { name: "Announcements", link: "/company/announcements", icon: "campaign" },
-  { name: "My Interns", link: "/company/interns", icon: "supervisor_account" },
+  { name: "See Students", link: "/comp/students", icon: "people" },
+  { name: "Announcements", link: "/comp/announcements", icon: "campaign" },
+  { name: "My Interns", link: "/comp/interns", icon: "supervisor_account" },
 ];
 
 

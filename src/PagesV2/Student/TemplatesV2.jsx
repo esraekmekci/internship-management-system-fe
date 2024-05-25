@@ -5,7 +5,7 @@ export default function TemplatesV2() {
     const anchor = document.createElement("a");
     anchor.style.display = "none";
 
-    const downloadUrl = "http://localhost:8080/api/v1/download/" + fileName;
+    const downloadUrl = "https://ims-api-esraekmekci-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com/api/v1/download/" + fileName;
 
     anchor.href = downloadUrl;
 

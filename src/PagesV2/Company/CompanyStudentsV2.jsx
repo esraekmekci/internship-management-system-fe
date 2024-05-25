@@ -1,112 +1,128 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService";
-import '../../Pages/Company/CompanyStudents.css';
-import { useUser } from '../../Components//UserContext';
+import "../../Pages/Company/CompanyStudents.css";
+import { useUser } from "../../Components//UserContext";
 
 function CompanyStudentsV2() {
-    const { user } = useUser();
-    const [applications, setApplications] = useState([]);
-    const [selectedStudent, setSelectedStudent] = useState(null);
-    const [feedback, setFeedback] = useState("");
-    const [showPopup, setShowPopup] = useState({ show: false, type: "", student: null });
+  const { user } = useUser();
+  const [applications, setApplications] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [feedback, setFeedback] = useState("");
+  const [showPopup, setShowPopup] = useState({
+    show: false,
+    type: "",
+    student: null,
+  });
 
-    useEffect(() => {
-
-        const fetchStudents = async () => {
-            try {
-                const response = await GetWithAuth("/company/" + user.companyid + "/applicants");
-                const result = await response.json();
-                setApplications(result);
-            } catch (error) {
-                console.log(error);
-                console.log("application not found");
-            }
-        };
-
-        fetchStudents();
-
-    }, []);
-
-    const handleSelectStudent = (student) => {
-        setSelectedStudent(selectedStudent === student ? null : student);
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await GetWithAuth(
+          "/company/" + user.companyid + "/applicants"
+        );
+        const result = await response.json();
+        setApplications(result);
+      } catch (error) {
+        console.log(error);
+        console.log("application not found");
+      }
     };
 
-    const handleApprove = () => {
-        setShowPopup({ show: true, type: "approve", student: selectedStudent });
-    };
+    fetchStudents();
+  }, []);
 
-    const handleReject = () => {
-        setShowPopup({ show: true, type: "reject", student: selectedStudent });
-    };
+  const handleSelectStudent = (student) => {
+    setSelectedStudent(selectedStudent === student ? null : student);
+  };
+  const handleApprove = () => {
+    setShowPopup({ show: true, type: "approve", student: selectedStudent });
+};
 
-    const confirmApproval = () => {
-        alert("Approved successfully");
-        evaluateApplicationLetter("approve");
+const handleReject = () => {
+    setShowPopup({ show: true, type: "reject", student: selectedStudent });
+};
 
-        // Reset state
-        setShowPopup({ show: false, type: "", student: null });
-        setSelectedStudent(null);
-    };
+const confirmApproval = () => {
+    evaluateApplicationLetter("approve");
 
-    const confirmRejection = () => {
-        if (feedback === "") {
-            alert("Please provide feedback for rejection.");
-            return;
-        }
+    // Reset state
+    setShowPopup({ show: false, type: "", student: null });
+    setSelectedStudent(null);
+};
 
-        evaluateApplicationLetter("reject");
-        alert("Rejection email sent with feedback.");
-        setShowPopup({ show: false, type: "", student: null });
-        setSelectedStudent(null);
-        setFeedback("");
-    };
-
-    const renderFilePreview = (student) => {
-        if (!student.fileUrl) return null;
-        if (student.fileUrl.endsWith('.pdf')) {
-            return <embed src={student.fileUrl} type="application/pdf" width="100%" height="500px" />;
-        } else if (student.fileUrl.endsWith('.docx')) {
-            return (
-                <iframe src={`https://docs.google.com/gview?url=${encodeURIComponent(student.fileUrl)}&embedded=true`} 
-                        style={{ width: '100%', height: '500px' }} >
-                </iframe>
-            );
-        }
-    };
-
-    const evaluateApplicationLetter = async (type) => {
-        fetch("company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
-            method: 'PUT',
-            headers: {
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
-            }
-            return response;
-        })
-        .then(result => {
-            if (type === "approve") {
-                alert("Approved successfully");
-            } else {    
-                alert("Rejected successfully");
-            }
-            window.location.reload();
-            console.log(result);
-        })
-        .catch(err => {
-            console.error("Error occurred:", err);
-            alert("Error occurred:", err);
-        });
+const confirmRejection = () => {
+    if (feedback === "") {
+        alert("Please provide feedback for rejection.");
+        return;
     }
 
-    return (
-        <div>
-            <div className="" style={{ padding: "20px 40px" }}>
-                <h1>Students</h1>
-            </div>
-            <div>
+    evaluateApplicationLetter("reject");
+    alert("Rejection email sent with feedback.");
+    setShowPopup({ show: false, type: "", student: null });
+    setSelectedStudent(null);
+    setFeedback("");
+};
+
+const evaluateApplicationLetter = async (type) => {
+    fetch("/company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
+        method: 'PUT',
+        headers: {
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        return response;
+    })
+    .then(result => {
+        if (type === "approve") {
+            alert("Approved successfully");
+        } else {    
+            alert("Rejected successfully");
+        }
+        window.location.reload();
+        console.log(result);
+    })
+    .catch(err => {
+        console.error("Error occurred:", err);
+        alert("Error occurred:", err);
+    });
+}
+
+const downloadApplicationLetter = () => {
+    fetch("/company/" + user.companyid + "/downloadApplicationLetter?studentId=" + selectedStudent.studentId, {
+      method: 'GET',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok: ' + response.statusText);
+      }
+      return response.blob(); 
+    })
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob); 
+      const a = document.createElement('a'); 
+      a.href = url;
+      a.download = "ApplicationLetter_" + selectedStudent.studentName + ".docx";
+      document.body.appendChild(a);
+      a.click(); 
+      a.remove(); 
+      window.URL.revokeObjectURL(url); 
+      alert(`Application Letter downloaded successfully`);
+    })
+    .catch(err => {
+      console.error("Error occurred:", err);
+      alert(`Application Letter download is unsuccessful`);
+    });
+  };
+
+  return (
+    <div style={{ padding: "20px 40px", width: "100%", overflowY: 'auto'}}>
+      <div className="announcement-section" style={{ marginTop: '60px' }}>
+        <h1>Students</h1>
+      </div>
+      <div>
                 {applications.map((application) => (
                     <div key={application.applicationId} className="announcement-section">
                         <h2 onClick={() => handleSelectStudent(application)} style={{ cursor: 'pointer' }}>
@@ -114,12 +130,17 @@ function CompanyStudentsV2() {
                             <span style={{float:'right', fontSize:'15px'}}>Status: {application.applicationStatus}</span>
                         </h2>
                         {selectedStudent === application && (
-                            <div className="student-details">
-                                <h3>Application Letter</h3>
-                                {renderFilePreview(application)}
-                                <div style={{ display: 'flex' }}>
-                                    <button onClick={handleApprove}>Approve</button>
-                                    <button onClick={handleReject}>Reject</button>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                <button className='button' onClick={() => downloadApplicationLetter()} style={{ float: 'left' }}>
+                                    Show Application Letter
+                                </button>
+                                <div style={{ display: 'flex', gap: '15px' }}>
+                                    <button onClick={handleApprove} style={{ backgroundColor: 'green' }}>
+                                        Approve
+                                    </button>
+                                    <button onClick={handleReject} style={{ backgroundColor: 'red' }}>
+                                        Reject
+                                    </button>
                                 </div>
                             </div>
                         )}
@@ -146,8 +167,8 @@ function CompanyStudentsV2() {
                     )}
                 </div>
             )}
-        </div>
-    );
+    </div>
+  );
 }
 
 export default CompanyStudentsV2;

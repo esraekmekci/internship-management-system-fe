@@ -17,14 +17,14 @@ export default function CoordinatorCompaniesV2() {
 
   const handleApprove = async (company , index) => {
     await PutWithAuth(`/coordinator/approveCompanyAccount?companyId=${company.companyid}`);
-    alert(`Approved ${company.name}`);
+    alert(`Approved ${company.companyName}`);
     setCompanies(companies.filter((_, i) => i !== index));
     window.location.reload();
   };
 
   const handleReject = async (company, index) => {
     await PutWithAuth(`/coordinator/rejectCompanyAccount?companyId=${company.companyid}`);
-    alert(`Rejected ${companies[index].name}`);
+    alert(`Rejected ${companies[index].companyName}`);
     setCompanies(companies.filter((_, i) => i !== index));
     window.location.reload();
   };
@@ -57,11 +57,13 @@ export default function CoordinatorCompaniesV2() {
       <div className="" style={{width: "100%", padding: "20px 40px"}}>
         <h2> Pending Company Accounts</h2>
         {companies.map((company, index) => (
-          <div key={index} className="company-item">
+          <div key={index} className="company-item" >
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
             <h3>{company.companyName}</h3>
-            <button className='iyte-bg' onClick={() => toggleCompanyDetails(index)}>
+            <button className='iyte-bg' onClick={() => toggleCompanyDetails(index)} >
               {visibleCompany === index ? 'Hide' : 'View'}
             </button>
+            </div>
             {visibleCompany === index && (
               <div className="company-details">
                 <p><strong>Address:</strong> {company.companyAddress}</p>

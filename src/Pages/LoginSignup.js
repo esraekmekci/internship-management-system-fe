@@ -105,25 +105,24 @@ const LoginSignup = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.token) {
-          console.log(token);
-          console.log(res);
           localStorage.setItem("tokenKey", res.token);
+          localStorage.setItem("role", res.authorities);
           if (res.authorities.includes("STUDENT")) {
             setToken(res.token);
             setShowCheckboxPopup(!res.registered);
             if (res.registered) {
               alert(`Logging in as a ${role} with student ID: ${stID}`);
-              navigate("/student");
+              navigate("/std");
             }
           } else if (res.authorities.includes("SECRETARY")) {
             alert(`Logging in as a ${role} with email: ${email}`);
-            navigate("/secretary");
+            navigate("/sec");
           } else if (res.authorities.includes("COORDINATOR")) {
             alert(`Logging in as a ${role} with email: ${email}`);
-            navigate("/coordinator");
+            navigate("/coor");
           } else if (res.authorities.includes("COMPANY")) {
             alert(`Logging in as a ${role} with email: ${email}`);
-            navigate("/company");
+            navigate("/comp");
           }
         }
       })
@@ -147,7 +146,8 @@ const LoginSignup = () => {
       //setShowCheckboxPopup(false);
       alert(`Logging in as a ${role} with student ID: ${stID}`);
       localStorage.setItem("tokenKey", token);
-      navigate("/home");
+      localStorage.setItem("role", "STUDENT")
+      navigate("/std");
     } else if (role === "COMPANY" && checkbox1 && checkbox2) {
       setShowKVKKPopupForCompany(false);
       setTimeout(() => {
@@ -189,7 +189,6 @@ const LoginSignup = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.token) {
-          console.log(internshipType);
           alert(
             `Registration as ${compName} is successful. Waiting for the approval of the internship committee coordinator.`
           );
@@ -216,7 +215,7 @@ const LoginSignup = () => {
 
   return (
     <div className="login-signup-container">
-      <div className="top-bar">
+      <div className="top-bar" style={{paddingBlock: "20px"}}>
         <img src={iyte_icon} alt="" className="iyte-logo" />
         <b>IZTECH IMS</b>
         <div
@@ -234,9 +233,9 @@ const LoginSignup = () => {
           ))}
         </div>
       </div>
-      <div className="form-container">
+      <div className="form-container-v2">
         {role === "STUDENT" ? (
-          <div>
+          <div className="form-body-v2">
             <div className="header">
               <div className="loginTitle">Login with UBYS</div>
             </div>
@@ -383,7 +382,7 @@ const LoginSignup = () => {
             </form>
           </div>
         ) : role === "COMPANY" ? (
-          <div>
+          <div className="form-body-v2">
             <div className="header">
               <div className="loginTitle">{action}</div>
             </div>
@@ -416,6 +415,7 @@ const LoginSignup = () => {
                       <input
                         type="text"
                         placeholder="Company Address"
+                        title="Example: İzmir, TR"
                         value={compAddress}
                         onChange={handleCompAddressChange}
                         required
@@ -518,7 +518,13 @@ const LoginSignup = () => {
                   />
                 </div>
               </div>
-
+                {action === "Login" ? (
+                  <div></div>
+                ) : (
+                    <p style={{ color: "#797979", fontSize: "14px" }}>
+                      *Enter company address as "City, Country Code". e.g. "Izmir, TR"
+                    </p>
+                )}
               <div className="submit-container">
                 <button
                   className={action === "Login" ? "submit gray" : "submit"}
@@ -547,7 +553,7 @@ const LoginSignup = () => {
                       onChange={handleCheckbox1Change}
                     />
                     <label htmlFor="checkbox1">
-                      "I agree to the Terms of Service and the Terms of Use.
+                      "I agree to the Terms of Service and the Terms of Use."
                     </label>
                   </div>
                   <br />
@@ -559,7 +565,7 @@ const LoginSignup = () => {
                       onChange={handleCheckbox2Change}
                     />
                     <label htmlFor="checkbox2">
-                      I have read and approve the
+                      "I have read and approve the
                       <span
                         onClick={() => setShowKVKKPopupForCompany(true)}
                         style={{ color: "blue", cursor: "pointer" }}
@@ -567,7 +573,7 @@ const LoginSignup = () => {
                         {" "}
                         KVKK
                       </span>
-                      .
+                      ."
                     </label>
                   </div>
                   <div className="popup-buttons">
@@ -634,7 +640,7 @@ const LoginSignup = () => {
             </form>
           </div>
         ) : (
-          <div>
+          <div className="form-body-v2">
             <div className="header">
               <div className="loginTitle">Login</div>
             </div>

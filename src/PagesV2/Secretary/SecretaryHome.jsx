@@ -7,7 +7,7 @@ import { useUser } from "../../Components/UserContext.jsx";
 import { GetWithAuth } from "../../Services/HttpService.js";
 
 const tabs = [
-  { name: "View Students", link: "/secretary/students", icon: "group" }
+  { name: "View Students", link: "/sec/students", icon: "group" }
 ]
 
 

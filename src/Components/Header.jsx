@@ -11,6 +11,7 @@ export default function Header({ role }) {
 
   const iconRef = useRef(null);
 
+  
   const handleClick = () => {
     setDropdownExpanded(!dropdownExpanded);
   };
@@ -55,17 +56,8 @@ export default function Header({ role }) {
               gap: "4px",
             }}
           >
-            <a href={`/${role}`}>
-              <img src={iyte_icon} alt="iyte icon" width={"60px"} />
-            </a>
+            <img src={iyte_icon} alt="iyte icon" width={"60px"} />
             <p style={{ color: "gray" }}>IZTECH IMS</p>
-            <p>
-              <span style={{ color: "gray" }}> |</span>
-              <span style={{ color: "rgb(153 27 27)" }}>
-                {" "}
-                {pathName.charAt(0).toUpperCase() + pathName.slice(1)}
-              </span>
-            </p>
           </div>
           <div
             style={{

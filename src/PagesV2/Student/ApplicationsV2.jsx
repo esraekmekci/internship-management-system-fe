@@ -6,7 +6,6 @@ import { useUser } from "../../Components/UserContext";
 export default function ApplicationsV2() {
   const [applications, setApplications] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
   const { user } = useUser();
@@ -34,7 +33,6 @@ export default function ApplicationsV2() {
     } else {
       setSelectedCompany(company);
     }
-    setShowModal(false);
   };
 
   const downloadDocument = (type) => {
@@ -130,7 +128,6 @@ export default function ApplicationsV2() {
         alert("Application form uploaded successfully");
         setFile(null);
         setFileName("Select file");
-        setShowModal(false);
         window.location.reload();
       })
       .catch((err) => {
@@ -141,13 +138,13 @@ export default function ApplicationsV2() {
 
   return (
     <div className="w-full-padding">
-      <div className="" style={{  }}>
+      <div className="" style={{ borderBottom: "1px solid #ccc" }}>
         <h1>Applications</h1>
       </div>
 
       <div>
         {applications.map((application, index) => (
-          <div key={index} className="announcement-section">
+          <div key={index} className="announcement-section" style={{borderBottom: "1px solid #ccc", paddingBottom: "8px"}}>
             <h2
               onClick={() => handleClick(application)}
               style={{ cursor: "pointer" }}
@@ -160,8 +157,8 @@ export default function ApplicationsV2() {
             {selectedCompany === application && (
               <div>
                 <div>
-                  {application.applicationStatus ===
-                    "Application Letter Pending" && (
+                  {(application.applicationStatus === "Application Letter Pending" ||
+                   application.applicationStatus === "Application Letter Rejected")  && (
                     <button
                       className="button"
                       onClick={() => downloadDocument("Letter")}
@@ -179,18 +176,65 @@ export default function ApplicationsV2() {
                         Show Application Letter
                       </button>
                       <br />
-                      <button
-                        className="button"
-                        onClick={() => {
-                          showModal ? setShowModal(false) : setShowModal(true);
+                      <br />
+                      <div>
+                      <form onSubmit={handleSubmit}>
+                      <label
+                        htmlFor="fileInput"
+                        className="button iyte-bg"
+                        style={{
+                          background: "#4CAF50",
+                          color: "white",
+                          padding: "10px 20px",
+                          width: "20%",
+                          cursor: "pointer",
+                          borderRadius: "4px",
                         }}
                       >
-                        Send Application Form
-                      </button>
+                        Choose Application Letter
+                        <input
+                          type="file"
+                          id="fileInput"
+                          style={{ display: "none" }}
+                          accept=".docx, .doc"
+                          onChange={handleFileChange}
+                        />
+                      </label>
+                      {fileName && (
+                        <span style={{ marginLeft: "10px" }}>{fileName}</span>
+                      )}{" "}
+                      {/* Dosya adını göster */}
+                      <label
+                        className="button iyte-bg"
+                        style={{
+                          display:"flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: "#4CAF50",
+                          color: "white",
+                          padding: "10px 20px",
+                          width: "4%",
+                          cursor: "pointer",
+                          borderRadius: "4px",
+                          float: "right",
+                        }}
+                      >
+                        Send
+                        <input type="submit" style={{ display: "none" }} />
+                      </label>
+                    </form>
+                    <br />
+                    <br />
+                    </div>
                     </div>
                   )}
-                  {application.applicationStatus ===
-                    "Application Form Sent to Company" && (
+                  {(application.applicationStatus === "Application Form Sent to Company" ||
+                    application.applicationStatus === "Application Form Sent to Coordinator" ||
+                    application.applicationStatus === "Application Form Approved" ||
+                    application.applicationStatus === "Application Form Rejected" ||
+                    application.applicationStatus === "SGK Document Pending" ||
+                    application.applicationStatus === "SGK Document Uploaded"
+                    ) && (
                     <div>
                       <button
                         className="button"
@@ -208,63 +252,6 @@ export default function ApplicationsV2() {
                     </div>
                   )}
                 </div>
-              </div>
-            )}
-            {showModal && selectedCompany === application && (
-              <div className="modal">
-                <form onSubmit={handleSubmit}>
-                  <div className="modal-content">
-                    <div className="modal-buttons-container">
-                      <div>
-                        <label
-                          htmlFor="fileInput"
-                          className="button"
-                          style={{
-                            background: "#4CAF50",
-                            color: "white",
-                            padding: "10px 20px",
-                            width: "20%",
-                            cursor: "pointer",
-                            borderRadius: "4px",
-                          }}
-                        >
-                          Choose Application Form
-                          <input
-                            type="file"
-                            id="fileInput"
-                            style={{ display: "none" }}
-                            accept=".docx, .doc"
-                            onChange={handleFileChange}
-                          />
-                        </label>
-                        {fileName && (
-                          <span
-                            style={{ marginLeft: "10px" }}
-                            className="file-name"
-                          >
-                            {fileName}
-                          </span>
-                        )}{" "}
-                        {/* Dosya adını göster */}
-                      </div>
-                      <label
-                        className="button"
-                        style={{
-                          background: "#4CAF50",
-                          color: "white",
-                          padding: "10px 20px",
-                          width: "4%",
-                          cursor: "pointer",
-                          borderRadius: "4px",
-                          float: "right",
-                        }}
-                      >
-                        Send
-                        <input type="submit" style={{ display: "none" }} />
-                      </label>
-                    </div>
-                  </div>
-                </form>
               </div>
             )}
           </div>

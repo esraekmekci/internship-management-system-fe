@@ -1,41 +1,91 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  GetWithAuth,
+  PostWithAuth,
+  DeleteWithAuth,
+} from "../../Services/HttpService";
 
-const initialStudentList = [
-  { name: "Ahmet Öz" },
-  { name: "Ayşe Yılmaz" },
-  { name: "Beyza Yurdakan" },
-  { name: "Duru Çiçek" },
-  { name: "Ege Turanoğlu" },
-  { name: "Elif Demir" },
-  { name: "Esma İrem Tek" },
-  { name: "Esra Ekmekci" },
-  { name: "Fatma Kar" },
-  { name: "Hasan Çoban" },
-  { name: "Kağan Aslancan" },
-  { name: "Mehmet Kaya" },
-];
+export default function Students() {
+  const [students, setStudents] = useState([]);
 
-export default function Students({ studentList = initialStudentList }) {
-  const [students, setStudents] = useState(studentList);
+  useEffect(() => {
+    fetchStudents();
+  }, []);
 
-  const handleUpload = (student) => {
-    alert(`Uploading a file for ${student.name}`);
+  const fetchStudents = async () => {
+    try {
+      const response = await GetWithAuth("/secretary/studentListWithStatus");
+      const data = await response.json();
+      setStudents(data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
   };
 
-  const handleDelete = (studentToDelete) => {
-    setStudents(students.filter((student) => student !== studentToDelete));
+  const handleUpload = async (student, file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch(
+        `/secretary/${student.studentId}/uploadSGK`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: localStorage.getItem("tokenKey"),
+          },
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        alert(`File uploaded successfully for ${student.studentName}`);
+        fetchStudents(); // Refresh the list to update the SGK status
+      } else {
+        console.error(
+          `Error uploading file for ${student.studentName}:`,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error(`Error uploading file for ${student.studentName}:`, error);
+    }
   };
 
-  const handleDownload = () => {
-    // 
-    const element = document.createElement("a");
-    const file = new Blob([JSON.stringify(students, null, 2)], {
-      type: "application/json",
-    });
-    element.href = URL.createObjectURL(file);
-    element.download = "students.json";
-    document.body.appendChild(element); 
-    element.click();
+  const handleDelete = async (student) => {
+    try {
+      const response = await DeleteWithAuth(
+        `/secretary/${student.studentId}/deleteSGK`
+      );
+
+      if (response.ok) {
+        alert(`File deleted successfully for ${student.studentName}`);
+        fetchStudents(); // Refresh the list to update the SGK status
+      } else {
+        console.error(
+          `Error deleting file for ${student.studentName}:`,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error(`Error deleting file for ${student.studentName}:`, error);
+    }
+  };
+
+  const handleDownload = async () => {
+    try {
+      const response = await GetWithAuth("/secretary/studentList/download");
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "students.csv";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (error) {
+      console.error("Error downloading student list:", error);
+    }
   };
 
   return (
@@ -46,11 +96,18 @@ export default function Students({ studentList = initialStudentList }) {
         padding: "10px 20px",
         width: "100%",
         borderRadius: "10px",
-        overflowY: "auto"
+        overflowY: "auto",
       }}
     >
-      <div style={{ marginBottom: "5px", display: "flex", justifyContent: "space-between", paddingInline: "8px" }}>
-        <h1 style={{color: "", fontSize: "24px"}}>Students</h1>
+      <div
+        style={{
+          marginBottom: "5px",
+          display: "flex",
+          justifyContent: "space-between",
+          paddingInline: "8px",
+        }}
+      >
+        <h1 style={{ color: "", fontSize: "24px" }}>Students</h1>
         <button
           onClick={handleDownload}
           style={{
@@ -73,7 +130,7 @@ export default function Students({ studentList = initialStudentList }) {
       </div>
       {students.map((student, index) => (
         <div
-          key={index}
+          key={student.studentId}
           style={{
             display: "flex",
             alignItems: "center",
@@ -93,54 +150,63 @@ export default function Students({ studentList = initialStudentList }) {
               border: "1px solid #ced4da",
               borderRadius: "5px",
               marginRight: "10px",
-            }}>
-            {student.name}
+            }}
+          >
+            {student.studentName}
           </div>
-          <input
-            type="file"
-            id={`upload-${index}`}
-            style={{ display: "none", height: "40px" }}
-            onChange={() => handleUpload(student)}
-          />
-          <label
-            htmlFor={`upload-${index}`}
-            style={{
-              padding: "10px",
-              backgroundColor: "rgb(153, 27, 27)",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontWeight: "bold",
-              marginRight: "5px",
-              transition: "background-color 0.3s",
-              display: "inline-block",
-            }}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = "#a71d2a")}
-            onMouseLeave={(e) =>
-              (e.target.style.backgroundColor = "rgb(153, 27, 27)")
-            }
-          >
-            Upload
-          </label>
-          <button
-            onClick={() => handleDelete(student)}
-            style={{
-              padding: "10px",
-              height: "40px",
-              backgroundColor: "#6c757d",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontWeight: "bold",
-              transition: "background-color 0.3s",
-            }}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = "#5a6268")}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = "#6c757d")}
-          >
-            Delete
-          </button>
+          {student.sgkDocumentStatus === "Unavailable" ? (
+            <>
+              <input
+                type="file"
+                id={`upload-${index}`}
+                accept=".pdf"
+                style={{ display: "none", height: "40px" }}
+                onChange={(e) => handleUpload(student, e.target.files[0])}
+              />
+              <label
+                htmlFor={`upload-${index}`}
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgb(153, 27, 27)",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  marginRight: "5px",
+                  transition: "background-color 0.3s",
+                  display: "inline-block",
+                }}
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = "#a71d2a")
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "rgb(153, 27, 27)")
+                }
+              >
+                Upload
+              </label>
+            </>
+          ) : (
+            <button
+              onClick={() => handleDelete(student)}
+              style={{
+                padding: "10px",
+                height: "40px",
+                backgroundColor: "#6c757d",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontWeight: "bold",
+                transition: "background-color 0.3s",
+              }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#5a6268")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "#6c757d")}
+            >
+              Delete
+            </button>
+          )}
         </div>
       ))}
     </div>

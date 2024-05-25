@@ -92,10 +92,11 @@ export default function AnnouncementV2() {
         alert("You already uploaded an application letter for this company.");
       });
   };
+  
 
   return (
-    <div style={{ padding: "20px 40px", width: "100%" }}>
-      <div className="" style={{ marginTop: "" }}>
+    <div style={{ padding: "20px 40px", width: "100%", overflowY: 'auto'}}>
+      <div className="">
         <h1>Announcements</h1>
       </div>
 
@@ -117,14 +118,14 @@ export default function AnnouncementV2() {
                 onClick={() => handleClick(announcement)}
                 style={{ cursor: "pointer" }}
               >
-                {announcement.companyRep.companyName}
+                {announcement.title}
                 <span style={{ float: "right", fontSize: "15px" }}>
                   Date: {announcement.uploadDate}
                 </span>
               </h2>
               {selectedAnnouncement === announcement && (
                 <div>
-                  <h3>{announcement.title}</h3>
+                  <h3>{announcement.companyRep.companyName}</h3>
                   <div className="info-bar">
                     <div className="info-bar-left">
                       <img
