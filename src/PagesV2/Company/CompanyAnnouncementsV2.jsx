@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService";
 import "../../Pages/Company/CompanyAnnouncement.css";
+import Loading from "../../Pages/LoadingPage";
+import { useUser } from "../../Components/UserContext.jsx";
 
 export default function CompanyAnnouncementV2() {
-  var [currentUser, setCurrentUser] = useState({});
+  const {user} = useUser();
   const [announcements, setAnnouncements] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
@@ -12,26 +14,14 @@ export default function CompanyAnnouncementV2() {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
   const [showDeletePopup, setShowDeletePopup] = useState({
     show: false,
     index: null,
   });
 
   useEffect(() => {
-    const fetchCompany = async () => {
-      try {
-        const response = await GetWithAuth(
-          "/api/company/token/" + localStorage.getItem("tokenKey")
-        );
-        const result = await response.json();
-        console.log(result);
-        setCurrentUser(result);
-        await fetchAnnouncements(result);
-      } catch (error) {
-        console.log(error);
-        console.log("User not found");
-      }
-    };
 
     const fetchAnnouncements = async (user) => {
       try {
@@ -39,15 +29,16 @@ export default function CompanyAnnouncementV2() {
           "/api/company/" + user.companyid + "/announcements"
         );
         const result = await response.json();
-        console.log(result);
         setAnnouncements(result);
       } catch (error) {
         console.log(error);
         console.log("announcement not found");
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchCompany();
+    fetchAnnouncements();
   }, []);
 
   const handleNewTitleChange = (event) => {
@@ -75,7 +66,7 @@ export default function CompanyAnnouncementV2() {
   };
 
   const makeAnnouncement = () => {
-    fetch("/api/company/" + currentUser.companyid + "/makeAnnouncement", {
+    fetch("/api/company/" + user.companyid + "/makeAnnouncement", {
       method: "POST",
       body: JSON.stringify({
         title: newTitle,
@@ -94,7 +85,6 @@ export default function CompanyAnnouncementV2() {
         return response;
       })
       .then((result) => {
-        console.log(result);
         alert(
           "Announcement saved. Waiting for the approval of the internship committee coordinator."
         );
@@ -109,7 +99,7 @@ export default function CompanyAnnouncementV2() {
   const deleteAnnouncement = () => {
     fetch(
       "/api/company/" +
-        currentUser.companyid +
+      user.companyid +
         "/deleteAnnouncement?announcementId=" +
         announcements[showDeletePopup.index].id,
       {
@@ -128,7 +118,6 @@ export default function CompanyAnnouncementV2() {
       .then((result) => {
         alert("Announcement deleted successfully");
         window.location.reload();
-        console.log(result);
       })
       .catch((err) => {
         console.error("Error occurred:", err);
@@ -159,7 +148,7 @@ export default function CompanyAnnouncementV2() {
       <div>
         <h1 style={{ marginBottom: "4px" }}>Announcements</h1>
       </div>
-
+      <Loading isLoading={loading} />
       <div>
         {announcements &&
           announcements.map((announcement, index) => (

@@ -5,6 +5,7 @@ import "../../Pages/Home.css";
 import Header from "../../Components/Header";
 import Sidebar from "../../Components/Sidebar";
 import { useUser } from "../../Components/UserContext.jsx";
+import Loading from "../../Pages/LoadingPage.jsx";
 
 const tabs = [
   { name: "See Students", link: "/comp/students", icon: "people" },
@@ -15,30 +16,7 @@ const tabs = [
 
 const CompanyHomeV2 = ({ children }) => {
   const { setUser } = useUser();
-
-  const [showDropdown, setShowDropdown] = useState({
-    btn1: false,
-    btn1_1: false,
-    btn1_2: false,
-    btn2: false,
-    btn2_1: false,
-    btn2_2: false,
-    btn3: false,
-    btn3_1: false,
-    btn3_2: false,
-    btn4: false,
-    userbtn: false,
-    userbtn_1: false,
-    userbtn_2: false,
-    userbtn_3: false,
-    userbtn_4: false,
-    userbtn_5: false,
-    homebtn: false,
-  });
-
-  const toggleDropdown = (btn) => {
-    setShowDropdown((prev) => ({ ...prev, [btn]: !prev[btn] }));
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,6 +29,8 @@ const CompanyHomeV2 = ({ children }) => {
       } catch (error) {
         console.log(error);
         console.log("User not found");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -77,6 +57,7 @@ const CompanyHomeV2 = ({ children }) => {
         >
           <Sidebar tabs={tabs}/>
           <Outlet /> {/*/secretary'nin child objeleri buraya geliyor. */}
+          <Loading isLoading={loading} />
         </div>
       </div>
     </div>

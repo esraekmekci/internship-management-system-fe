@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService";
 import "../../Pages/Company/CompanyInterns.css";
 import { useUser } from "../../Components/UserContext.jsx";
+import Loading from "../../Pages/LoadingPage.jsx";
 
 function CompanyInternsV2() {
   const { user } = useUser();
@@ -10,6 +11,7 @@ function CompanyInternsV2() {
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchInterns = async () => {
@@ -22,6 +24,8 @@ function CompanyInternsV2() {
       } catch (error) {
         console.log(error);
         console.log("application not found");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -34,11 +38,6 @@ function CompanyInternsV2() {
     } else {
       setSelectedIntern(intern);
     }
-  };
-
-  const handleUploadClick = (e) => {
-    e.stopPropagation(); // Prevents the onClick event of the parent div from being triggered
-    setUploading(!uploading); // Toggle uploading state based on current state
   };
 
   const handleFileChange = (event) => {
@@ -144,11 +143,10 @@ function CompanyInternsV2() {
 
   return (
     <div style={{ width: "100%", padding: "20px 40px" }}>
-      <div className="" style={{}}>
         <h1 style={{ paddingBottom: "20px", borderBottom: "1px solid #ccc" }}>
           My Interns
         </h1>
-      </div>
+      <Loading isLoading={loading} />
       {interns.length > 0 ? (
         interns.map((intern) => (
           <div
@@ -162,7 +160,7 @@ function CompanyInternsV2() {
               </span>
             </h2>
             {selectedIntern === intern && (
-              <div style={{ display: "flex",flexDirection:'column', width: '100%' }}>
+              <div style={{ display: "flex", flexDirection:'column' }}>
                 <button className="iyte-bg" onClick={downloadForm}>
                   Download Form
                 </button>

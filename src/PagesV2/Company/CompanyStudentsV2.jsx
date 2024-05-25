@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService";
 import "../../Pages/Company/CompanyStudents.css";
 import { useUser } from "../../Components//UserContext";
+import Loading from "../../Pages/LoadingPage";
 
 function CompanyStudentsV2() {
   const { user } = useUser();
   const [applications, setApplications] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [feedback, setFeedback] = useState("");
+  const [loading, setLoading] = useState(true);
   const [showPopup, setShowPopup] = useState({
     show: false,
     type: "",
@@ -25,6 +27,8 @@ function CompanyStudentsV2() {
       } catch (error) {
         console.log(error);
         console.log("application not found");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -122,6 +126,7 @@ const downloadApplicationLetter = () => {
       <div className="" >
         <h1>Students</h1>
       </div>
+      <Loading loading={loading} />
       <div>
                 {applications.map((application) => (
                     <div key={application.applicationId} className="announcement-section">
@@ -140,7 +145,7 @@ const downloadApplicationLetter = () => {
                                     <button onClick={handleApprove} style={{ backgroundColor: 'green' }}>
                                         Approve
                                     </button>
-                                    <button onClick={handleReject} style={{ backgroundColor: 'red' }}>
+                                    <button onClick={handleReject} style={{ backgroundColor: 'e4190b' }}>
                                         Reject
                                     </button>
                                 </div>
