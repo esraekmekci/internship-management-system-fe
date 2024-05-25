@@ -209,7 +209,7 @@ export default function CompanyAnnouncementV2() {
             key={index}
             className="announcement-section"
               style={{
-                padding: "8px 10px",
+                padding: "15px 30px",
                 borderBottom: "1px solid #fafafa",
               }}
               >

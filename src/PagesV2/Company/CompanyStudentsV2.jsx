@@ -166,12 +166,16 @@ const downloadApplicationLetter = () => {
                         </>
                     )}
                     {showPopup.type === "reject" && (
-                        <>
+                        <div style={{ textAlign: 'left', overflowY: 'auto',maxHeight:'350px' }}>
                             <h2>Please provide feedback for rejection:</h2>
-                            <textarea value={feedback} onChange={(e) => setFeedback(e.target.value)}></textarea>
+                          
+                            <textarea className='textarea-description'  value={feedback} onChange={(e) => setFeedback(e.target.value)}></textarea>
+                            <br />
+                            <br />
+                            
                             <button onClick={confirmRejection}>Submit</button>
                             <button onClick={() => setShowPopup({ show: false, type: "", student: null })}>Cancel</button>
-                        </>
+                        </div>
                     )}
                 </div>
             )}
