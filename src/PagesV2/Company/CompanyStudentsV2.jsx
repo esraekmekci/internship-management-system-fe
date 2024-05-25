@@ -65,7 +65,7 @@ const confirmRejection = () => {
 };
 
 const evaluateApplicationLetter = async (type) => {
-    fetch("company/" + currentUser.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
+    fetch("company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
         method: 'PUT',
         headers: {
         }
@@ -91,8 +91,8 @@ const evaluateApplicationLetter = async (type) => {
     });
 }
 
-const downloadApplicationLetter = (type) => {
-    fetch("/company/" + currentUser.companyid + "/downloadApplicationLetter?studentId=" + selectedStudent.studentId, {
+const downloadApplicationLetter = () => {
+    fetch("/company/" + user.companyid + "/downloadApplicationLetter?studentId=" + selectedStudent.studentId, {
       method: 'GET',
     })
     .then(response => {
