@@ -256,6 +256,7 @@ button {
 .w-full-padding {
   width: 100%;
   padding: 20px 40px;
+  overflow-y: auto !important;
 }
 
 .shadow-sm {
