@@ -97,7 +97,7 @@ const LoginSignup = () => {
   };
 
   const login = () => {
-    PostWithoutAuth("/auth/login", {
+    PostWithoutAuth("/api/auth/login", {
       email: role === "STUDENT" ? stID : email,
       password: password,
       role: role,
