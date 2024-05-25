@@ -161,7 +161,6 @@ export default function Students() {
         overflowY: "auto",
       }}
     >
-      <Loading isLoading={loading} />
       <div
         style={{
           marginBottom: "5px",
@@ -191,9 +190,10 @@ export default function Students() {
           Download Student List
         </button>
       </div>
+      <Loading isLoading={loading} />
       {students.map((student, index) => (
         <div
-          key={student.studentId}
+        key={student.studentId}
           style={{
             display: "flex",
             alignItems: "center",

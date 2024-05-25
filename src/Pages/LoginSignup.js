@@ -12,6 +12,7 @@ import iyte_icon from "../Components/Assets/iyte-logo.png";
 import studentID from "../Components/Assets/id-card.png";
 import internTypeIcon from "../Components/Assets/online-work.png";
 import representative_icon from "../Components/Assets/employee-man.png";
+import Loading from "./LoadingPage";
 
 const roles = ["COORDINATOR", "STUDENT", "COMPANY", "SECRETARY"];
 
@@ -29,8 +30,9 @@ const LoginSignup = () => {
   const [foundationYear, setFoundationYear] = useState("");
   const [employeeSize, setEmployeeSize] = useState("");
   const [internshipType, setInternshipType] = useState("");
-
+  
   const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [showCheckboxPopup, setShowCheckboxPopup] = useState(false);
   const [showKVKKPopup, setShowKVKKPopup] = useState(false);
@@ -55,9 +57,11 @@ const LoginSignup = () => {
       if (!showKVKKPopupForCompany) {
         setShowKVKKPopupForCompany(true);
       } else {
+        setLoading(true);
         registerAsCompany();
       }
     } else {
+      setLoading(true);
       login();
     }
   };
@@ -138,6 +142,9 @@ const LoginSignup = () => {
         } else {
           alert(`Wrong email or password. Try again.`);
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -198,6 +205,9 @@ const LoginSignup = () => {
         console.log(err);
         console.log("User not found");
         alert(`Registration failed. Try again.`);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -215,6 +225,7 @@ const LoginSignup = () => {
 
   return (
     <div className="login-signup-container">
+      <Loading isLoading={loading} />
       <div className="top-bar" style={{paddingBlock: "20px"}}>
         <img src={iyte_icon} alt="" className="iyte-logo" />
         <b>IZTECH IMS</b>
