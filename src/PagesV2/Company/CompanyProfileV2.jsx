@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import profile_icon from '../../Components/Assets/profile-picture.png'
 import { useUser } from '../../Components//UserContext';
+import Loading from '../../Pages/LoadingPage';
 
 function CompanyProfileV2() {
   const { user } = useUser();
@@ -16,7 +17,7 @@ function CompanyProfileV2() {
   };
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <Loading isLoading={true}/>;
   }
   
     return (

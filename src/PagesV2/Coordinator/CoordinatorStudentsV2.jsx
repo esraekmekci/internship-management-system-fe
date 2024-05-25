@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import "../../Pages/Coordinator/CoordinatorStudents.css";
 import { GetWithAuth } from "../../Services/HttpService";
 import { PutWithAuth } from "../../Services/HttpService";
+import Loading from "../../Pages/LoadingPage";
 
 function CoordinatorStudents() {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -17,6 +19,8 @@ function CoordinatorStudents() {
       } catch (error) {
         console.log(error);
         console.log("application not found");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -88,6 +92,7 @@ function CoordinatorStudents() {
 
   return (
     <div className="w-full-padding">
+      <Loading isLoading={loading} />
       <h1>Students</h1>
       <div
         className=""

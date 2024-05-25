@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import profile_icon from "../../Components/Assets/profile-picture.png";
 import { useUser } from "../../Components//UserContext";
+import Loading from "../../Pages/LoadingPage";
+
 
 export default function ProfileV2() {
   const { user } = useUser();
@@ -16,7 +18,7 @@ export default function ProfileV2() {
   };
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <Loading isLoading={true} />;
   }
 
   return (

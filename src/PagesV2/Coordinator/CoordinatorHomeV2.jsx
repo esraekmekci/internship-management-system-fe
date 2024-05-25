@@ -58,7 +58,6 @@ const CoordinatorHomeV2 = ({ children }) => {
 
   return (
     <div style={{ backgroundColor: "white", width: "100vw", height: "100vh" }}>
-      <Loading isLoading={loading} />
       <div
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
@@ -73,6 +72,7 @@ const CoordinatorHomeV2 = ({ children }) => {
         >
           <Sidebar tabs={tabs} />
           <Outlet /> {/*/secretary'nin child objeleri buraya geliyor. */}
+          <Loading isLoading={loading} />
         </div>
       </div>
     </div>

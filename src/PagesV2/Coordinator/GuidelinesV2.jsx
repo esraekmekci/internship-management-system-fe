@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../Pages/Coordinator/Guidelines.css";
 import { GetWithAuth } from "../../Services/HttpService.js";
+import Loading from "../../Pages/LoadingPage.jsx";
 
 const file = [{ name: "Summer Practice Guidelines" }];
 
@@ -9,6 +10,7 @@ export default function Guidelines() {
   const [showModal, setShowModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -137,6 +139,8 @@ export default function Guidelines() {
         }
       } catch (error) {
         console.error("An error occurred:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -149,6 +153,7 @@ export default function Guidelines() {
 
   return (
     <div className="w-full-padding">
+      <Loading isLoading={loading} />
       <div className="guidelines-v2">
         <h2 className="upload-title">Upload Guidelines</h2>
         <button
