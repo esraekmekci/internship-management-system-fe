@@ -119,7 +119,7 @@ const downloadApplicationLetter = () => {
 
   return (
     <div style={{ padding: "20px 40px", width: "100%", overflowY: 'auto'}}>
-      <div className="announcement-section" >
+      <div className="" >
         <h1>Students</h1>
       </div>
       <div>
