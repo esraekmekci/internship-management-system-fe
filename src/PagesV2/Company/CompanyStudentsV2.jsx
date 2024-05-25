@@ -120,133 +120,54 @@ const downloadApplicationLetter = (type) => {
 
   return (
     <div className="w-full-padding">
+      <div className="announcement-section" style={{ marginTop: '60px' }}>
+        <h1>Students</h1>
+      </div>
       <div>
-        <h1 style={{ paddingBottom: "20px", borderBottom: "1px solid #ccc" }}>
-          Students
-        </h1>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        {applications.map((application) => (
-          <div
-            key={application.applicationId}
-            style={{
-              padding: "8px 20px",
-              borderBottom: "1px solid #fafafa",
-              boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-              borderRadius: "8px",
-            }}
-          >
-            <h3
-              onClick={() => handleSelectStudent(application)}
-              style={{ cursor: "pointer" }}
-            >
-              {application.studentName}
-              <span style={{ float: "right", fontSize: "15px" }}>
-                Status: {application.applicationStatus}
-              </span>
-            </h3>
-            {selectedStudent === application && (
-              <div className="">
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <h3
-                    style={{ fontSize: "16px", color: "gray", margin: "4px" }}
-                  >
-                    Application Letter
-                  </h3>
-                  {renderFilePreview(application)}
-                  <div style={{ display: "flex", gap: "8px" }}>
-                    <button
-                      className="green-bg"
-                      style={{ marginInline: "0" }}
-                      onClick={handleApprove}
-                    >
-                      Approve
-                    </button>
-                    <button className="iyte-bg" onClick={handleReject}>
-                      Reject
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+                {applications.map((application) => (
+                    <div key={application.applicationId} className="announcement-section">
+                        <h2 onClick={() => handleSelectStudent(application)} style={{ cursor: 'pointer' }}>
+                            {application.studentName}
+                            <span style={{float:'right', fontSize:'15px'}}>Status: {application.applicationStatus}</span>
+                        </h2>
+                        {selectedStudent === application && (
+                            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                <button className='button' onClick={() => downloadApplicationLetter()} style={{ float: 'left' }}>
+                                    Show Application Letter
+                                </button>
+                                <div style={{ display: 'flex', gap: '15px' }}>
+                                    <button onClick={handleApprove} style={{ backgroundColor: 'green' }}>
+                                        Approve
+                                    </button>
+                                    <button onClick={handleReject} style={{ backgroundColor: 'red' }}>
+                                        Reject
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
 
-      {showPopup.show && (
-        <div
-          className=""
-          style={{
-            maxWidth:"800px",
-            backgroundColor: "white",
-            position: "fixed",
-            padding: "25px",
-            boxSizing: "border-box",
-            boxShadow:
-              "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-          }}
-        >
-          {showPopup.type === "approve" && (
-            <>
-              <h2>
-                Are you sure you want to approve {selectedStudent.studentName}'s
-                application?
-              </h2>
-              <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <button className="green-bg" onClick={confirmApproval}>
-                  Yes
-                </button>
-                <button
-                  className="iyte-bg"
-                  onClick={() =>
-                    setShowPopup({ show: false, type: "", student: null })
-                  }
-                >
-                  No
-                </button>
-              </div>
-            </>
-          )}
-          {showPopup.type === "reject" && (
-            <>
-              <h2>Please provide feedback for rejection:</h2>
-              <textarea
-                style={{
-                  margin: "0",
-                  padding: "2px",
-                  width: "100%",
-                  borderRadius: "8px",
-                }}
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-              ></textarea>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  width: "100%",
-                }}
-              >
-                <button onClick={confirmRejection}>Submit</button>
-                <button
-                  style={{ marginRight: "0" }}
-                  className="iyte-bg"
-                  onClick={() =>
-                    setShowPopup({ show: false, type: "", student: null })
-                  }
-                >
-                  Cancel
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-      )}
+            {showPopup.show && (
+                <div className="popup">
+                    {showPopup.type === "approve" && (
+                        <>
+                            <h2>Are you sure you want to approve this application?</h2>
+                            <button onClick={confirmApproval}>Yes</button>
+                            <button onClick={() => setShowPopup({ show: false, type: "", student: null })}>No</button>
+                        </>
+                    )}
+                    {showPopup.type === "reject" && (
+                        <>
+                            <h2>Please provide feedback for rejection:</h2>
+                            <textarea value={feedback} onChange={(e) => setFeedback(e.target.value)}></textarea>
+                            <button onClick={confirmRejection}>Submit</button>
+                            <button onClick={() => setShowPopup({ show: false, type: "", student: null })}>Cancel</button>
+                        </>
+                    )}
+                </div>
+            )}
     </div>
   );
 }
