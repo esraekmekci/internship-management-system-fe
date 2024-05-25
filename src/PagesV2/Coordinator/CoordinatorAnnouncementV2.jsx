@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService";
 import { PutWithAuth } from "../../Services/HttpService";
-import loading_icon from "../../Components/Assets/loading.gif";
-
+import Loading from "../../Pages/LoadingPage";
 import "../../Pages/Coordinator/CoordinatorAnnouncement.css";
 
 function Modal({ onClose, onConfirm, message }) {
@@ -93,11 +92,7 @@ export default function CoordinatorAnnouncementV2() {
 
   return (
     <div className="" style={{ width: "100%", padding: "20px 40px", overflowY: "auto" }}>
-    {loading ? (
-      <div className="loading-container">
-        <img src={loading_icon} alt="loading" className="loading-img" />
-      </div>
-    ) : (
+      <Loading loading={loading} />
       <div>
       <div>
         <h1 style={{ marginBottom: "4px" }}>Announcements</h1>
@@ -146,8 +141,6 @@ export default function CoordinatorAnnouncementV2() {
           ))}
       </div>
       </div>
-    )
-    }
   </div>
   );
 }
