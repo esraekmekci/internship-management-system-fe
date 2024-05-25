@@ -148,7 +148,7 @@ export default function CompanyAnnouncementV2() {
       <div>
         <h1 style={{ marginBottom: "4px" }}>Announcements</h1>
       </div>
-              <div className="" style={{ marginTop: "80px" }}>
+              <div className="" style={{ marginTop: "15px" }}>
                 <button
                   onClick={() => toggleDropdown("newAnn")}
                   style={{ display: "block" }}
@@ -176,8 +176,9 @@ export default function CompanyAnnouncementV2() {
                       value={newTitle}
                       style={{
                         marginLeft: "0px",
-                        width: "500px",
-                        padding: "8px",
+                        width: "600px",
+                        padding: "8px 10px",
+                        fontSize:'16px',
                         border: "1px #ccc solid",
                       }}
                       onChange={handleNewTitleChange}
@@ -187,7 +188,7 @@ export default function CompanyAnnouncementV2() {
                       className="v2 border-rounded"
                       placeholder="Enter Announcement Description"
                       value={newDescription}
-                      style={{ marginLeft: "0px", width: "500px", padding: "8px" }}
+                      style={{ marginLeft: "0px", width: "600px", padding: "8px 10px", fontSize:'14px' , height:'150px', overflow:'auto'}}
                       onChange={handleNewDescriptionChange}
                     ></textarea>
                     <button
@@ -207,10 +208,13 @@ export default function CompanyAnnouncementV2() {
           announcements.map((announcement, index) => (
             <div
             key={index}
-            className="announcement-section"
+            className=""
               style={{
-                padding: "15px 30px",
-                borderBottom: "1px solid #fafafa",
+                border: ".5px solid #ccc",
+                padding: "25px",
+                borderRadius: "8px",
+                display: "flex",
+                flexDirection: "column",
               }}
               >
               <h2

@@ -168,8 +168,8 @@ const downloadApplicationLetter = () => {
                     {showPopup.type === "reject" && (
                         <div style={{ textAlign: 'left', overflowY: 'auto',maxHeight:'350px' }}>
                             <h2>Please provide feedback for rejection:</h2>
-                          
-                            <textarea className='textarea-description'  value={feedback} onChange={(e) => setFeedback(e.target.value)}></textarea>
+                            <br />
+                            <textarea style={{ marginLeft: "0px", width: "350px", padding: "8px" }}  value={feedback} onChange={(e) => setFeedback(e.target.value)}></textarea>
                             <br />
                             <br />
                             
