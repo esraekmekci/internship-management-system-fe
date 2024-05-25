@@ -98,8 +98,8 @@ export default function CoordinatorAnnouncementV2() {
         <h1 style={{ marginBottom: "4px" }}>Announcements</h1>
       </div>
 
-      <div>
       <Loading isLoading={loading} /> 
+      <div>
         {announcements &&
           announcements.map((announcement) => (
             <div
