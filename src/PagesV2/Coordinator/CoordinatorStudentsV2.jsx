@@ -12,7 +12,7 @@ function CoordinatorStudents() {
       try {
         const response = await GetWithAuth("/coordinator/studentApplications");
         const result = await response.json();
-        const filteredStudents = result.filter(student => student.applicationStatus !== "Application Letter Approved");
+        const filteredStudents = result.filter(ApplicationForCoordinatorResponse => ApplicationForCoordinatorResponse.applicationStatus !== "Application Letter Approved");
         setStudents(filteredStudents);
       } catch (error) {
         console.log(error);
