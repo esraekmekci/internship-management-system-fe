@@ -206,7 +206,7 @@ export default function Guidelines() {
                 <div className="file-buttons">
                   <button
                     className="delete-button iyte-bg"
-                    style={{color: "#07401a"}}
+                    style={{backgroundColor: "#07401a"}}
                     onClick={() => handleDownload()}
                   >
                     Download
