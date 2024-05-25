@@ -191,7 +191,7 @@ export default function ApplicationsV2() {
                           borderRadius: "4px",
                         }}
                       >
-                        Choose Application Letter
+                        Choose Application Form
                         <input
                           type="file"
                           id="fileInput"

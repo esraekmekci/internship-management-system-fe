@@ -119,7 +119,7 @@ const downloadApplicationLetter = () => {
 
   return (
     <div style={{ padding: "20px 40px", width: "100%", overflowY: 'auto'}}>
-      <div className="announcement-section" style={{ marginTop: '60px' }}>
+      <div className="announcement-section" >
         <h1>Students</h1>
       </div>
       <div>
@@ -129,12 +129,13 @@ const downloadApplicationLetter = () => {
                             {application.studentName}
                             <span style={{float:'right', fontSize:'15px'}}>Status: {application.applicationStatus}</span>
                         </h2>
-                        {selectedStudent === application && (
+                        {selectedStudent === application (
                             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                                 <button className='button' onClick={() => downloadApplicationLetter()} style={{ float: 'left' }}>
                                     Show Application Letter
                                 </button>
-                                <div style={{ display: 'flex', gap: '15px' }}>
+                                {application.applicationStatus !== 'Application Letter Approved'(
+                                  <div style={{ display: 'flex', gap: '15px' }}>
                                     <button onClick={handleApprove} style={{ backgroundColor: 'green' }}>
                                         Approve
                                     </button>
@@ -142,6 +143,8 @@ const downloadApplicationLetter = () => {
                                         Reject
                                     </button>
                                 </div>
+
+                                )}
                             </div>
                         )}
                     </div>
