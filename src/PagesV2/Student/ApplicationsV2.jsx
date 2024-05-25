@@ -177,7 +177,7 @@ export default function ApplicationsV2() {
                       </button>
                       <br />
                       <br />
-                      <br />
+                      <div>
                       <form onSubmit={handleSubmit}>
                       <label
                         htmlFor="fileInput"
@@ -224,6 +224,8 @@ export default function ApplicationsV2() {
                       </label>
                     </form>
                     <br />
+                    <br />
+                    </div>
                     </div>
                   )}
                   {(application.applicationStatus === "Application Form Sent to Company" ||
