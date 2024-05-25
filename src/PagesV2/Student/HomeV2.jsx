@@ -10,12 +10,12 @@ import { useUser } from "../../Components/UserContext.jsx";
 const tabs = [
   {
     name: "View Announcements",
-    link: "/student/announcement",
+    link: "/std/announcement",
     icon: "campaign",
   },
-  { name: "View Applications", link: "/student/applications", icon: "draw" },
-  { name: "Templates", link: "/student/templates", icon: "article" },
-  { name: "Documents", link: "/student/documents", icon: "description" },
+  { name: "View Applications", link: "/std/applications", icon: "draw" },
+  { name: "Templates", link: "/std/templates", icon: "article" },
+  { name: "Documents", link: "/std/documents", icon: "description" },
 ];
 
 const Home = ({ children }) => {

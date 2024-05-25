@@ -8,10 +8,10 @@ import Sidebar from "../../Components/Sidebar";
 import { useUser } from "../../Components/UserContext.jsx";
 
 const tabs = [
-    { name: "See Students", link: "/coordinator/students", icon: "people" },
-    { name: "Announcements", link: "/coordinator/announcements", icon: "campaign" },
-    { name: "Companies", link: "/coordinator/companies", icon: "apartment" },
-    { name: "Guidelines", link: "/coordinator/guidelines", icon: "import_contacts" },
+    { name: "See Students", link: "/coor/students", icon: "people" },
+    { name: "Announcements", link: "/coor/announcements", icon: "campaign" },
+    { name: "Companies", link: "/coor/companies", icon: "apartment" },
+    { name: "Guidelines", link: "/coor/guidelines", icon: "import_contacts" },
   ];
 
 /*
