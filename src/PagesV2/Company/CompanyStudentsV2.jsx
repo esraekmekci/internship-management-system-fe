@@ -64,7 +64,7 @@ const confirmRejection = () => {
 };
 
 const evaluateApplicationLetter = async (type) => {
-    fetch("company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
+    fetch("/company/" + user.companyid + "/" + type + "ApplicationLetter?applicationId=" + selectedStudent.applicationId, {
         method: 'PUT',
         headers: {
         }
