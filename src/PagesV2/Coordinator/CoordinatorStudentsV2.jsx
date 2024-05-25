@@ -95,20 +95,20 @@ function CoordinatorStudents() {
   };
 
   return (
-    <div className="w-full padding">
+    <div className="" style={{width: "100%", padding: "20px 40px"}}>
       <h1>Students</h1>
       <Loading isLoading={loading} />
-      <div className="flex flex-col gap-20">
+      <div className="">
         {students.map((student, index) => (
-          <div key={student.applicationId} className="padding-sm shadow-sm flex justify-between">
-            <div className="flex items-center">
+          <div key={student.applicationId} style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+            <h3>
               {student.studentName}
-            </div>
+            </h3>
             <button className="iyte-bg" onClick={() => toggleStudentDetails(index)}>
               {selectedStudentIndex === index ? 'Hide' : 'Review'}
             </button>
             {selectedStudentIndex === index && (
-              <div>
+              <div className="company-details">
                 <h2>Details for {student.studentName}</h2>
                 <p><strong>Email:</strong> {student.email}</p>
                 <div className="status-container" style={{ display: "flex", justifyContent: "space-between" }}>
