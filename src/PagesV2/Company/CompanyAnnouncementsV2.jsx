@@ -21,7 +21,7 @@ export default function CompanyAnnouncementV2() {
     const fetchCompany = async () => {
       try {
         const response = await GetWithAuth(
-          "/company/token/" + localStorage.getItem("tokenKey")
+          "/api/company/token/" + localStorage.getItem("tokenKey")
         );
         const result = await response.json();
         console.log(result);
@@ -36,7 +36,7 @@ export default function CompanyAnnouncementV2() {
     const fetchAnnouncements = async (user) => {
       try {
         const response = await GetWithAuth(
-          "/company/" + user.companyid + "/announcements"
+          "/api/company/" + user.companyid + "/announcements"
         );
         const result = await response.json();
         console.log(result);
@@ -75,7 +75,7 @@ export default function CompanyAnnouncementV2() {
   };
 
   const makeAnnouncement = () => {
-    fetch("/company/" + currentUser.companyid + "/makeAnnouncement", {
+    fetch("/api/company/" + currentUser.companyid + "/makeAnnouncement", {
       method: "POST",
       body: JSON.stringify({
         title: newTitle,
@@ -108,7 +108,7 @@ export default function CompanyAnnouncementV2() {
 
   const deleteAnnouncement = () => {
     fetch(
-      "/company/" +
+      "/api/company/" +
         currentUser.companyid +
         "/deleteAnnouncement?announcementId=" +
         announcements[showDeletePopup.index].id,
