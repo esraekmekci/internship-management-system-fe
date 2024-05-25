@@ -106,7 +106,7 @@ export default function CoordinatorAnnouncementV2() {
                 padding: "15px 30px",
                 borderBottom: "1px solid #fafafa",
               }}
-            >
+              >
               <h2
                 onClick={() => handleViewClick(announcement)}
                 style={{ cursor: "pointer", color: "rgba(45, 51, 69)" }}
@@ -117,7 +117,7 @@ export default function CoordinatorAnnouncementV2() {
                 </span>
               </h2>
               {selectedAnnouncement &&
-            selectedAnnouncement.announcement_id ===
+              selectedAnnouncement.announcement_id ===
               announcement.announcement_id && (
                 <div className="announcement-details">
                   <h4>{announcement.comp_name}</h4>

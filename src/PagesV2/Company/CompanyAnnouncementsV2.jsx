@@ -167,6 +167,7 @@ export default function CompanyAnnouncementV2() {
                       flexDirection: "column",
                       alignItems: "center",
                       gap: "4px",
+                      marginBottom:'20px',
                     }}
                   >
                     <input
