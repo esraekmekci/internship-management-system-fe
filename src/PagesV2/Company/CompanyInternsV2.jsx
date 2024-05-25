@@ -147,8 +147,7 @@ function CompanyInternsV2() {
           My Interns
         </h1>
       <Loading isLoading={loading} />
-      {(interns.length > 0 && !loading) ? (
-        interns.map((intern) => (
+      {interns.map((intern) => (
           <div
             key={intern.studentId}
             className="announcement-section"
@@ -219,10 +218,7 @@ function CompanyInternsV2() {
               </div>
             )}
           </div>
-        ))
-      ) : (
-        <p>No students with partially filled forms. Please check back later.</p>
-      )}
+        ))};
     </div>
   );
 }

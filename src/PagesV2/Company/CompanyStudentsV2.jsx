@@ -126,7 +126,7 @@ const downloadApplicationLetter = () => {
       <div className="" >
         <h1>Students</h1>
       </div>
-      <Loading loading={loading} />
+      <Loading isLoading={loading} />
       <div>
                 {applications.map((application) => (
                     <div key={application.applicationId} className="announcement-section">

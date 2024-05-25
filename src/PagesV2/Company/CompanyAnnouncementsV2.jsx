@@ -148,18 +148,71 @@ export default function CompanyAnnouncementV2() {
       <div>
         <h1 style={{ marginBottom: "4px" }}>Announcements</h1>
       </div>
-      <Loading isLoading={loading} />
+              <div className="" style={{ marginTop: "80px" }}>
+                <button
+                  onClick={() => toggleDropdown("newAnn")}
+                  style={{ display: "block" }}
+                  className="green-bg"
+                >
+                  New Announcement
+                </button>
+                {showDropdown.newAnn && (
+                  <div
+                    style={{
+                      maxWidth: "500px",
+                      backgroundColor: "#f8f8f8",
+                      borderRadius: "10px",
+                      padding: "20px 30px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: "4px",
+                    }}
+                  >
+                    <input
+                      className="v2 border-rounded"
+                      type="text"
+                      placeholder="Enter Announcement Title"
+                      value={newTitle}
+                      style={{
+                        marginLeft: "0px",
+                        width: "500px",
+                        padding: "8px",
+                        border: "1px #ccc solid",
+                      }}
+                      onChange={handleNewTitleChange}
+                    />
+                    <br></br>
+                    <textarea
+                      className="v2 border-rounded"
+                      placeholder="Enter Announcement Description"
+                      value={newDescription}
+                      style={{ marginLeft: "0px", width: "500px", padding: "8px" }}
+                      onChange={handleNewDescriptionChange}
+                    ></textarea>
+                    <button
+                      className="iyte-bg"
+                      onClick={handleNewAnnouncement}
+                      style={{ alignSelf: "end", marginRight: "-8px" }}
+                    >
+                      Enter
+                    </button>
+                    {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+                  </div>
+                )}
+              </div>
+        <Loading isLoading={loading} />
       <div>
         {announcements &&
           announcements.map((announcement, index) => (
             <div
-              key={index}
-              className="announcement-section"
+            key={index}
+            className="announcement-section"
               style={{
                 padding: "8px 10px",
                 borderBottom: "1px solid #fafafa",
               }}
-            >
+              >
               <h2
                 onClick={() => handleAnnouncementClick(index)}
                 style={{ cursor: "pointer", color: "rgba(45, 51, 69)" }}
@@ -186,59 +239,6 @@ export default function CompanyAnnouncementV2() {
           ))}
       </div>
 
-      <div className="" style={{ marginTop: "80px" }}>
-        <button
-          onClick={() => toggleDropdown("newAnn")}
-          style={{ display: "block" }}
-          className="green-bg"
-        >
-          New Announcement
-        </button>
-        {showDropdown.newAnn && (
-          <div
-            style={{
-              maxWidth: "500px",
-              backgroundColor: "#f8f8f8",
-              borderRadius: "10px",
-              padding: "20px 30px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "4px",
-            }}
-          >
-            <input
-              className="v2 border-rounded"
-              type="text"
-              placeholder="Enter Announcement Title"
-              value={newTitle}
-              style={{
-                marginLeft: "0px",
-                width: "500px",
-                padding: "8px",
-                border: "1px #ccc solid",
-              }}
-              onChange={handleNewTitleChange}
-            />
-            <br></br>
-            <textarea
-              className="v2 border-rounded"
-              placeholder="Enter Announcement Description"
-              value={newDescription}
-              style={{ marginLeft: "0px", width: "500px", padding: "8px" }}
-              onChange={handleNewDescriptionChange}
-            ></textarea>
-            <button
-              className="iyte-bg"
-              onClick={handleNewAnnouncement}
-              style={{ alignSelf: "end", marginRight: "-8px" }}
-            >
-              Enter
-            </button>
-            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-          </div>
-        )}
-      </div>
 
       {showPopup && (
         <div className="popup">
