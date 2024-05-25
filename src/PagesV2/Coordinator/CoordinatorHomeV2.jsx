@@ -6,6 +6,7 @@ import loading_icon from "../../Components/Assets/loading.gif";
 import Header from "../../Components/Header";
 import Sidebar from "../../Components/Sidebar";
 import { useUser } from "../../Components/UserContext.jsx";
+import Loading from "../../Pages/LoadingPage.jsx";
 
 const tabs = [
     { name: "See Students", link: "/coor/students", icon: "people" },
@@ -47,16 +48,17 @@ const CoordinatorHomeV2 = ({ children }) => {
     return () => clearTimeout(timeout);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <img src={loading_icon} alt="loading" className="loading-img" />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="loading-container">
+  //       <img src={loading_icon} alt="loading" className="loading-img" />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div style={{ backgroundColor: "white", width: "100vw", height: "100vh" }}>
+      <Loading isLoading={loading} />
       <div
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >

@@ -92,13 +92,13 @@ export default function CoordinatorAnnouncementV2() {
 
   return (
     <div className="" style={{ width: "100%", padding: "20px 40px", overflowY: "auto" }}>
-      <Loading loading={loading} />
       <div>
       <div>
         <h1 style={{ marginBottom: "4px" }}>Announcements</h1>
       </div>
 
       <div>
+      <Loading isLoading={loading} /> 
         {announcements &&
           announcements.map((announcement) => (
             <div
