@@ -55,8 +55,8 @@ export default function CoordinatorCompaniesV2() {
 
   return (
       <div className="" style={{width: "100%", padding: "20px 40px"}}>
+        <h1> Pending Company Accounts</h1>
         <Loading isLoading={loading} />
-        <h2> Pending Company Accounts</h2>
         {companies.map((company, index) => (
           <div key={index} className="company-item" >
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>

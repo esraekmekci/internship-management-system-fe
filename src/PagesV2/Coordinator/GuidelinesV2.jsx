@@ -153,7 +153,6 @@ export default function Guidelines() {
 
   return (
     <div className="w-full-padding">
-      <Loading isLoading={loading} />
       <div className="guidelines-v2">
         <h2 className="upload-title">Upload Guidelines</h2>
         <button
@@ -162,6 +161,7 @@ export default function Guidelines() {
         >
           Upload Document
         </button>
+        <Loading isLoading={loading} />
         {showModal && (
           <div className="modal">
             <div className="modal-content">

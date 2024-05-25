@@ -92,12 +92,12 @@ function CoordinatorStudents() {
 
   return (
     <div className="w-full-padding">
-      <Loading isLoading={loading} />
       <h1>Students</h1>
       <div
         className=""
         style={{ display: "flex", flexDirection: "column", gap: "20px" }}
       >
+        <Loading isLoading={loading} />
         {students.map((student) => (
           <div
             key={student.applicationId}

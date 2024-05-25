@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../Pages/Coordinator/CoordinatorProfile.css';
 import profile_icon from '../../Components/Assets/profile-picture.png'
 import { useUser } from '../../Components/UserContext';
+import Loading from '../../Pages/LoadingPage';
 
 
 export default function CoordinatorProfileV2() {
@@ -17,6 +18,10 @@ export default function CoordinatorProfileV2() {
 
         console.log("Password change requested.");
     };
+
+    if (!user) {
+        return <Loading isLoading={true}/>;
+    }
 
     return(
             <div className="" style={{width: '100%', padding: '40px'}}>
