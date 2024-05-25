@@ -123,7 +123,9 @@ export default function CoordinatorAnnouncementV2() {
                   <h4>{announcement.comp_name}</h4>
                   <p>{announcement.description}</p>
                   <p>{announcement.date}</p>
-
+                
+                {(announcement.status === 'approved' || nnouncement.status === 'rejected') &&(
+                  <div>
                   <button
                     className="btn "
                     onClick={() => handleAction("approve", announcement)}
@@ -133,6 +135,9 @@ export default function CoordinatorAnnouncementV2() {
                   <button className="iyte-bg" onClick={() => handleAction("reject", announcement)}>
                     Reject
                   </button>
+                </div>
+                )}
+
                 </div>
               )}
             </div>
