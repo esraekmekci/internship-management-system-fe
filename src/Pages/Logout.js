@@ -7,6 +7,7 @@ function Logout() {
     
     useEffect(() => {
         const timer = setTimeout(() => {
+            localStorage.clear();  // Clear all data in local storage
             navigate('/');  // 3 saniye sonra /home sayfasına yönlendir
         }, 1500);
 
