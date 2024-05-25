@@ -1,5 +1,0 @@
-{
-    "rewrites": [
-      { "source": "/:path*", "destination": "https://ims-api-esraekmekci-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com/:path*" }
-    ]
-}

@@ -33,6 +33,5 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "https://ims-api-esraekmekci-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com",
-    "now-build": "react-scripts build && mv build dist"
+    "proxy": "http://localhost:8080"
 }

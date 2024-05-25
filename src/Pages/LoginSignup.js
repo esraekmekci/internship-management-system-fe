@@ -105,11 +105,8 @@ const LoginSignup = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.token) {
-          console.log(token);
-          console.log(res);
           localStorage.setItem("tokenKey", res.token);
           localStorage.setItem("role", res.authorities);
-          console.log(res.authorities)
           if (res.authorities.includes("STUDENT")) {
             setToken(res.token);
             setShowCheckboxPopup(!res.registered);
@@ -192,7 +189,6 @@ const LoginSignup = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.token) {
-          console.log(internshipType);
           alert(
             `Registration as ${compName} is successful. Waiting for the approval of the internship committee coordinator.`
           );
