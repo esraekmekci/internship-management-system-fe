@@ -21,10 +21,9 @@ Benimle çalışan kişi yaptıkça commentleri silmeyi unutma pls.
 */
 
 const CoordinatorHomeV2 = ({ children }) => {
-  const [loading, setLoading] = useState(true);
-  const { setUser } = useUser();
+  const { user } = useUser();
 
-  if (loading) {
+  if (user) {
     return (
       <div className="loading-container">
         <img src={loading_icon} alt="loading" className="loading-img" />
