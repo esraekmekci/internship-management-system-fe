@@ -145,7 +145,7 @@ const downloadApplicationLetter = () => {
                                     <button onClick={handleApprove} style={{ backgroundColor: 'green' }}>
                                         Approve
                                     </button>
-                                    <button onClick={handleReject} style={{ backgroundColor: 'e4190b' }}>
+                                    <button onClick={handleReject} style={{ backgroundColor: '#9d3535' }}>
                                         Reject
                                     </button>
                                 </div>

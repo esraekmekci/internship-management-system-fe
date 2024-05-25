@@ -23,7 +23,7 @@ export default function CompanyAnnouncementV2() {
 
   useEffect(() => {
 
-    const fetchAnnouncements = async (user) => {
+    const fetchAnnouncements = async () => {
       try {
         const response = await GetWithAuth(
           "/api/company/" + user.companyid + "/announcements"

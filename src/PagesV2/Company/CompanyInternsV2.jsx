@@ -147,7 +147,7 @@ function CompanyInternsV2() {
           My Interns
         </h1>
       <Loading isLoading={loading} />
-      {interns.length > 0 ? (
+      {(interns.length > 0 && !loading) ? (
         interns.map((intern) => (
           <div
             key={intern.studentId}
@@ -161,9 +161,11 @@ function CompanyInternsV2() {
             </h2>
             {selectedIntern === intern && (
               <div style={{ display: "flex", flexDirection:'column' }}>
+                <div style={{ justifyContent: "flex-start" }}>
                 <button className="iyte-bg" onClick={downloadForm}>
                   Download Form
                 </button>
+                </div>
                 <br />
                 <br />
                 <div>
