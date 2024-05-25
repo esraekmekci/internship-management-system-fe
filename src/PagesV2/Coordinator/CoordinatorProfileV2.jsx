@@ -3,6 +3,7 @@ import '../../Pages/Coordinator/CoordinatorProfile.css';
 import profile_icon from '../../Components/Assets/profile-picture.png'
 import { useUser } from '../../Components/UserContext';
 import Loading from '../../Pages/LoadingPage';
+import '../../Pages/Home.css';
 
 
 export default function CoordinatorProfileV2() {

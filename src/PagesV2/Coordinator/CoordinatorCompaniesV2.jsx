@@ -3,6 +3,7 @@ import '../../Pages/Coordinator/CoordinatorCompanies.css';
 import { GetWithAuth } from "../../Services/HttpService.js";
 import { PutWithAuth } from "../../Services/HttpService.js";
 import Loading from '../../Pages/LoadingPage.jsx';
+import '../../Pages/Home.css';
 
 /*
 Coordinator grades yerine konuldu

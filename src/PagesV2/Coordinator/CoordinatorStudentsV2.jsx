@@ -3,6 +3,7 @@ import "../../Pages/Coordinator/CoordinatorStudents.css";
 import { GetWithAuth } from "../../Services/HttpService";
 import { PutWithAuth } from "../../Services/HttpService";
 import Loading from "../../Pages/LoadingPage";
+import '../../Pages/Home.css';
 
 function CoordinatorStudents() {
   const [students, setStudents] = useState([]);

@@ -7,6 +7,7 @@ import Header from "../../Components/Header";
 import Sidebar from "../../Components/Sidebar";
 import { useUser } from "../../Components/UserContext.jsx";
 import Loading from "../../Pages/LoadingPage.jsx";
+import '../../Pages/Home.css';
 
 const tabs = [
     { name: "See Students", link: "/coor/students", icon: "people" },

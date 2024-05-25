@@ -6,16 +6,3 @@
 .user-icon {
     margin-right: 10px;
 }
-
-.loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 850px;
-    width: 100%;
-}
-
-.loading-img {
-    width: 150px;
-    height: 150px;
-}

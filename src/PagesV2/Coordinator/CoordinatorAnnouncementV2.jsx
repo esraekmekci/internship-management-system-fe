@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { GetWithAuth } from "../../Services/HttpService";
 import { PutWithAuth } from "../../Services/HttpService";
 import Loading from "../../Pages/LoadingPage";
+import '../../Pages/Home.css';
 import "../../Pages/Coordinator/CoordinatorAnnouncement.css";
 
 function Modal({ onClose, onConfirm, message }) {

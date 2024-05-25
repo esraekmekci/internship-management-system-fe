@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../Pages/Coordinator/Guidelines.css";
 import { GetWithAuth } from "../../Services/HttpService.js";
 import Loading from "../../Pages/LoadingPage.jsx";
+import '../../Pages/Home.css';
 
 const file = [{ name: "Summer Practice Guidelines" }];
 
