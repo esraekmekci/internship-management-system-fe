@@ -204,7 +204,7 @@ export default function Guidelines() {
                 </div>
                 <div className="file-buttons">
                   <button
-                    className="download-button"
+                    className="delete-button iyte-bg"
                     onClick={() => handleDownload()}
                   >
                     Download
