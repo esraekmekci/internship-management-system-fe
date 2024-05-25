@@ -159,17 +159,16 @@ function CompanyInternsV2() {
         interns.map((intern) => (
           <div
             key={intern.studentId}
-            className=""
-            onClick={() => handleSelectIntern(intern)}
+            className="announcement-section"
           >
-            <h2 style={{ color: "rgb(30 41 59)", cursor: "pointer" }}>
+            <h2 onClick={() => handleSelectIntern(intern)} style={{ color: "rgb(30 41 59)", cursor: "pointer" }}>
               {intern.studentName}
               <span style={{ float: "right", fontSize: "15px" }}>
                 Status: {intern.applicationStatus}
               </span>
             </h2>
             {selectedIntern === intern && (
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex",justifyContent: 'space-between', width: '100%' }}>
                 <button className="iyte-bg" onClick={downloadForm}>
                   Download Form
                 </button>
