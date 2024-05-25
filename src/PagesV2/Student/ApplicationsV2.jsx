@@ -179,14 +179,51 @@ export default function ApplicationsV2() {
                         Show Application Letter
                       </button>
                       <br />
-                      <button
-                        className="button"
-                        onClick={() => {
-                          showModal ? setShowModal(false) : setShowModal(true);
+                      <form onSubmit={handleSubmit}>
+                      <label
+                        htmlFor="fileInput"
+                        className="button iyte-bg"
+                        style={{
+                          background: "#4CAF50",
+                          color: "white",
+                          padding: "10px 20px",
+                          width: "20%",
+                          cursor: "pointer",
+                          borderRadius: "4px",
                         }}
                       >
                         Send Application Form
-                      </button>
+                        <input
+                          type="file"
+                          id="fileInput"
+                          style={{ display: "none" }}
+                          accept=".docx, .doc"
+                          onChange={handleFileChange}
+                        />
+                      </label>
+                      {fileName && (
+                        <span style={{ marginLeft: "10px" }}>{fileName}</span>
+                      )}{" "}
+                      {/* Dosya adını göster */}
+                      <label
+                        className="button iyte-bg"
+                        style={{
+                          display:"flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: "#4CAF50",
+                          color: "white",
+                          padding: "10px 20px",
+                          width: "4%",
+                          cursor: "pointer",
+                          borderRadius: "4px",
+                          float: "right",
+                        }}
+                      >
+                        Send
+                        <input type="submit" style={{ display: "none" }} />
+                      </label>
+                    </form>
                     </div>
                   )}
                   {(application.applicationStatus === "Application Form Sent to Company" ||
