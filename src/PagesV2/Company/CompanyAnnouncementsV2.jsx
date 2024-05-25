@@ -159,7 +159,7 @@ export default function CompanyAnnouncementV2() {
                 {showDropdown.newAnn && (
                   <div
                     style={{
-                      maxWidth: "500px",
+                      maxWidth: "700px",
                       backgroundColor: "#f8f8f8",
                       borderRadius: "10px",
                       padding: "20px 30px",
@@ -175,7 +175,6 @@ export default function CompanyAnnouncementV2() {
                       placeholder="Enter Announcement Title"
                       value={newTitle}
                       style={{
-                        marginLeft: "0px",
                         width: "600px",
                         padding: "8px 10px",
                         fontSize:'16px',
@@ -188,7 +187,7 @@ export default function CompanyAnnouncementV2() {
                       className="v2 border-rounded"
                       placeholder="Enter Announcement Description"
                       value={newDescription}
-                      style={{ marginLeft: "0px", width: "600px", padding: "8px 10px", fontSize:'14px' , height:'150px', overflow:'auto'}}
+                      style={{ width: "600px", padding: "8px 10px", fontSize:'14px' , height:'150px', overflow:'auto'}}
                       onChange={handleNewDescriptionChange}
                     ></textarea>
                     <button
@@ -203,7 +202,7 @@ export default function CompanyAnnouncementV2() {
                 )}
               </div>
         <Loading isLoading={loading} />
-      <div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         {announcements &&
           announcements.map((announcement, index) => (
             <div

@@ -143,84 +143,40 @@ function CompanyInternsV2() {
 
   return (
     <div style={{ width: "100%", padding: "20px 40px" }}>
-        <h1 style={{ paddingBottom: "20px", borderBottom: "1px solid #ccc" }}>
-          My Interns
-        </h1>
+      <h1 style={{ paddingBottom: "20px", borderBottom: "1px solid #ccc" }}>
+        My Interns
+      </h1>
       <Loading isLoading={loading} />
       {interns.map((intern) => (
-          <div
-            key={intern.studentId}
-            className="announcement-section"
-          >
-            <h2 onClick={() => handleSelectIntern(intern)} style={{ color: "rgb(30 41 59)", cursor: "pointer" }}>
-              {intern.studentName}
-              <span style={{ float: "right", fontSize: "15px" }}>
-                Status: {intern.applicationStatus}
-              </span>
-            </h2>
-            {selectedIntern === intern && (
-              <div style={{ display: "flex", flexDirection:'column' }}>
-                <div style={{ justifyContent: "flex-start" }}>
-                <button className="iyte-bg" onClick={downloadForm}>
-                  Download Form
-                </button>
-                </div>
-                <br />
-                <br />
-                <div>
-                <form onSubmit={handleSubmitUpload}>
-                      <label
-                        htmlFor="fileInput"
-                        className="button iyte-bg"
-                        style={{
-                          background: "#4CAF50",
-                          color: "white",
-                          padding: "10px 20px",
-                          width: "20%",
-                          cursor: "pointer",
-                          borderRadius: "4px",
-                        }}
-                      >
-                        Upload Form
-                        <input
-                          type="file"
-                          id="fileInput"
-                          style={{ display: "none" }}
-                          accept=".docx, .doc"
-                          onChange={handleFileChange}
-                        />
-                      </label>
-                      {fileName && (
-                        <span style={{ marginLeft: "10px" }}>{fileName}</span>
-                      )}{" "}
-                      {/* Dosya adını göster */}
-                      <label
-                        className="button iyte-bg"
-                        style={{
-                          display:"flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          background: "#4CAF50",
-                          color: "white",
-                          padding: "10px 20px",
-                          width: "4%",
-                          cursor: "pointer",
-                          borderRadius: "4px",
-                          float: "right",
-                        }}
-                      >
-                        Send
-                        <input type="submit" style={{ display: "none" }} />
-                      </label>
-                    </form>
-                  
-                </div>
-              </div>
-            )}
-          </div>
-        ))};
+        <div key={intern.studentId} className="announcement-section">
+          <h2 onClick={() => handleSelectIntern(intern)} style={{ color: "rgb(30 41 59)", cursor: "pointer" }}>
+            {intern.studentName}
+            <span style={{ float: "right", fontSize: "15px" }}>
+              Status: {intern.applicationStatus}
+            </span>
+          </h2>
+          {selectedIntern === intern && (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "10px 0" }}>
+              <button className="iyte-bg" onClick={downloadForm} style={{ marginBottom: "10px", background: "#4CAF50", color: "white", padding: "10px 20px", borderRadius: "4px" }}>
+                Download Form
+              </button>
+              <form onSubmit={handleSubmitUpload}>
+                <label htmlFor="fileInput" className="button iyte-bg" style={{ background: "#4CAF50", color: "white", padding: "10px 20px", cursor: "pointer", borderRadius: "4px" }}>
+                  Upload Form
+                  <input type="file" id="fileInput" style={{ display: "none" }} accept=".docx, .doc" onChange={handleFileChange} />
+                </label>
+                {fileName && (
+                  <span style={{ marginLeft: "10px" }}>{fileName}</span>
+                )}
+                <button type="submit" style={{ display: "none" }}>Send</button>
+              </form>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
+  
 }
 
 export default CompanyInternsV2;
