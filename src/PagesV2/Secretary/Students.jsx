@@ -269,8 +269,10 @@ export default function Students() {
               type="file"
               accept=".pdf,.doc,.docx"
               onChange={handleUploadFileChange}
+              style={{
+                padding: "20px",
+              }}
             />
-            {uploadFile && <p>{uploadFile.name}</p>}
             <button onClick={handleUploadConfirm}>Ok</button>
             <button onClick={handleUploadCancel}>Cancel</button>
           </div>
