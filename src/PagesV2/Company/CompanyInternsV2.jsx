@@ -73,12 +73,6 @@ function CompanyInternsV2() {
     setSelectedFile(null);
   };
 
-  const handleCancelUpload = (e) => {
-    e.stopPropagation();
-    setUploading(false);
-    setSelectedFile(null);
-  };
-
   const downloadApplicationForm = () => {
     GetWithAuth(
       "/api/company/" +
@@ -168,83 +162,59 @@ function CompanyInternsV2() {
               </span>
             </h2>
             {selectedIntern === intern && (
-              <div style={{ display: "flex",justifyContent: 'space-between', width: '100%' }}>
+              <div style={{ display: "flex",flexDirection:'column', width: '100%' }}>
                 <button className="iyte-bg" onClick={downloadForm}>
                   Download Form
                 </button>
                 <br />
+                <br />
                 <div>
-                  <button onClick={handleUploadClick}>Upload Form</button>
-                  {uploading && (
-                    <div className="modal">
-                      <form
-                        onSubmit={handleSubmitUpload}
+                <form onSubmit={handleSubmitUpload}>
+                      <label
+                        htmlFor="fileInput"
+                        className="button iyte-bg"
                         style={{
-                          display: "flex",
-                          padding: "20px 15px",
-                          backgroundColor: "white",
+                          background: "#4CAF50",
+                          color: "white",
+                          padding: "10px 20px",
+                          width: "20%",
+                          cursor: "pointer",
                           borderRadius: "4px",
                         }}
                       >
-                        <div style={{ height: "100%" }}>
-                          <div
-                            style={{
-                              height: "100%",
-                              display: "flex",
-                              gap: "20px",
-                              flexDirection: "column",
-                            }}
-                          >
-                            <div style={{ height: "100%" }}>
-                              <label
-                                htmlFor="fileInput"
-                                className="button"
-                                style={{
-                                  background: "#4CAF50",
-                                  color: "white",
-                                  cursor: "pointer",
-                                  padding: "8px",
-                                  borderRadius: "2px",
-                                }}
-                              >
-                                Choose Application Form
-                                <input
-                                  type="file"
-                                  id="fileInput"
-                                  style={{ display: "none" }}
-                                  accept=".docx, .doc"
-                                  onChange={handleFileChange}
-                                />
-                              </label>
-                              {fileName && (
-                                <span className="file-name">{fileName}</span>
-                              )}{" "}
-                              {/* Dosya adını göster */}
-                            </div>
-                            <div style={{display: "flex", justifyContent: "flex-end"}}>
-                              <label
-                                className="button iyte-bg"
-                                style={{
-                                  background: "#4CAF50",
-                                  color: "white",
-                                  cursor: "pointer",
-                                  padding: "6px",
-                                  width: "fit-content",
-                                  borderRadius: "2px",
-                                }}
-                              >
-                                Send
-                                <input
-                                  type="submit"
-                                  style={{ display: "none" }}
-                                />
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  )}
+                        Upload Form
+                        <input
+                          type="file"
+                          id="fileInput"
+                          style={{ display: "none" }}
+                          accept=".docx, .doc"
+                          onChange={handleFileChange}
+                        />
+                      </label>
+                      {fileName && (
+                        <span style={{ marginLeft: "10px" }}>{fileName}</span>
+                      )}{" "}
+                      {/* Dosya adını göster */}
+                      <label
+                        className="button iyte-bg"
+                        style={{
+                          display:"flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: "#4CAF50",
+                          color: "white",
+                          padding: "10px 20px",
+                          width: "4%",
+                          cursor: "pointer",
+                          borderRadius: "4px",
+                          float: "right",
+                        }}
+                      >
+                        Send
+                        <input type="submit" style={{ display: "none" }} />
+                      </label>
+                    </form>
+                  
                 </div>
               </div>
             )}
