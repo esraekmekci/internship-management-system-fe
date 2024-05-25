@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Logout from "./Pages/Logout";
 import { UserProvider } from "./Components/UserContext";
 import RoleBasedRoute from "./RoleBasedRoute";
+import AuthWrapper from "./AuthWrapper";
 
 /**
  * V2
@@ -43,7 +44,7 @@ import TemplatesV2 from "./PagesV2/Student/TemplatesV2";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <AuthWrapper />,
   },
   {
     path: "log_out",
