@@ -100,7 +100,7 @@ function CoordinatorStudents() {
       <Loading isLoading={loading} />
       <div className="">
         {students.map((student, index) => (
-          <div key={student.applicationId} sclassName="company-item" >
+          <div key={student.applicationId} style={{marginBottom:'15px', padding:'20px', border:'1px solid #ccc', borderRadius:'5px'}} >
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
             <h3>
               {student.studentName}
@@ -111,8 +111,8 @@ function CoordinatorStudents() {
             </div>
             {selectedStudentIndex === index && (
               <div className="company-details">
-                <h2>Details for {student.studentName}</h2>
-                <p><strong>Email:</strong> {student.email}</p>
+                <h2>Details for {student.studentName}<p style={{justifyContent:'flex-end'}}>Status: {student.applicationStatus}</p></h2>
+                
                 <div className="status-container" style={{ display: "flex", justifyContent: "space-between" }}>
                   <p style={{ marginBottom: "0px", fontSize: "20px" }}>
                     Application Letter
@@ -122,11 +122,9 @@ function CoordinatorStudents() {
                   </button>
                 </div>
                 <div className="status-container" style={{ display: "flex", justifyContent: "space-between" }}>
-                  <p style={{ marginBottom: "0px", fontSize: "20px" }}>
-                    Application Status:
-                  </p>
+                  
                   <div>
-                    <p>{student.applicationStatus}</p>
+                    
                     <div className="" style={{ marginTop: "0", width: "240px", minWidth: "240px", fontSize: "20px" }}>
                       {student.applicationStatus === "Application Form Sent to Coordinator" && (
                         <>
@@ -137,7 +135,7 @@ function CoordinatorStudents() {
                             Download Application Form
                           </button>
                           <button
-                            className="approve-button"
+                            className="button"
                             onClick={() =>
                               updateStudentFormStatus("approve", student.applicationId)
                             }
@@ -145,7 +143,7 @@ function CoordinatorStudents() {
                             Approve Application Form
                           </button>
                           <button
-                            className="reject-button"
+                            className="button"
                             onClick={() =>
                               updateStudentFormStatus("reject", student.applicationId)
                             }
@@ -176,3 +174,4 @@ function CoordinatorStudents() {
 }
 
 export default CoordinatorStudents;
+
