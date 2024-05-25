@@ -215,7 +215,7 @@ const LoginSignup = () => {
 
   return (
     <div className="login-signup-container">
-      <div className="top-bar">
+      <div className="top-bar" style={{paddingBlock: "20px"}}>
         <img src={iyte_icon} alt="" className="iyte-logo" />
         <b>IZTECH IMS</b>
         <div
@@ -233,9 +233,9 @@ const LoginSignup = () => {
           ))}
         </div>
       </div>
-      <div className="form-container">
+      <div className="form-container-v2">
         {role === "STUDENT" ? (
-          <div>
+          <div className="form-body-v2">
             <div className="header">
               <div className="loginTitle">Login with UBYS</div>
             </div>
@@ -382,7 +382,7 @@ const LoginSignup = () => {
             </form>
           </div>
         ) : role === "COMPANY" ? (
-          <div>
+          <div className="form-body-v2">
             <div className="header">
               <div className="loginTitle">{action}</div>
             </div>
@@ -640,7 +640,7 @@ const LoginSignup = () => {
             </form>
           </div>
         ) : (
-          <div>
+          <div className="form-body-v2">
             <div className="header">
               <div className="loginTitle">Login</div>
             </div>

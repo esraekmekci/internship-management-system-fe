@@ -1,9 +1,21 @@
 .login-signup-container {
+    background-image: url('../Components/Assets/iyte-3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     text-align: center;
     height: 100vh; /* Sets the container height to fill the viewport */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Vertically centers the form in the available space */
+    overflow-y: auto;
+}
+
+.login-signup-container::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 0%, 0.45)!important;
 }
 
 .top-bar {
@@ -24,19 +36,24 @@
     padding: 0 20px;
 }
 .top-bar button {
-    padding: 10px 20px;
-    margin: 0 5px;
+    padding: 24px 20px;
+    border-radius: 0;
+    margin: 0;
+    font-weight: 400;
     border: none;
-    color: rgb(0, 0, 0);
+    color: rgb(51 65 85);
     background-color: transparent !important;
     cursor: pointer;
+    transition: .2s background-color;
 }
 
 .top-bar button.active {
-    border-bottom: 2px solid #a5a5a5 !important;
+    border-bottom: 3px solid rgb(157, 31, 29) !important;
 }
+
 .top-bar button:hover {
     background-color:  #c5c5c5 !important;
+    border-bottom: 3px solid rgb(157, 31, 29) !important;
 }
 
 .form-container {
@@ -52,6 +69,23 @@
     padding-top: 30px;
     border-radius: 50px;
 }
+
+.form-container-v2 {
+    overflow-y: auto;
+    z-index: 1000;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
+    right: 0;
+    left: 0;
+    width: 500px;
+    background: white;
+    padding-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);}
+
 
 h2 {
     margin-bottom: 20px; /* Space below the title */
@@ -74,8 +108,13 @@ h2 {
     
     height: 50px;
     background: #fff;
-    border-radius: 15px;
+    border-radius: 6px;
     border: 2px solid #c0cec6;
+    box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+}
+
+.input-container:hover {
+    background-color: #f5f5f5;
 }
 
 .input-container img {
@@ -125,56 +164,47 @@ h2 {
 
 .submit-container{
     display: flex;
-    gap: 30px;
     justify-content: center;
-    margin: 30px auto;
+    margin: 0px auto;
 }
 
 
 .submit {
-    background-image: linear-gradient(to right, #e0e0e0 0%, #ff5858 100%);
-    border-radius: 40px;
+    border-radius: 2px;
+    background-color: white;
     box-sizing: border-box;
     display: block;
     height: 50px;
-    font-size: 1.6em;
+    font-size: 1.5em;
     padding: 4px;
     position: relative;
     text-decoration: none;
     width: 7em;
     z-index: 2;
     color: #0b1633 ;
+    
 }
   
 .submit:hover {
-    color: #fff;
+    background-color: white;
 }
   
 .submit .submitspan {
     align-items: center;
-    background: #f9f6ee;
-    border-radius: 40px;
+    border-radius: 4px;
+    border: 2px rgb(157, 31, 29) solid;
     display: flex;
     justify-content: center;
     height: 100%;
-    transition: background 0.5s ease;
+    transition: background-color 0.5s ease;
     width: 100%;
 }
   
 .submit:hover .submitspan {
-    background: transparent;
+    background-color: rgb(157, 31, 29);
+    color: white;
 }
 
-.gray{
-    background: #eaeaea;
-    color: #676767;
-}
-
-.gray:hover{
-    background: #eaeaea !important;
-    color: #ffffff !important;
-    
-}
 
 .header{
     display: flex;
@@ -182,12 +212,12 @@ h2 {
     align-items: center;
     gap: 9px;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .loginTitle{
-    color: #0b1633;
-    font-size: 30px !important;
+    color: rgb(51 65 85);
+    font-size: 32px !important;
     font-weight: 500 !important;
 }
 
