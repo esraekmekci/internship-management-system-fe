@@ -165,7 +165,7 @@ export default function CompanyAnnouncementV2() {
                       padding: "20px 30px",
                       display: "flex",
                       flexDirection: "column",
-                      alignItems: "center",
+                      alignItems: "start",
                       gap: "4px",
                       marginBottom:'20px',
                     }}
@@ -176,7 +176,7 @@ export default function CompanyAnnouncementV2() {
                       placeholder="Enter Announcement Title"
                       value={newTitle}
                       style={{
-                        width: "600px",
+                        width: "670px",
                         padding: "8px 10px",
                         fontSize:'16px',
                         border: "1px #ccc solid",
@@ -188,7 +188,7 @@ export default function CompanyAnnouncementV2() {
                       className="v2 border-rounded"
                       placeholder="Enter Announcement Description"
                       value={newDescription}
-                      style={{ width: "600px", padding: "8px 10px", fontSize:'14px' , height:'150px', overflow:'auto'}}
+                      style={{ width: "670px", padding: "8px 10px", fontSize:'14px' , height:'150px', overflow:'auto'}}
                       onChange={handleNewDescriptionChange}
                     ></textarea>
                     <button
