@@ -57,11 +57,9 @@ const LoginSignup = () => {
       if (!showKVKKPopupForCompany) {
         setShowKVKKPopupForCompany(true);
       } else {
-        setLoading(true);
         registerAsCompany();
       }
     } else {
-      setLoading(true);
       login();
     }
   };
@@ -101,6 +99,7 @@ const LoginSignup = () => {
   };
 
   const login = () => {
+    setLoading(true);
     PostWithoutAuth("/api/auth/login", {
       email: role === "STUDENT" ? stID : email,
       password: password,
