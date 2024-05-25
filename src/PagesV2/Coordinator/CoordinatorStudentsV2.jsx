@@ -113,7 +113,7 @@ function CoordinatorStudents() {
               <div className="company-details">
                 <h2>Details for {student.studentName}<p style={{justifyContent:'flex-end'}}>Status: {student.applicationStatus}</p></h2>
                 
-                <div className="status-container" style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <p style={{ marginBottom: "0px", fontSize: "20px" }}>
                     Application Letter
                   </p>
@@ -121,7 +121,6 @@ function CoordinatorStudents() {
                     Download Application Letter
                   </button>
                 </div>
-                <div className="status-container" style={{ display: "flex", justifyContent: "space-between" }}>
                   
                   <div>
                     
@@ -162,7 +161,7 @@ function CoordinatorStudents() {
                       )}
                     </div>
                   </div>
-                </div>
+                
               </div>
             )}
           </div>
