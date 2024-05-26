@@ -126,7 +126,7 @@ function CoordinatorStudents() {
                   </button>
                 </div>
                   
-                  <div>
+                 
                     
                     <div className="" style={{ marginTop: "0", width: "240px", minWidth: "240px", fontSize: "20px" }}>
                       {student.applicationStatus === "Application Form Sent to Coordinator" && (
@@ -180,7 +180,7 @@ function CoordinatorStudents() {
                         </div>
                       )}
                     </div>
-                  </div>
+                  
                 
               </div>
             )}
