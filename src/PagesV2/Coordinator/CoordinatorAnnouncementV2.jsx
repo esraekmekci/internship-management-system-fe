@@ -75,7 +75,6 @@ export default function CoordinatorAnnouncementV2() {
       try {
         const response = await GetWithAuth("/api/announcement");
         const result = await response.json();
-        console.log(result);
         setAnnouncements(result);
         setLoading(false);
       } catch (error) {

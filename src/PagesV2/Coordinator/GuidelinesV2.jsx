@@ -67,7 +67,6 @@ export default function Guidelines() {
         .then((result) => {
           alert("Guideline deleted successfully");
           window.location.reload();
-          console.log(result);
         })
         .catch((err) => {
           console.error("Error occurred:", err);
@@ -115,7 +114,6 @@ export default function Guidelines() {
         return response;
       })
       .then((result) => {
-        console.log(result);
         alert("Guideline uploaded successfully");
         setShowModal(false);
         window.location.reload();
@@ -131,7 +129,6 @@ export default function Guidelines() {
       try {
         const response = await GetWithAuth("/api/coordinator/checkGuideline");
         const exists = await response.json(); // Assuming the response is JSON and 'exists' is a boolean
-        console.log(exists); // This should log true or false
         if (exists === true) {
           setFiles(file);
           console.log("Success");

@@ -128,7 +128,6 @@ function CompanyInternsV2() {
         return response;
       })
       .then((result) => {
-        console.log(result);
         alert("Application form uploaded successfully");
         setSelectedFile(null);
         setFileName("Select file");

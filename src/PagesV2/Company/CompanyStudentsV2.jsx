@@ -86,7 +86,6 @@ const evaluateApplicationLetter = async (type) => {
             alert("Rejected successfully");
         }
         window.location.reload();
-        console.log(result);
     })
     .catch(err => {
         console.error("Error occurred:", err);
