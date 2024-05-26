@@ -111,8 +111,10 @@ function CoordinatorStudents() {
             </div>
             {selectedStudentIndex === index && (
               <div className="company-details">
-                <h2>Details for {student.studentName}<p style={{justifyContent:'flex-end'}}>Status: {student.applicationStatus}</p></h2>
-                
+                <div style={{justifyContent:'space-between'}}>
+                <h2>Details for {student.studentName}</h2>
+                <p >Status: {student.applicationStatus}</p>
+                  </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <p style={{ marginBottom: "0px", fontSize: "20px" }}>
                     Application Letter
@@ -127,14 +129,18 @@ function CoordinatorStudents() {
                     <div className="" style={{ marginTop: "0", width: "240px", minWidth: "240px", fontSize: "20px" }}>
                       {student.applicationStatus === "Application Form Sent to Coordinator" && (
                         <>
-                          <button
-                            className="button"
-                            onClick={() => downloadDocument("Form", student)}
-                          >
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                          <p style={{ marginBottom: "0px", fontSize: "20px" }}>
+                            Application Form
+                          </p>
+                          <button className="iyte-bg" onClick={() => downloadDocument("Form", student)} style={{width: "240px"}}>
                             Download Application Form
                           </button>
+                        </div>
+                          <div style={{justifyContent:'flex-end'}}>
                           <button
                             className="button"
+                            style={{backgroundColor:'#367B3A'}}
                             onClick={() =>
                               updateStudentFormStatus("approve", student.applicationId)
                             }
@@ -143,21 +149,25 @@ function CoordinatorStudents() {
                           </button>
                           <button
                             className="button"
+                            style={{backgroundColor:'#8a0909'}}
                             onClick={() =>
                               updateStudentFormStatus("reject", student.applicationId)
                             }
                           >
                             Reject Application Form
                           </button>
+                          </div>
                         </>
                       )}
                       {["Application Form Approved", "Application Form Rejected"].includes(student.applicationStatus) && (
-                        <button
-                          className="button"
-                          onClick={() => downloadDocument("Form", student)}
-                        >
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <p style={{ marginBottom: "0px", fontSize: "20px" }}>
+                          Application Form
+                        </p>
+                        <button className="iyte-bg" onClick={() => downloadDocument("Form", student)} style={{width: "240px"}}>
                           Download Application Form
                         </button>
+                      </div>
                       )}
                     </div>
                   </div>
