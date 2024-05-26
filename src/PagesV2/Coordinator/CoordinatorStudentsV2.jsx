@@ -111,12 +111,9 @@ function CoordinatorStudents() {
             </div>
             {selectedStudentIndex === index && (
               <div className="company-details">
-                <div >
                 <h2>Details for {student.studentName}</h2>
-                
                 <p >Status: {student.applicationStatus}</p>
-                  </div>
-                  <br />
+                <br />
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <p style={{ marginBottom: "0px", fontSize: "20px" }}>
                     Application Letter
@@ -126,61 +123,52 @@ function CoordinatorStudents() {
                   </button>
                 </div>
                   
-                 
+                  <div>
                     
                     <div className="" style={{ marginTop: "0", width: "240px", minWidth: "240px", fontSize: "20px" }}>
                       {student.applicationStatus === "Application Form Sent to Coordinator" && (
-                        <div style={{ display: "flex",flexDirection:'row', justifyContent: "space-between" }} >
-                          <p style={{ marginBottom: "0px",marginLeft:'0px', fontSize: "20px" }}>
-                            Application Form
-                          </p>
-                          <div style={{flexDirection:'column'}}>
-                            <button
-                              className="button"
-                              onClick={() => downloadDocument("Form", student)}
-                            >
-                              Download Application Form
-                            </button>
-                            
-                            <div style={{justifyContent:'flex-end'}}>
-                            <button
-                              className="button"
-                              style={{backgroundColor:'#367B3A'}}
-                              onClick={() =>
-                                updateStudentFormStatus("approve", student.applicationId)
-                              }
-                            >
-                              Approve Application Form
-                            </button>
-                            <button
-                              className="button"
-                              style={{backgroundColor:'#8a0909'}}
-                              onClick={() =>
-                                updateStudentFormStatus("reject", student.applicationId)
-                              }
-                            >
-                              Reject Application Form
-                            </button>
-                          </div>
-                          </div>
-                        </div>
-                      )}
-                      {["Application Form Approved", "Application Form Rejected"].includes(student.applicationStatus) && (
-                        <div style={{ display: "flex", justifyContent: "space-between" }} >
-                        <p style={{ marginBottom: "0px",marginLeft:'0px', fontSize: "20px" }}>
-                          Application Form
+                        <>
+                        <p style={{ marginBottom: "0px", fontSize: "20px" }}>
+                          Application form
                         </p>
-                        
+                        <div style={{marginRight:'0'}}>
                           <button
                             className="button"
                             onClick={() => downloadDocument("Form", student)}
                           >
                             Download Application Form
                           </button>
+                          <button
+                            className="button"
+                            style={{backgroundColor:'#367B3A'}}
+                            onClick={() =>
+                              updateStudentFormStatus("approve", student.applicationId)
+                            }
+                          >
+                            Approve Application Form
+                          </button>
+                          <button
+                            className="button"
+                            style={{backgroundColor:'#8a0909'}}
+                            onClick={() =>
+                              updateStudentFormStatus("reject", student.applicationId)
+                            }
+                          >
+                            Reject Application Form
+                          </button>
                         </div>
+                        </>
+                      )}
+                      {["Application Form Approved", "Application Form Rejected"].includes(student.applicationStatus) && (
+                        <button
+                          className="button"
+                          onClick={() => downloadDocument("Form", student)}
+                        >
+                          Download Application Form
+                        </button>
                       )}
                     </div>
-                  
+                  </div>
                 
               </div>
             )}
