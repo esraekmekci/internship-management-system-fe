@@ -126,7 +126,7 @@ function CoordinatorStudents() {
                   
                   
                     
-                    <div className="" style={{ marginTop: "0", width: "240px", minWidth: "240px", fontSize: "20px" }}>
+                    <div >
                       {student.applicationStatus === "Application Form Sent to Coordinator" && (
                         <>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
