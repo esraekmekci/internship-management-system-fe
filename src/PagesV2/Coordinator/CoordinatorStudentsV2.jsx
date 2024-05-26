@@ -130,11 +130,11 @@ function CoordinatorStudents() {
                     
                     <div className="" style={{ marginTop: "0", width: "240px", minWidth: "240px", fontSize: "20px" }}>
                       {student.applicationStatus === "Application Form Sent to Coordinator" && (
-                        <div style={{ display: "flex", justifyContent: "space-between" }} >
+                        <div style={{ display: "flex",flexDirection:'row', justifyContent: "space-between" }} >
                           <p style={{ marginBottom: "0px",marginLeft:'0px', fontSize: "20px" }}>
                             Application Form
                           </p>
-                          <div>
+                          <div style={{flexDirection:'column'}}>
                             <button
                               className="button"
                               onClick={() => downloadDocument("Form", student)}
