@@ -111,8 +111,9 @@ function CoordinatorStudents() {
             </div>
             {selectedStudentIndex === index && (
               <div className="company-details">
-                <div style={{justifyContent:'space-between'}}>
+                <div >
                 <h2>Details for {student.studentName}</h2>
+                <br />
                 <p >Status: {student.applicationStatus}</p>
                   </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -124,19 +125,21 @@ function CoordinatorStudents() {
                   </button>
                 </div>
                   
-                  
+                  <div>
                     
-                    <div >
+                    <div className="" style={{ marginTop: "0", width: "240px", minWidth: "240px", fontSize: "20px" }}>
                       {student.applicationStatus === "Application Form Sent to Coordinator" && (
                         <>
-                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                          <p style={{ marginBottom: "0px", fontSize: "20px" }}>
+                          <p style={{ marginBottom: "0px",marginLeft:'0px', fontSize: "20px" }}>
                             Application Form
                           </p>
-                          <button className="iyte-bg" onClick={() => downloadDocument("Form", student)} style={{width: "240px"}}>
+                          <button
+                            className="button"
+                            onClick={() => downloadDocument("Form", student)}
+                          >
                             Download Application Form
                           </button>
-                        </div>
+                          
                           <div style={{justifyContent:'flex-end'}}>
                           <button
                             className="button"
@@ -160,17 +163,15 @@ function CoordinatorStudents() {
                         </>
                       )}
                       {["Application Form Approved", "Application Form Rejected"].includes(student.applicationStatus) && (
-                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <p style={{ marginBottom: "0px", fontSize: "20px" }}>
-                          Application Form
-                        </p>
-                        <button className="iyte-bg" onClick={() => downloadDocument("Form", student)} style={{width: "240px"}}>
+                        <button
+                          className="button"
+                          onClick={() => downloadDocument("Form", student)}
+                        >
                           Download Application Form
                         </button>
-                      </div>
                       )}
                     </div>
-                  
+                  </div>
                 
               </div>
             )}
