@@ -38,14 +38,10 @@ export default function Students() {
     const file = e.target.files[0];
     if (
       file &&
-      (file.type === "application/pdf" ||
-        file.type === "application/msword" ||
-        file.type ===
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-    ) {
+      (file.type === "application/pdf")) {
       setUploadFile(file);
     } else {
-      alert("You should only upload PDF or DOCX files");
+      alert("You should only upload PDF files");
       setUploadFile(null);
     }
   };
@@ -272,7 +268,7 @@ export default function Students() {
             <h3>Upload SGK File</h3>
             <input
               type="file"
-              accept=".pdf,.doc,.docx"
+              accept=".pdf"
               onChange={handleUploadFileChange}
               style={{
                 padding: "20px",
