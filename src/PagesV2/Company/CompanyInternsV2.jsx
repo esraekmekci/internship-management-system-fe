@@ -218,7 +218,7 @@ function CompanyInternsV2() {
               </div>
             )}
           </div>
-        ))};
+        ))}
     </div>
   );
 }
