@@ -29,7 +29,7 @@ function CompanyInternsV2() {
     };
 
     fetchInterns();
-  }, [user.companyid]);
+  }, []);
 
   const handleSelectIntern = (intern) => {
     if (selectedIntern === intern) {
@@ -123,7 +123,6 @@ function CompanyInternsV2() {
         alert("Application form uploaded successfully");
         setSelectedFile(null);
         setFileName("Select file");
-        window.location.reload();
       })
       .catch((err) => {
         console.error("Error occurred:", err);
