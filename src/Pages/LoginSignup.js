@@ -184,8 +184,6 @@ const LoginSignup = () => {
       alert("Please check both checkboxes before proceeding.");
       if (role === "STUDENT") {
         setShowCheckboxPopup(true);
-        setTimeout( () => deleteStudent(), 100);
-        localStorage.clear();
       }
       if (role === "COMPANY") {
         //deleteCompany();
