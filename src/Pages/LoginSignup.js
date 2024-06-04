@@ -57,7 +57,8 @@ const LoginSignup = () => {
       if (!showKVKKPopupForCompany) {
         setShowKVKKPopupForCompany(true);
         
-      } else {
+      } 
+      else if (checkbox1 && checkbox2) {
         registerAsCompany();
       }
     } else {
