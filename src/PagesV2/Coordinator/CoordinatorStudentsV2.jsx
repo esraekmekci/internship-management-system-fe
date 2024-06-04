@@ -56,14 +56,14 @@ function CoordinatorStudents() {
     setSelectedStudentIndex(selectedStudentIndex === index ? null : index);
   };
 
-  const downloadDocument = (type) => {
+  const downloadDocument = (type, student) => {
     fetch(
       "/api/student/" +
-        selectedStudent.studentId +
+         student.studentId +
         "/downloadApplication" +
         type +
         "?companyName=" +
-        selectedStudent.companyName,
+         student.companyName,
       {
         method: "GET",
       }
@@ -81,7 +81,7 @@ function CoordinatorStudents() {
         const a = document.createElement("a"); // Yeni bir anchor elementi oluştur
         a.href = url;
         a.download =
-          "Application" + type + "_" + selectedStudent.companyName + ".docx"; // İndirilecek dosyanın adını belirle
+          "Application" + type + "_" + student.companyName + ".docx"; // İndirilecek dosyanın adını belirle
         document.body.appendChild(a); // Anchor elementini document'e ekle
         a.click(); // Programatik olarak tıklayarak indirme işlemini başlat
         a.remove(); // Anchor elementini temizle
@@ -142,7 +142,7 @@ function CoordinatorStudents() {
                             className="button"
                             style={{backgroundColor:'#367B3A'}}
                             onClick={() =>
-                              updateStudentFormStatus("approve", student.applicationId)
+                              updateStudentFormStatus("approve", student)
                             }
                           >
                             Approve Application Form
@@ -151,7 +151,7 @@ function CoordinatorStudents() {
                             className="button"
                             style={{backgroundColor:'#8a0909'}}
                             onClick={() =>
-                              updateStudentFormStatus("reject", student.applicationId)
+                              updateStudentFormStatus("reject", student)
                             }
                           >
                             Reject Application Form
