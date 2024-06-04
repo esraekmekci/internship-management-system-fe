@@ -113,7 +113,7 @@ const LoginSignup = () => {
           localStorage.setItem("tokenKey", res.token);
           localStorage.setItem("role", res.authorities);
           setToken(res.token);
-          if (res.registered) {
+          if (role === "STUDENT" && res.registered) {
             navigateToRole(res.authorities);
           } else {
             setShowCheckboxPopup(true);
