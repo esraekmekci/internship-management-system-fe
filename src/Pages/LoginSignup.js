@@ -149,7 +149,7 @@ const LoginSignup = () => {
   };
 
   const deleteStudent = () => {
-    fetch("/api/student/delete" + stID, {
+    fetch("/api/student/delete/" + stID, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
