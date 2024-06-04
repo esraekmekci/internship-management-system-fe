@@ -64,6 +64,7 @@ function CompanyInternsV2() {
     }
 
     const formData = new FormData();
+    formData.append("studentId", selectedIntern.studentId);
     formData.append("file", selectedFile);
 
     uploadApplicationForm(formData);
@@ -105,8 +106,7 @@ function CompanyInternsV2() {
     fetch(
       "/api/company/" +
         user.companyid +
-        "/uploadApplicationForm?studentId=" +
-        selectedIntern.studentId,
+        "/uploadApplicationForm",
       {
         method: "POST",
         body: formData,
