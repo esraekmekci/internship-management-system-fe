@@ -167,6 +167,7 @@ function CompanyInternsV2() {
                 <br />
                 <br />
                 <div>
+                {intern.applicationStatus === "Application Form Sent to Company" && ( 
                 <form onSubmit={handleSubmitUpload}>
                       <label
                         htmlFor="fileInput"
@@ -213,7 +214,7 @@ function CompanyInternsV2() {
                         <input type="submit" style={{ display: "none" }} />
                       </label>
                     </form>
-                  
+                  )}
                 </div>
               </div>
             )}
