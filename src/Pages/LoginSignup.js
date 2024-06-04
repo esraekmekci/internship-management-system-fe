@@ -186,11 +186,11 @@ const LoginSignup = () => {
     } else {
       alert("Please check both checkboxes before proceeding.");
       if (role === "STUDENT") {
-        showKVKKPopup(true);
+        setShowCheckboxPopup(true);
       }
       if (role === "COMPANY") {
         //deleteCompany();
-        setShowKVKKPopupForCompany(true);
+        setShowCheckboxPopup(true);
       }
     }
   };
