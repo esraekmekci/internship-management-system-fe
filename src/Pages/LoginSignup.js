@@ -197,6 +197,16 @@ const LoginSignup = () => {
     }
   };
 
+  const handleCancelForStudent = () => {
+    setShowCheckboxPopup(false);
+    deleteStudent();
+  }
+
+  const handleCancelForCompany = () => {
+    setShowKVKKPopupForCompany(false);
+    deleteCompany();
+  }
+
   const handleCheckbox1Change = (event) => {
     setCheckbox1(event.target.checked);
   };
@@ -360,7 +370,7 @@ const LoginSignup = () => {
                   </div>
                   <div className="popup-buttons">
                     <button onClick={handlePopupSubmit}>Confirm</button>
-                    <button onClick={() => setShowCheckboxPopup(false)}>
+                    <button onClick={handleCancelForStudent}>
                       Cancel
                     </button>
                   </div>
@@ -618,7 +628,7 @@ const LoginSignup = () => {
                   </div>
                   <div className="popup-buttons">
                     <button onClick={handlePopupSubmit}>Confirm</button>
-                    <button onClick={() => setShowKVKKPopupForCompany(false)}>
+                    <button onClick={handleCancelForCompany}>
                       Cancel
                     </button>
                   </div>
