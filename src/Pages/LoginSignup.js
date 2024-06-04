@@ -190,7 +190,8 @@ const LoginSignup = () => {
         deleteStudent();
       }
       if (role === "COMPANY") {
-        deleteCompany();
+        //deleteCompany();
+        setShowKVKKPopupForCompany(true);
       }
     }
   };
