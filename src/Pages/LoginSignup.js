@@ -183,7 +183,7 @@ const LoginSignup = () => {
     } else {
       alert("Please check both checkboxes before proceeding.");
       if (role === "STUDENT") {
-        deleteStudent();
+        setTimeout( () => deleteStudent(), 100);
         setShowCheckboxPopup(true);
       }
       if (role === "COMPANY") {
