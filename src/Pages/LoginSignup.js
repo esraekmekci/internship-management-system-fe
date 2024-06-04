@@ -186,7 +186,7 @@ const LoginSignup = () => {
     } else {
       alert("Please check both checkboxes before proceeding.");
       if (role === "STUDENT") {
-        setShowCheckboxPopup(true);
+        showKVKKPopup(true);
       }
       if (role === "COMPANY") {
         //deleteCompany();
