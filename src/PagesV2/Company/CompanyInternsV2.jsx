@@ -8,6 +8,7 @@ function CompanyInternsV2() {
   const { user } = useUser();
   const [interns, setInterns] = useState([]);
   const [selectedIntern, setSelectedIntern] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ function CompanyInternsV2() {
   }, []);
 
   const handleSelectIntern = (intern) => {
-    if (selectedIntern === intern) {
+    if (selectedIntern === intern && !uploading) {
       setSelectedIntern(null);
     } else {
       setSelectedIntern(intern);
@@ -64,10 +65,11 @@ function CompanyInternsV2() {
     }
 
     const formData = new FormData();
-    formData.append("studentId", selectedIntern.studentId);
     formData.append("file", selectedFile);
 
     uploadApplicationForm(formData);
+    setUploading(false);
+    setSelectedFile(null);
   };
 
   const downloadApplicationForm = () => {
@@ -106,7 +108,8 @@ function CompanyInternsV2() {
     fetch(
       "/api/company/" +
         user.companyid +
-        "/uploadApplicationForm",
+        "/uploadApplicationForm?studentId=" +
+        selectedIntern.studentId,
       {
         method: "POST",
         body: formData,
@@ -125,10 +128,11 @@ function CompanyInternsV2() {
         return response;
       })
       .then((result) => {
-        console.log(result);
         alert("Application form uploaded successfully");
         setSelectedFile(null);
         setFileName("Select file");
+        setUploading(false);
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Error occurred:", err);
@@ -163,7 +167,6 @@ function CompanyInternsV2() {
                 <br />
                 <br />
                 <div>
-                {intern.applicationStatus === "Application Form Sent to Company" && ( 
                 <form onSubmit={handleSubmitUpload}>
                       <label
                         htmlFor="fileInput"
@@ -210,7 +213,7 @@ function CompanyInternsV2() {
                         <input type="submit" style={{ display: "none" }} />
                       </label>
                     </form>
-                  )}
+                  
                 </div>
               </div>
             )}
