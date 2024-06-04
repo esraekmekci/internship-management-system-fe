@@ -8,7 +8,6 @@ function CompanyInternsV2() {
   const { user } = useUser();
   const [interns, setInterns] = useState([]);
   const [selectedIntern, setSelectedIntern] = useState(null);
-  const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
   const [loading, setLoading] = useState(true);
@@ -30,10 +29,10 @@ function CompanyInternsV2() {
     };
 
     fetchInterns();
-  }, []);
+  }, [user.companyid]);
 
   const handleSelectIntern = (intern) => {
-    if (selectedIntern === intern && !uploading) {
+    if (selectedIntern === intern) {
       setSelectedIntern(null);
     } else {
       setSelectedIntern(intern);
@@ -53,7 +52,7 @@ function CompanyInternsV2() {
   };
 
   const handleSubmitUpload = (e) => {
-    e.stopPropagation();
+    e.preventDefault(); // Prevent default form submission behavior
     if (!selectedFile) {
       alert("Please select a file first.");
       return;
@@ -65,11 +64,10 @@ function CompanyInternsV2() {
     }
 
     const formData = new FormData();
+    formData.append("studentId", selectedIntern.studentId);
     formData.append("file", selectedFile);
 
     uploadApplicationForm(formData);
-    setUploading(false);
-    setSelectedFile(null);
   };
 
   const downloadApplicationForm = () => {
@@ -85,17 +83,17 @@ function CompanyInternsV2() {
             "Network response was not ok: " + response.statusText
           );
         }
-        return response.blob(); // Yanıtı blob olarak al
+        return response.blob();
       })
       .then((blob) => {
-        const url = window.URL.createObjectURL(blob); // Blob'dan bir URL oluştur
-        const a = document.createElement("a"); // Yeni bir anchor elementi oluştur
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
         a.href = url;
-        a.download = "ApplicationForm_" + selectedIntern.studentId + ".docx"; // İndirilecek dosyanın adını belirle
-        document.body.appendChild(a); // Anchor elementini document'e ekle
-        a.click(); // Programatik olarak tıklayarak indirme işlemini başlat
-        a.remove(); // Anchor elementini temizle
-        window.URL.revokeObjectURL(url); // Oluşturulan URL'i iptal et
+        a.download = "ApplicationForm_" + selectedIntern.studentId + ".docx";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
         alert(`Application Form downloaded successfully`);
       })
       .catch((err) => {
@@ -106,17 +104,10 @@ function CompanyInternsV2() {
 
   const uploadApplicationForm = (formData) => {
     fetch(
-      "/api/company/" +
-        user.companyid +
-        "/uploadApplicationForm?studentId=" +
-        selectedIntern.studentId,
+      "/api/company/" + user.companyid + "/uploadApplicationForm",
       {
         method: "POST",
         body: formData,
-        headers: {
-          // Don't set 'Content-Type': 'multipart/form-data',
-          // Fetch will set it automatically along with the boundary
-        },
       }
     )
       .then((response) => {
@@ -125,14 +116,13 @@ function CompanyInternsV2() {
             "Network response was not ok: " + response.statusText
           );
         }
-        return response;
+        return response.json();
       })
       .then((result) => {
+        console.log(result);
         alert("Application form uploaded successfully");
         setSelectedFile(null);
         setFileName("Select file");
-        setUploading(false);
-        window.location.reload();
       })
       .catch((err) => {
         console.error("Error occurred:", err);
@@ -142,83 +132,80 @@ function CompanyInternsV2() {
 
   return (
     <div style={{ width: "100%", padding: "20px 40px", overflowY: "auto" }}>
-        <h1 style={{ paddingBottom: "20px", borderBottom: "1px solid #ccc" }}>
-          My Interns
-        </h1>
+      <h1 style={{ paddingBottom: "20px", borderBottom: "1px solid #ccc" }}>
+        My Interns
+      </h1>
       <Loading isLoading={loading} />
       {interns.map((intern) => (
-          <div
-            key={intern.studentId}
-            className="announcement-section"
-          >
-            <h2 onClick={() => handleSelectIntern(intern)} style={{ color: "rgb(30 41 59)", cursor: "pointer" }}>
-              {intern.studentName}
-              <span style={{ float: "right", fontSize: "15px" }}>
-                Status: {intern.applicationStatus}
-              </span>
-            </h2>
-            {selectedIntern === intern && (
-              <div style={{ display: "flex", flexDirection:'column' }}>
-                <div style={{ justifyContent: "flex-start" }}>
+        <div key={intern.studentId} className="announcement-section">
+          <h2 onClick={() => handleSelectIntern(intern)} style={{ color: "rgb(30 41 59)", cursor: "pointer" }}>
+            {intern.studentName}
+            <span style={{ float: "right", fontSize: "15px" }}>
+              Status: {intern.applicationStatus}
+            </span>
+          </h2>
+          {selectedIntern === intern && (
+            <div style={{ display: "flex", flexDirection: 'column' }}>
+              <div style={{ justifyContent: "flex-start" }}>
                 <button className="iyte-bg" onClick={downloadForm}>
                   Download Form
                 </button>
-                </div>
-                <br />
-                <br />
-                <div>
-                <form onSubmit={handleSubmitUpload}>
-                      <label
-                        htmlFor="fileInput"
-                        className="button iyte-bg"
-                        style={{
-                          background: "#4CAF50",
-                          color: "white",
-                          padding: "10px 20px",
-                          width: "20%",
-                          cursor: "pointer",
-                          borderRadius: "4px",
-                          marginLeft:'5px',
-                        }}
-                      >
-                        Upload Form
-                        <input
-                          type="file"
-                          id="fileInput"
-                          style={{ display: "none" }}
-                          accept=".docx, .doc"
-                          onChange={handleFileChange}
-                        />
-                      </label>
-                      {fileName && (
-                        <span style={{ marginLeft: "10px" }}>{fileName}</span>
-                      )}{" "}
-                      {/* Dosya adını göster */}
-                      <label
-                        className="button iyte-bg"
-                        style={{
-                          display:"flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          background: "#4CAF50",
-                          color: "white",
-                          padding: "10px 20px",
-                          width: "4%",
-                          cursor: "pointer",
-                          borderRadius: "4px",
-                          float: "right",
-                        }}
-                      >
-                        Send
-                        <input type="submit" style={{ display: "none" }} />
-                      </label>
-                    </form>
-                  
-                </div>
               </div>
-            )}
-          </div>
-        ))}
+              <br />
+              <br />
+              <div>
+                {intern.applicationStatus === "Application Form Sent to Company" && (
+                  <form onSubmit={handleSubmitUpload}>
+                    <label
+                      htmlFor="fileInput"
+                      className="button iyte-bg"
+                      style={{
+                        background: "#4CAF50",
+                        color: "white",
+                        padding: "10px 20px",
+                        width: "20%",
+                        cursor: "pointer",
+                        borderRadius: "4px",
+                        marginLeft: '5px',
+                      }}
+                    >
+                      Upload Form
+                      <input
+                        type="file"
+                        id="fileInput"
+                        style={{ display: "none" }}
+                        accept=".docx, .doc"
+                        onChange={handleFileChange}
+                      />
+                    </label>
+                    {fileName && (
+                      <span style={{ marginLeft: "10px" }}>{fileName}</span>
+                    )}
+                    <label
+                      className="button iyte-bg"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "#4CAF50",
+                        color: "white",
+                        padding: "10px 20px",
+                        width: "4%",
+                        cursor: "pointer",
+                        borderRadius: "4px",
+                        float: "right",
+                      }}
+                    >
+                      Send
+                      <input type="submit" style={{ display: "none" }} />
+                    </label>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
