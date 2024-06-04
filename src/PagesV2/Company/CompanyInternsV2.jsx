@@ -132,7 +132,6 @@ function CompanyInternsV2() {
         setSelectedFile(null);
         setFileName("Select file");
         setUploading(false);
-        window.location.reload();
       })
       .catch((err) => {
         console.error("Error occurred:", err);
