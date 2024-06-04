@@ -110,14 +110,17 @@ const LoginSignup = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.token) {
+          localStorage.setItem("tokenKey", res.token);
+          localStorage.setItem("role", res.authorities);
           if (res.authorities.includes("STUDENT")) {
             setToken(res.token);
             setShowCheckboxPopup(!res.registered);
             if (res.registered || (checkbox1 && checkbox2)) {
-              localStorage.setItem("tokenKey", res.token);
-              localStorage.setItem("role", res.authorities);
               alert(`Logging in as a ${role} with student ID: ${stID}`);
               navigate("/std");
+            }
+            else {
+              localStorage.clear();
             }
           } else if (res.authorities.includes("SECRETARY")) {
             alert(`Logging in as a ${role} with email: ${email}`);
