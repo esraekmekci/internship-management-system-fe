@@ -150,7 +150,7 @@ const LoginSignup = () => {
   };
 
   const deleteStudent = () => {
-    fetch("/api/student/delete/" + stID, {
+    fetch("/api/student/" + stID, {
       method: "DELETE",
       headers: {
       },
@@ -184,6 +184,7 @@ const LoginSignup = () => {
       alert("Please check both checkboxes before proceeding.");
       if (role === "STUDENT") {
         deleteStudent();
+        setShowCheckboxPopup(true);
       }
       if (role === "COMPANY") {
         //deleteCompany();
