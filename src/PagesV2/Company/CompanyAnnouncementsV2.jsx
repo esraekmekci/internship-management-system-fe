@@ -24,24 +24,22 @@ export default function CompanyAnnouncementV2() {
   useEffect(() => {
 
     const fetchAnnouncements = async () => {
-      if (user){
-        try {
-          const response = await GetWithAuth(
-            "/api/company/" + user.companyid + "/announcements"
-          );
-          const result = await response.json();
-          setAnnouncements(result);
-        } catch (error) {
-          console.log(error);
-          console.log("announcement not found");
-        } finally {
-          setLoading(false);
-        }
-      };
+      try {
+        const response = await GetWithAuth(
+          "/api/company/" + user.companyid + "/announcements"
+        );
+        const result = await response.json();
+        setAnnouncements(result);
+      } catch (error) {
+        console.log(error);
+        console.log("announcement not found");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      fetchAnnouncements();
-    }
-  }, [user]);
+    fetchAnnouncements();
+  }, []);
 
   const handleNewTitleChange = (event) => {
     setNewTitle(event.target.value);
