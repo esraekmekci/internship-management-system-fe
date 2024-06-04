@@ -149,7 +149,12 @@ const LoginSignup = () => {
   };
 
   const deleteStudent = () => {
-    DeleteWithAuth("/api/student/deleteStudent/" + stID)
+    fetch("/api/student/delete" + stID, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
