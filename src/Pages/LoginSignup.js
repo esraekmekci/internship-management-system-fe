@@ -114,7 +114,7 @@ const LoginSignup = () => {
           if (res.authorities.includes("STUDENT")) {
             setToken(res.token);
             setShowCheckboxPopup(!res.registered);
-            if (res.registered) {
+            if (res.registered && checkbox1 && checkbox2) {
               alert(`Logging in as a ${role} with student ID: ${stID}`);
               navigate("/std");
             }
@@ -213,7 +213,7 @@ const LoginSignup = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.token) {
+        if (res.token && checkbox1 && checkbox2) {
           alert(
             `Registration as ${compName} is successful. Waiting for the approval of the internship committee coordinator.`
           );
