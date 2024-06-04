@@ -115,12 +115,12 @@ const LoginSignup = () => {
           if (res.authorities.includes("STUDENT")) {
             setToken(res.token);
             setShowCheckboxPopup(!res.registered);
+            if (!res.registered && (!checkbox1 || !checkbox2) ) {
+              localStorage.clear();
+            }
             if (res.registered || (checkbox1 && checkbox2)) {
               alert(`Logging in as a ${role} with student ID: ${stID}`);
               navigate("/std");
-            }
-            else {
-              localStorage.clear();
             }
           } else if (res.authorities.includes("SECRETARY")) {
             alert(`Logging in as a ${role} with email: ${email}`);
@@ -187,10 +187,13 @@ const LoginSignup = () => {
       alert("Please check both checkboxes before proceeding.");
       if (role === "STUDENT") {
         setShowCheckboxPopup(true);
+        setTimeout(() => {
+          deleteStudent();
+        }, 10);
       }
       if (role === "COMPANY") {
         //deleteCompany();
-        setShowCheckboxPopup(true);
+        setShowKVKKPopupForCompany(true);
       }
     }
   };
