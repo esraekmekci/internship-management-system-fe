@@ -114,12 +114,9 @@ const LoginSignup = () => {
           localStorage.setItem("role", res.authorities);
           if (res.authorities.includes("STUDENT")) {
             setToken(res.token);
-            setShowCheckboxPopup(!res.registered);
-            if (!res.registered && (!checkbox1 || !checkbox2) ) {
-              localStorage.clear();
-              deleteStudent();
-            }
-            else if (res.registered || (checkbox1 && checkbox2)) {
+            if (!res.registered && !showCheckboxPopup) {
+              setShowCheckboxPopup(true);
+            } else if (res.registered || (checkbox1 && checkbox2)) {
               alert(`Logging in as a ${role} with student ID: ${stID}`);
               navigate("/std");
             }
@@ -166,11 +163,8 @@ const LoginSignup = () => {
 
   const handlePopupSubmit = () => {
     if (role === "STUDENT" && checkbox1 && checkbox2) {
-      //setShowCheckboxPopup(false);
-      alert(`Logging in as a ${role} with student ID: ${stID}`);
-      localStorage.setItem("tokenKey", token);
-      localStorage.setItem("role", "STUDENT")
-      navigate("/std");
+      alert(`Checkboxes accepted. Please login again.`);
+      setShowCheckboxPopup(false);
     } else if (role === "COMPANY" && checkbox1 && checkbox2) {
       setShowKVKKPopupForCompany(false);
       setTimeout(() => {
@@ -188,9 +182,6 @@ const LoginSignup = () => {
       alert("Please check both checkboxes before proceeding.");
       if (role === "STUDENT") {
         setShowCheckboxPopup(true);
-        setTimeout(() => {
-          deleteStudent();
-        }, 10);
       }
       if (role === "COMPANY") {
         //deleteCompany();
