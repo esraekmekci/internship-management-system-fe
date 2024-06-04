@@ -8,7 +8,6 @@ function CompanyInternsV2() {
   const { user } = useUser();
   const [interns, setInterns] = useState([]);
   const [selectedIntern, setSelectedIntern] = useState(null);
-  const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileName, setFileName] = useState("Select file");
   const [loading, setLoading] = useState(true);
@@ -33,7 +32,7 @@ function CompanyInternsV2() {
   }, []);
 
   const handleSelectIntern = (intern) => {
-    if (selectedIntern === intern && !uploading) {
+    if (selectedIntern === intern) {
       setSelectedIntern(null);
     } else {
       setSelectedIntern(intern);
@@ -68,8 +67,6 @@ function CompanyInternsV2() {
     formData.append("file", selectedFile);
 
     uploadApplicationForm(formData);
-    setUploading(false);
-    setSelectedFile(null);
   };
 
   const downloadApplicationForm = () => {
@@ -128,10 +125,10 @@ function CompanyInternsV2() {
         return response;
       })
       .then((result) => {
+        console.log(result);
         alert("Application form uploaded successfully");
         setSelectedFile(null);
         setFileName("Select file");
-        setUploading(false);
       })
       .catch((err) => {
         console.error("Error occurred:", err);
