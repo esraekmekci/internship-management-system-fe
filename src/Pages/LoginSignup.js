@@ -113,7 +113,7 @@ const LoginSignup = () => {
           localStorage.setItem("tokenKey", res.token);
           localStorage.setItem("role", res.authorities);
           setToken(res.token);
-          if (res.isRegistered) {
+          if (res.registered) {
             navigateToRole(res.authorities);
           } else {
             setShowCheckboxPopup(true);
@@ -185,9 +185,10 @@ const LoginSignup = () => {
     } else {
       alert("Please check both checkboxes before proceeding.");
       if (role === "STUDENT") {
-        alert("Please check both checkboxes before proceeding.");
-        deleteStudent();
-        localStorage.clear();
+        setTimeout(() => {
+          deleteStudent();
+          localStorage.clear();
+        }, 1);
       }
       if (role === "COMPANY") {
         //deleteCompany();
