@@ -95,7 +95,7 @@ function CoordinatorStudents() {
   };
 
   return (
-    <div className="" style={{width: "100%", padding: "20px 40px"}}>
+    <div className="" style={{width: "100%", padding: "20px 40px", overflowY: "auto"}}>
       <h1>Students</h1>
       <Loading isLoading={loading} />
       <div className="">

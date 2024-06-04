@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginSignup.css";
-import { GetWithAuth, PostWithoutAuth } from "../Services/HttpService";
+import { PostWithoutAuth, DeleteWithAuth } from "../Services/HttpService";
 import email_icon from "../Components/Assets/email-icon.png";
 import password_icon from "../Components/Assets/padlock.png";
 import employees_icon from "../Components/Assets/employees.png";
@@ -56,6 +56,7 @@ const LoginSignup = () => {
     if (role === "COMPANY" && action === "Sign Up as Company") {
       if (!showKVKKPopupForCompany) {
         setShowKVKKPopupForCompany(true);
+        
       } else {
         registerAsCompany();
       }
@@ -147,6 +148,17 @@ const LoginSignup = () => {
       });
   };
 
+  const deleteStudent = () => {
+    DeleteWithAuth("/api/student/deleteStudent/" + stID)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const handlePopupSubmit = () => {
     if (role === "STUDENT" && checkbox1 && checkbox2) {
       //setShowCheckboxPopup(false);
@@ -169,6 +181,12 @@ const LoginSignup = () => {
       setInternshipType("");
     } else {
       alert("Please check both checkboxes before proceeding.");
+      if (role === "STUDENT") {
+        deleteStudent();
+      }
+      if (role === "COMPANY") {
+        deleteCompany();
+      }
     }
   };
 

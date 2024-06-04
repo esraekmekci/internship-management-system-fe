@@ -141,7 +141,7 @@ function CompanyInternsV2() {
   };
 
   return (
-    <div style={{ width: "100%", padding: "20px 40px" }}>
+    <div style={{ width: "100%", padding: "20px 40px", overflowY: "auto" }}>
         <h1 style={{ paddingBottom: "20px", borderBottom: "1px solid #ccc" }}>
           My Interns
         </h1>
