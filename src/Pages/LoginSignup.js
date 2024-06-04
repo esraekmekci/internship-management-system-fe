@@ -117,8 +117,9 @@ const LoginSignup = () => {
             setShowCheckboxPopup(!res.registered);
             if (!res.registered && (!checkbox1 || !checkbox2) ) {
               localStorage.clear();
+              alert(`You need to accept the terms and conditions to proceed.`);
             }
-            if (res.registered || (checkbox1 && checkbox2)) {
+            else if (res.registered || (checkbox1 && checkbox2)) {
               alert(`Logging in as a ${role} with student ID: ${stID}`);
               navigate("/std");
             }
