@@ -116,13 +116,14 @@ function CompanyInternsV2() {
             "Network response was not ok: " + response.statusText
           );
         }
-        return response.json();
+        return response;
       })
       .then((result) => {
         console.log(result);
         alert("Application form uploaded successfully");
         setSelectedFile(null);
         setFileName("Select file");
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Error occurred:", err);
